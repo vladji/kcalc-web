@@ -1,0 +1,20 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--header-height);
+  padding-inline: var(--layout-padding-inline);
+  box-shadow: 0 10px 30px rgba(187, 191, 201, 0.25);
+}
+
+.logoLink {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.logo {
+  height: 32px;
+  border-radius: 5px;
+  overflow: hidden;
+}

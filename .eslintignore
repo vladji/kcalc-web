@@ -1,0 +1,14 @@
+**/*{.,-}min.js
+coverage/**
+dist/*
+images/*
+node_modules/*
+assets/*
+docs/*
+deploy.js
+flow-typed/*
+.serverless
+build
+serviceWorker.js
+cypress/*
+**/*.d.ts
