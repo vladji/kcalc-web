@@ -1,12 +1,14 @@
 :root {
   // fonts
-
   --font-main: 'JetBrains Mono', monospace, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
   'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
   sans-serif;
+  --light-font-color: #fff;
 
   // layout
-
   --layout-padding-inline: 26px;
   --header-height: 64px;
+
+  // colors
+  --brand-color: #ff401d;
 }

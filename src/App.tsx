@@ -4,6 +4,7 @@ import { Home } from './pages/Home';
 import { PrivacyPolicyV2 } from './pages/PrivacyPolicyV2';
 import { Contacts } from './pages/Contacts';
 import { ErrorPage } from './pages/ErrorPage';
+import { AdminLogin } from "./pages/AdminLogin";
 
 const router = createBrowserRouter([
   {
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
   {
     path: '/contacts',
     element: <Contacts />,
+  },
+  {
+    path: '/admin-login',
+    element: <AdminLogin />,
   },
 ]);
 

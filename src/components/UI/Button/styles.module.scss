@@ -1,0 +1,10 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 46px;
+  padding-inline: 24px;
+  border-radius: 8px;
+  background-color: var(--brand-color);
+  color: var(--light-font-color);
+}
