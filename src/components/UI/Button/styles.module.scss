@@ -2,9 +2,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 46px;
-  padding-inline: 24px;
-  border-radius: 8px;
+  min-width: var(--button-min-widths);
+  height: var(--button-height);
+  padding-inline: var(--size-huge);
+  border-radius: var(--size-mini);
   background-color: var(--brand-color);
   color: var(--light-font-color);
 }

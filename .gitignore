@@ -1,4 +1,6 @@
-.env
+.env.prod
+.env.develop
+
 README.md
 .idea
 *.scss.d.ts

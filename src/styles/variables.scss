@@ -6,9 +6,24 @@
   --light-font-color: #fff;
 
   // layout
-  --layout-padding-inline: 26px;
+  --layout-padding-inline: 24px;
+
+  // component
   --header-height: 64px;
+  --button-min-width: 150px;
+  --button-height: 38px;
+  --input-height: 24px;
+
+  // sizes
+  --size-huge: 24px;
+  --size-standard: 16px;
+  --size-mini: 8px;
+
+  // font
+  --base-font-size: 16px;
 
   // colors
   --brand-color: #ff401d;
+  --alert-color: #c92525;
+  --link-color: #0000ff;
 }
