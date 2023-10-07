@@ -1,5 +1,5 @@
-.link {
-  display: block;
-  margin-top: var(--size-standard);
-  color: var(--link-color);
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-standard);
 }

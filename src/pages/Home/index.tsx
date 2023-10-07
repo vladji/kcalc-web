@@ -1,19 +1,21 @@
-import { Link } from 'react-router-dom';
-import { Layout } from '../../components/Layout';
-import { Section } from '../../components/UI/Section';
-import styles from './styles.module.scss';
+import { Link } from "react-router-dom";
+import cn from "classnames";
+import { Layout } from "../../components/Layout";
+import styles from "./styles.module.scss";
 
 export const Home = () => {
   return (
     <Layout>
-      <Section>
-        <Link className={styles.link} to="/privacy-policy">
-          Privacy Policy
-        </Link>
-        <Link className={styles.link} to="/contacts">
-          Contact Us
-        </Link>
-      </Section>
+      <section className="section-wrapper">
+        <div className={cn("content-wrapper", styles.content)}>
+          <Link className="link" to="/privacy-policy">
+            Privacy Policy
+          </Link>
+          <Link className="link" to="/contacts">
+            Contact Us
+          </Link>
+        </div>
+      </section>
     </Layout>
   );
 };

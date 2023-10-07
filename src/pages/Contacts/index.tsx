@@ -1,14 +1,16 @@
-import { Layout } from '../../components/Layout';
-import { Section } from '../../components/UI/Section';
-import styles from './styles.module.scss';
+import { Layout } from "../../components/Layout";
+import styles from "./styles.module.scss";
+import cn from "classnames";
 
 export const Contacts = () => {
   return (
     <Layout>
-      <Section>
-        <h1>Contact Us</h1>
-        <a className={styles.link} href="mailto:elyabaiduan@gmail.com">elyabaiduan@gmail.com</a>
-      </Section>
+      <section className="section-wrapper">
+        <div className={cn('content-wrapper', styles.content)}>
+          <h1>Contact Us</h1>
+          <a className='link' href="mailto:elyabaiduan@gmail.com">elyabaiduan@gmail.com</a>
+        </div>
+      </section>
     </Layout>
   );
 };

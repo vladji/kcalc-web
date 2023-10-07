@@ -1,14 +1,21 @@
-import { Link } from 'react-router-dom';
-import logo from '../../assets/logo.png';
-import styles from './styles.module.scss';
+import { FC } from "react";
+import { Link } from "react-router-dom";
+import logo from "../../assets/logo.png";
+import styles from "./styles.module.scss";
 
-export const Header = () => {
+interface HeaderProps {
+  text: string;
+}
+
+export const Header: FC<HeaderProps> = ({ text }) => {
   return (
     <header className={styles.header}>
-      <Link className={styles.logoLink} to={'/'}>
-        <img className={styles.logo} src={logo} alt="logo" />
-        <h1>kCalc</h1>
-      </Link>
+      <div className={styles.content}>
+        <Link className={styles.logoLink} to="/">
+          <img className={styles.logo} src={logo} alt="logo" />
+          <span className={styles.text}>{text}</span>
+        </Link>
+      </div>
     </header>
   );
 };

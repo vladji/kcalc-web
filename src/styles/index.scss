@@ -19,12 +19,31 @@ code {
   padding-inline: var(--layout-padding-inline);
 }
 
-.h2 {
-  font-size: 38px;
+h1 {
+  font-size: 24px;
   font-weight: 600;
 }
 
-.h3 {
-  font-size: 32px;
+h2 {
+  font-size: 20px;
   font-weight: 600;
+}
+
+h3 {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.section-wrapper {
+  padding-inline: var(--layout-padding-inline);
+}
+
+.content-wrapper {
+  max-width: var(--content-max-width);
+  margin-top: var(--content-block-top);
+  margin-inline: auto;
+}
+
+.link {
+  color: var(--link-color);
 }

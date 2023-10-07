@@ -2,7 +2,7 @@ import React from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Home } from "./pages/Home";
-import { PrivacyPolicyV2 } from "./pages/PrivacyPolicyV2";
+import { PrivacyPolicy } from "./pages/PrivacyPolicy";
 import { Contacts } from "./pages/Contacts";
 import { ErrorPage } from "./pages/ErrorPage";
 import { AdminLogin } from "./pages/AdminLogin";
@@ -18,7 +18,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/privacy-policy",
-    element: <PrivacyPolicyV2 />
+    element: <PrivacyPolicy />
   },
   {
     path: "/contacts",
