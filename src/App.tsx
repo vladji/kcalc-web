@@ -6,6 +6,7 @@ import { PrivacyPolicyV2 } from "./pages/PrivacyPolicyV2";
 import { Contacts } from "./pages/Contacts";
 import { ErrorPage } from "./pages/ErrorPage";
 import { AdminLogin } from "./pages/AdminLogin";
+import { Admin } from "./pages/Admin";
 
 const queryClient = new QueryClient();
 
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
   {
     path: "/admin-login",
     element: <AdminLogin />
+  },
+  {
+    path: "/admin",
+    element: <Admin />
   }
 ]);
 

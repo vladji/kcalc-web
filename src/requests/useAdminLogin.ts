@@ -1,7 +1,7 @@
+import { useNavigate } from "react-router-dom";
 import { UseMutateAsyncFunction, useMutation } from "@tanstack/react-query";
 import { adminLogin } from "./requets";
 import { AdminLoginRequestProps, Response } from "./types";
-import { useAdminStore } from "../store/useAdminStore";
 
 type UseAdminLogin = () => {
   adminLogin: UseMutateAsyncFunction<Response<string>, unknown, AdminLoginRequestProps>;
@@ -9,13 +9,14 @@ type UseAdminLogin = () => {
 }
 
 export const useAdminLogin: UseAdminLogin = () => {
-  const setToken = useAdminStore((store) => store.setToken);
+  const navigate = useNavigate();
 
   const { mutateAsync, data } = useMutation<Response<string>, unknown, AdminLoginRequestProps>({
     mutationFn: (data) => adminLogin(data),
     onSuccess: (response) => {
       if (response.data) {
-        setToken(response.data);
+        localStorage.setItem("token", response.data);
+        navigate("/admin");
       }
     },
     onError: (error) => {

@@ -1,22 +1,25 @@
-import { UseMutateAsyncFunction, useMutation } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { adminRequest } from "./requets";
 
 type UseAdminRequest = () => {
-  adminRequest: UseMutateAsyncFunction<any, unknown, string>
+  loading: boolean;
+  authenticated: boolean;
 }
 
 export const useAdminRequest: UseAdminRequest = () => {
-  const { mutateAsync } = useMutation<any, unknown, string>({
-    mutationFn: (token) => adminRequest(token),
-    onSuccess: (response) => {
-      console.log("adminRequest", response);
-    },
-    onError: (error) => {
-      alert(JSON.stringify(error));
-    }
+  const token = localStorage.getItem("token") || "";
+
+  const { data: response, isFetching, isFetched } = useQuery({
+    queryKey: [token],
+    queryFn: () => adminRequest(token),
+    refetchOnWindowFocus: false,
+    enabled: !!token
   });
 
+  const isValid = response?.data?.username === process.env.REACT_APP_ROOT_ADMIN;
+
   return {
-    adminRequest: mutateAsync,
-  }
+    loading: isFetching,
+    authenticated: isValid && isFetched || false
+  };
 };
