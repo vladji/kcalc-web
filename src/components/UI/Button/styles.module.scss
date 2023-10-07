@@ -7,9 +7,11 @@
   padding-inline: var(--size-huge);
   border-radius: var(--size-mini);
   background-color: var(--brand-color);
-  color: var(--light-font-color);
+  font-weight: 600;
+  color: var(--font-light-color);
 }
 
 .outlined {
   background-color: transparent;
+  color: var(--font-black-color);
 }

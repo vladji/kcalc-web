@@ -5,13 +5,14 @@ import { AdminLoginRequestProps, Response } from "./types";
 
 type UseAdminLogin = () => {
   adminLogin: UseMutateAsyncFunction<Response<string>, unknown, AdminLoginRequestProps>;
+  loading: boolean;
   errorMessage?: string;
 }
 
 export const useAdminLogin: UseAdminLogin = () => {
   const navigate = useNavigate();
 
-  const { mutateAsync, data } = useMutation<Response<string>, unknown, AdminLoginRequestProps>({
+  const { mutateAsync, data, isLoading } = useMutation<Response<string>, unknown, AdminLoginRequestProps>({
     mutationFn: (data) => adminLogin(data),
     onSuccess: (response) => {
       if (response.data) {
@@ -26,6 +27,7 @@ export const useAdminLogin: UseAdminLogin = () => {
 
   return {
     adminLogin: mutateAsync,
-    errorMessage: data?.error
+    loading: isLoading,
+    errorMessage: data?.error,
   };
 };
