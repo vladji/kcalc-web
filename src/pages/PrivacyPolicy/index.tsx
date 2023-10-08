@@ -5,7 +5,7 @@ import styles from "./styles.module.scss";
 export const PrivacyPolicy = () => {
   return (
     <Layout>
-      <section className="section-wrapper">
+      <section className="section-wrapper layout-padding-inline">
         <div className={cn("content-wrapper", styles.content)}>
           <h1 className={cn(styles.title, styles.h1)}>Currency Converter</h1>
           <h2 className={cn(styles.title, styles.h2)}>Privacy Policy</h2>

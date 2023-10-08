@@ -1,5 +1,5 @@
 import { HEADERS_JSON } from "./constants";
-import { AdminLoginRequestProps, AdminRequestResponse, Response } from "./types";
+import { AdminLoginRequestProps, AdminRequestResponse, ProductCategoriesResponse, Response } from "./types";
 
 const API = process.env.REACT_APP_API_ENDPOINT;
 
@@ -14,5 +14,10 @@ export const adminLogin = async (data: AdminLoginRequestProps): Promise<Response
 
 export const adminRequest = async (token: string): Promise<Response<AdminRequestResponse>> => {
   const response = await fetch(`${API}/admin?token=${token}`);
+  return await response.json();
+};
+
+export const fetchProductCategories = async (): Promise<Response<ProductCategoriesResponse>> => {
+  const response = await fetch(`${API}/products-categories`);
   return await response.json();
 };

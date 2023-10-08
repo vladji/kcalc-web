@@ -1,8 +1,9 @@
 import { FC } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import cn from "classnames";
 import logo from "../../assets/logo.png";
-import styles from "./styles.module.scss";
 import { Button } from "../UI/Button";
+import styles from "./styles.module.scss";
 
 interface HeaderProps {
   text: string;
@@ -19,7 +20,7 @@ export const Header: FC<HeaderProps> = ({ text, linkTo = "/", isAdmin = false })
   };
 
   return (
-    <header className={styles.header}>
+    <header className={cn(styles.header, 'layout-padding-inline')}>
       <div className={styles.content}>
         <Link className={styles.logoLink} to={linkTo}>
           <img className={styles.logo} src={logo} alt="logo" />

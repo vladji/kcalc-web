@@ -1,3 +1,7 @@
+export enum QueryKeys {
+  productCategories = 'productCategories',
+}
+
 export interface Response<T> {
   data?: T;
   error?: string;
@@ -13,4 +17,8 @@ export interface AdminRequestResponse {
   username: string,
   iat: number,
   exp: number,
+}
+
+export interface ProductCategoriesResponse {
+  categories: string[];
 }

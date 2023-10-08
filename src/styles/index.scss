@@ -16,10 +16,6 @@ code {
   monospace;
 }
 
-.section-wrapper {
-  padding-inline: var(--layout-padding-inline);
-}
-
 h1 {
   font-size: 24px;
   font-weight: 600;
@@ -41,13 +37,16 @@ input {
   border-radius: 4px;
 }
 
-.section-wrapper {
+.layout-padding-inline {
   padding-inline: var(--layout-padding-inline);
+}
+
+.section-wrapper {
+  margin-top: var(--size-huge);
 }
 
 .content-wrapper {
   max-width: var(--content-max-width);
-  margin-top: var(--content-block-top);
   margin-inline: auto;
 }
 

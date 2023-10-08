@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { adminRequest } from "./requets";
+import { SHORT_STALE_TIME } from "./constants";
 
 type UseAdminRequest = () => {
   loading: boolean;
@@ -13,6 +14,7 @@ export const useAdminRequest: UseAdminRequest = () => {
     queryKey: [token],
     queryFn: () => adminRequest(token),
     refetchOnWindowFocus: false,
+    staleTime: SHORT_STALE_TIME,
     enabled: !!token
   });
 

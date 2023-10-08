@@ -6,7 +6,7 @@ import styles from "./styles.module.scss";
 export const Home = () => {
   return (
     <Layout>
-      <section className="section-wrapper">
+      <section className="section-wrapper layout-padding-inline">
         <div className={cn("content-wrapper", styles.content)}>
           <Link className="link" to="/privacy-policy">
             Privacy Policy
