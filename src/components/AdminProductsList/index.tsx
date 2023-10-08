@@ -51,6 +51,16 @@ export const AdminProductsList: FC<AdminProductsListProps> = ({ category }) => {
   return (
     <div className={styles.wrapper}>
       {isLoading && <Loader />}
+      <div className={styles.tableHeader}>
+        <span className={styles.name}>name</span>
+        <span>proteins</span>
+        <span>fat</span>
+        <span>carb</span>
+        <span>kcal</span>
+        <span />
+        <span />
+        <span />
+      </div>
       <ul className={styles.listWrapper}>
         {!loading && productsList?.map((item) => (
           <Item

@@ -64,6 +64,24 @@ export const Item: FC<ItemProps> = ({
         initialValue={item.proteins}
         handler={onInputChange(ProductFields.proteins)}
       />
+      <Input
+        readOnly={!itemsChanges.has(item._id as ProductFields)}
+        isReset={isReset}
+        initialValue={item.fat}
+        handler={onInputChange(ProductFields.fat)}
+      />
+      <Input
+        readOnly={!itemsChanges.has(item._id as ProductFields)}
+        isReset={isReset}
+        initialValue={item.carbohydrates}
+        handler={onInputChange(ProductFields.carbohydrates)}
+      />
+      <Input
+        readOnly={!itemsChanges.has(item._id as ProductFields)}
+        isReset={isReset}
+        initialValue={item.kcal}
+        handler={onInputChange(ProductFields.kcal)}
+      />
       <InputButton text="Change" handler={() => onChangeItem(item._id as ProductFields._id)} />
       <InputButton text="Cancel" handler={() => onCancelChanges(item._id as ProductFields._id)} gray />
       <InputButton text="Delete" handler={() => null} alert />

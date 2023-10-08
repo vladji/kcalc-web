@@ -1,12 +1,37 @@
+$input-width: 78px;
+
 .wrapper {
   flex-grow: 1;
+}
+
+.tableHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--size-mini);
+  height: var(--admin-input-height);;
+  padding-left: var(--size-standard);
+  padding-right: var(--size-huge);
+  border-bottom: 1px solid var(--gray-color);
+  background-color: var(--light-color);
+
+  span {
+    width: #{$input-width};
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  .name {
+    flex-grow: 1;
+  }
 }
 
 .listWrapper {
   display: flex;
   flex-direction: column;
-  height: calc(100% - var(--admin-crud-panel-height));
+  height: calc(100% - var(--admin-crud-panel-height) - var(--admin-input-height));
   padding-block: var(--size-standard);
+  padding-inline: var(--size-standard);
   gap: var(--size-standard);
   overflow-y: scroll;
 }
@@ -14,24 +39,22 @@
 .item {
   display: flex;
   gap: var(--size-mini);
-  padding-inline: var(--size-standard);
 
   &.active {
-    background-color: var(--yellow-color);
-
     input {
+      border-width: 2px;
       border-color: var(--orange-color);
       cursor: initial;
     }
   }
 
   input {
-    width: 78px;
+    width: #{$input-width};
     height: var(--admin-input-height);
     cursor: default;
 
     &.name {
-      width: 50%;
+      flex-grow: 1;
     }
   }
 }
@@ -40,6 +63,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  width: #{$input-width};
   height: var(--admin-input-height);
   padding-inline: var(--size-standard);
   border-radius: 4px;
