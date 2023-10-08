@@ -1,9 +1,11 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { useFetchProductsByCategory } from "../../requests/useFetchProductsByCategory";
 import { Loader } from "../UI/Loader";
 import { Button } from "../UI/Button";
 import { Item } from "./Item";
 import { ProductFields, ProductsProps } from "../../types/prducts";
+import { useUpdateProducts } from "../../requests/useUpdateProducts";
+import { ResponseStatus } from "../../requests/types";
 import styles from "./styles.module.scss";
 
 export type InputChangesMap = Map<ProductFields, ProductsProps>;
@@ -14,18 +16,41 @@ interface AdminProductsListProps {
 
 export const AdminProductsList: FC<AdminProductsListProps> = ({ category }) => {
   const [isSave, setIsSave] = useState<boolean>(false);
+  const [manualLoading, setManualLoading] = useState<boolean>(false);
   const [itemsChanges, setItemsChanges] = useState<InputChangesMap>(new Map());
 
-  const { productsList, loading } = useFetchProductsByCategory(category);
+  useEffect(() => {
+    if (!itemsChanges.size) {
+      setIsSave(false);
+    }
+  }, [itemsChanges.size]);
 
-  const onCancelChanges = () => {
+  const { productsList, loading, refetch } = useFetchProductsByCategory(category);
+  const { updateProducts } = useUpdateProducts();
+
+  const onSaveAllChanges = async () => {
+    setManualLoading(true);
+    const products = Object.values((Object.fromEntries(itemsChanges.entries())));
+    const response = await updateProducts(products);
+
+    if (response === ResponseStatus.successUpdate) {
+      await refetch();
+      setIsSave(false);
+      setItemsChanges(new Map());
+    }
+    setManualLoading(false);
+  };
+
+  const onCancelAllChanges = () => {
     setItemsChanges(new Map());
     setIsSave(false);
   };
 
+  const isLoading = manualLoading || loading;
+
   return (
     <div className={styles.wrapper}>
-      {loading && <Loader />}
+      {isLoading && <Loader />}
       <ul className={styles.listWrapper}>
         {!loading && productsList?.map((item) => (
           <Item
@@ -40,10 +65,10 @@ export const AdminProductsList: FC<AdminProductsListProps> = ({ category }) => {
         }
       </ul>
       <div className={styles.controlPanel}>
-        <Button handler={() => null} disabled={!isSave}>
+        <Button handler={onSaveAllChanges} disabled={!isSave}>
           <span>Save all</span>
         </Button>
-        <Button handler={onCancelChanges} disabled={!isSave}>
+        <Button handler={onCancelAllChanges} disabled={!isSave}>
           <span>Cancel all</span>
         </Button>
       </div>

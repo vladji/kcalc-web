@@ -1,12 +1,12 @@
 .wrapper {
   flex-grow: 1;
-  padding-top: var(--size-standard);
 }
 
 .listWrapper {
   display: flex;
   flex-direction: column;
   height: calc(100% - var(--admin-crud-panel-height));
+  padding-block: var(--size-standard);
   gap: var(--size-standard);
   overflow-y: scroll;
 }
@@ -21,12 +21,14 @@
 
     input {
       border-color: var(--orange-color);
+      cursor: initial;
     }
   }
 
   input {
     width: 78px;
     height: var(--admin-input-height);
+    cursor: default;
 
     &.name {
       width: 50%;

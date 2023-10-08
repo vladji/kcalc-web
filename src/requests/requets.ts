@@ -1,5 +1,11 @@
 import { HEADERS_JSON } from "./constants";
-import { AdminLoginRequestProps, AdminRequestResponse, ProductCategoriesResponse, Response } from "./types";
+import {
+  AdminLoginRequestProps,
+  AdminRequestResponse,
+  ProductCategoriesResponse,
+  Response,
+  UpdateProductsRequest
+} from "./types";
 import { ProductsProps } from "../types/prducts";
 
 const API = process.env.REACT_APP_API_ENDPOINT;
@@ -26,4 +32,13 @@ export const fetchProductCategories = async (): Promise<Response<ProductCategori
 export const fetchProductsByCategory = async (category: string): Promise<Response<ProductsProps[]>> => {
   const response = await fetch(`${API}/products/${category}`);
   return await response.json();
+};
+
+export const updateProducts = async ({ token, products }: UpdateProductsRequest): Promise<unknown> => {
+  const response = await fetch(`${API}/products-update?token=${token}`, {
+    method: "PATCH",
+    headers: HEADERS_JSON,
+    body: JSON.stringify(products)
+  });
+  return await response.status;
 };

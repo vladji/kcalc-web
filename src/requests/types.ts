@@ -1,5 +1,11 @@
+import { ProductsProps } from "../types/prducts";
+
+export enum ResponseStatus {
+  successUpdate = 204,
+}
+
 export enum QueryKeys {
-  productCategories = 'productCategories',
+  productCategories = "productCategories",
 }
 
 export interface Response<T> {
@@ -21,4 +27,9 @@ export interface AdminRequestResponse {
 
 export interface ProductCategoriesResponse {
   categories: string[];
+}
+
+export interface UpdateProductsRequest {
+  token: string;
+  products: ProductsProps[];
 }
