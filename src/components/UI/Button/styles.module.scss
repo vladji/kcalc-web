@@ -9,9 +9,20 @@
   background-color: var(--brand-color);
   font-weight: 600;
   color: var(--font-light-color);
+
+  &.disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
 }
 
 .outlined {
   background-color: transparent;
   color: var(--font-black-color);
+
+  &.disabled {
+    background-color: transparent;
+    color: var(--font-gray-color);
+    cursor: not-allowed;
+  }
 }

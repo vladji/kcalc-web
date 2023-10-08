@@ -1,0 +1,65 @@
+.wrapper {
+  flex-grow: 1;
+  padding-top: var(--size-standard);
+}
+
+.listWrapper {
+  display: flex;
+  flex-direction: column;
+  height: calc(100% - var(--admin-crud-panel-height));
+  gap: var(--size-standard);
+  overflow-y: scroll;
+}
+
+.item {
+  display: flex;
+  gap: var(--size-mini);
+  padding-inline: var(--size-standard);
+
+  &.active {
+    background-color: var(--yellow-color);
+
+    input {
+      border-color: var(--orange-color);
+    }
+  }
+
+  input {
+    width: 78px;
+    height: var(--admin-input-height);
+
+    &.name {
+      width: 50%;
+    }
+  }
+}
+
+.inputButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: var(--admin-input-height);
+  padding-inline: var(--size-standard);
+  border-radius: 4px;
+  background-color: var(--blue-color);
+  color: var(--font-light-color);
+
+  &.alert {
+    background-color: var(--alert-button-color);
+  }
+
+  &.gray {
+    background-color: var(--gray-color);
+  }
+}
+
+.controlPanel {
+  display: flex;
+  align-items: center;
+  gap: var(--size-huge);
+  width: 100%;
+  height: var(--admin-crud-panel-height);
+  padding-inline: var(--size-standard);
+  border-top: 1px solid var(--gray-color);
+  background-color: var(--light-color);
+}

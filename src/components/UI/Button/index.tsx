@@ -6,11 +6,24 @@ interface ButtonProps {
   children: ReactNode;
   handler: () => void;
   outlined?: boolean;
+  disabled?: boolean;
 }
 
-export const Button: FC<ButtonProps> = ({ children, handler, outlined = false }) => {
+export const Button: FC<ButtonProps> = ({
+  children,
+  handler,
+  outlined = false,
+  disabled = false
+}) => {
+  const onClick = () => {
+    handler();
+  };
+
   return (
-    <button className={cn(styles.wrapper, { [styles.outlined]: outlined })} onClick={handler}>
+    <button
+      disabled={disabled}
+      className={cn(styles.wrapper, { [styles.outlined]: outlined }, { [styles.disabled]: disabled })}
+      onClick={onClick}>
       {children}
     </button>
   );

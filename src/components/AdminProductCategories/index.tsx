@@ -1,12 +1,14 @@
-import { useState } from "react";
+import { Dispatch, FC, SetStateAction } from "react";
 import cn from "classnames";
 import { useFetchProductCategories } from "../../requests/useFetchProductCategories";
 import styles from "./styles.module.scss";
 
-const currentCategory = localStorage.getItem("currentProductCategory") || "";
+interface AdminProductCategoriesProps {
+  activeCategory: string;
+  setActiveCategory: Dispatch<SetStateAction<string>>;
+}
 
-export const ProductCategories = () => {
-  const [activeCategory, setActiveCategory] = useState<string>(currentCategory);
+export const AdminProductCategories: FC<AdminProductCategoriesProps> = ({ activeCategory, setActiveCategory }) => {
   const { categories, isFetched } = useFetchProductCategories();
 
   const onCategoryClick = (category: string) => {
