@@ -1,7 +1,7 @@
 **/*{.,-}min.js
 coverage/**
 dist/*
-images/*
+public/assets/*
 node_modules/*
 assets/*
 docs/*
