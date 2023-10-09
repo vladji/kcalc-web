@@ -8,10 +8,10 @@ import { AdminCreateProduct } from "../AdminCreateProduct";
 import { useFetchProductsByCategory } from "../../requests/useFetchProductsByCategory";
 import { useUpdateProducts } from "../../requests/useUpdateProducts";
 import { ResponseStatus } from "../../requests/types";
-import { ProductFields, ProductsProps } from "../../types/prducts";
+import { ProductFields, ProductsPropsWithDbId } from "../../types/prducts";
 import styles from "./styles.module.scss";
 
-export type InputChangesMap = Map<ProductFields, ProductsProps>;
+export type InputChangesMap = Map<ProductFields, ProductsPropsWithDbId>;
 
 interface AdminProductsListProps {
   category: string;
@@ -98,7 +98,11 @@ export const AdminProductsList: FC<AdminProductsListProps> = ({ category }) => {
       {showCreateProductModal &&
         createPortal(
           <Modal onClose={() => setShowCreateProductModal(false)}>
-            <AdminCreateProduct />
+            <AdminCreateProduct
+              onClose={() => setShowCreateProductModal(false)}
+              refetchProducts={refetch}
+              loadingProducts={loading}
+            />
           </Modal>,
           document.body
         )

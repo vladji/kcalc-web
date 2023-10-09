@@ -1,6 +1,6 @@
 import { Dispatch, FC, SetStateAction, useState } from "react";
 import cn from "classnames";
-import { ProductFields, ProductsProps } from "../../types/prducts";
+import { ProductFields, ProductsPropsWithDbId } from "../../types/prducts";
 import { InputButton } from "./InputButton";
 import { InputChangesMap } from "./index";
 import { Input } from "./Input";
@@ -9,7 +9,7 @@ import styles from "./styles.module.scss";
 export type OnInputChange = (field: ProductFields) => (value: string) => void;
 
 interface ItemProps {
-  item: ProductsProps;
+  item: ProductsPropsWithDbId;
   isSave: boolean;
   setIsSave: Dispatch<SetStateAction<boolean>>;
   itemsChanges: InputChangesMap;
@@ -26,7 +26,7 @@ export const Item: FC<ItemProps> = ({
   const [cancelChanges, setCancelChanges] = useState<boolean>(false);
 
   const onInputChange: OnInputChange = (field: ProductFields) => (value) => {
-    const product = itemsChanges.get(item._id as ProductFields._id) as ProductsProps;
+    const product = itemsChanges.get(item._id as ProductFields._id) as ProductsPropsWithDbId;
     product[field] = value;
   };
 
@@ -59,24 +59,28 @@ export const Item: FC<ItemProps> = ({
         handler={onInputChange(ProductFields.name)}
       />
       <Input
+        type="number"
         readOnly={!itemsChanges.has(item._id as ProductFields)}
         isReset={isReset}
         initialValue={item.proteins}
         handler={onInputChange(ProductFields.proteins)}
       />
       <Input
+        type="number"
         readOnly={!itemsChanges.has(item._id as ProductFields)}
         isReset={isReset}
         initialValue={item.fat}
         handler={onInputChange(ProductFields.fat)}
       />
       <Input
+        type="number"
         readOnly={!itemsChanges.has(item._id as ProductFields)}
         isReset={isReset}
         initialValue={item.carbohydrates}
         handler={onInputChange(ProductFields.carbohydrates)}
       />
       <Input
+        type="number"
         readOnly={!itemsChanges.has(item._id as ProductFields)}
         isReset={isReset}
         initialValue={item.kcal}

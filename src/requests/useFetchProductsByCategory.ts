@@ -1,11 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import { fetchProductsByCategory } from "./requets";
-import { ProductsProps } from "../types/prducts";
+import { ProductsPropsWithDbId } from "../types/prducts";
 import { LONG_STALE_TIME } from "./constants";
 
 type UseFetchProductsByCategory = (category: string) => {
   loading: boolean;
-  productsList?: ProductsProps[];
+  productsList?: ProductsPropsWithDbId[];
   refetch: () => void;
 }
 

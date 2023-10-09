@@ -9,7 +9,7 @@ export enum ProductFields {
   kcal = 'kcal'
 }
 
-export interface ProductsProps {
+export interface ProductsPropsWithDbId {
   _id: string;
   id: string;
   category: string;
@@ -19,3 +19,5 @@ export interface ProductsProps {
   carbohydrates: string;
   kcal: string;
 }
+
+export type ProductProps = Omit<ProductsPropsWithDbId, '_id'>;

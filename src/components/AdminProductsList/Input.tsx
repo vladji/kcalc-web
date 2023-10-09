@@ -6,6 +6,7 @@ interface InputProps {
   readOnly: boolean;
   isReset: boolean;
   className?: string;
+  type?: 'text' | 'number';
 }
 
 export const Input: FC<InputProps> = ({
@@ -13,7 +14,8 @@ export const Input: FC<InputProps> = ({
   handler,
   readOnly = true,
   isReset,
-  className
+  className,
+  type = "text",
 }) => {
   const [value, setValue] = useState<string>(initialValue);
 
@@ -32,7 +34,7 @@ export const Input: FC<InputProps> = ({
   return (
     <input
       className={className}
-      type="text"
+      type={type}
       readOnly={readOnly}
       value={value}
       onChange={onChange}

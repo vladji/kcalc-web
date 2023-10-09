@@ -32,19 +32,19 @@ export const Item: FC<ItemProps> = ({ categories, setItemsCount }) => {
       </div>
       <div className={styles.inputBlock}>
         <label>proteins</label>
-        <input className="create-product-input" name="proteins" type="text" />
+        <input className="create-product-input" name="proteins" type="number" />
       </div>
       <div className={styles.inputBlock}>
         <label>fat</label>
-        <input className="create-product-input" name="fat" type="text" />
+        <input className="create-product-input" name="fat" type="number" />
       </div>
       <div className={styles.inputBlock}>
         <label>carb</label>
-        <input className="create-product-input" name="carbohydrates" type="text" />
+        <input className="create-product-input" name="carbohydrates" type="number" />
       </div>
       <div className={styles.inputBlock}>
         <label>kcal</label>
-        <input className="create-product-input" name="kcal" type="text" />
+        <input className="create-product-input" name="kcal" type="number" />
       </div>
     </fieldset>
   );

@@ -2,11 +2,12 @@ import { HEADERS_JSON } from "./constants";
 import {
   AdminLoginRequestProps,
   AdminRequestResponse,
+  PostProductsRequest,
   ProductCategoriesResponse,
   Response,
   UpdateProductsRequest
 } from "./types";
-import { ProductsProps } from "../types/prducts";
+import { ProductsPropsWithDbId } from "../types/prducts";
 
 const API = process.env.REACT_APP_API_ENDPOINT;
 
@@ -25,18 +26,31 @@ export const adminRequest = async (token: string): Promise<Response<AdminRequest
 };
 
 export const fetchProductCategories = async (): Promise<Response<ProductCategoriesResponse>> => {
-  const response = await fetch(`${API}/products-categories`);
+  const response = await fetch(`${API}/products-categories`, {
+    method: "GET"
+  });
   return await response.json();
 };
 
-export const fetchProductsByCategory = async (category: string): Promise<Response<ProductsProps[]>> => {
-  const response = await fetch(`${API}/products/${category}`);
+export const fetchProductsByCategory = async (category: string): Promise<Response<ProductsPropsWithDbId[]>> => {
+  const response = await fetch(`${API}/products/${category}`, {
+    method: "GET"
+  });
   return await response.json();
 };
 
 export const updateProducts = async ({ token, products }: UpdateProductsRequest): Promise<unknown> => {
   const response = await fetch(`${API}/products-update?token=${token}`, {
     method: "PATCH",
+    headers: HEADERS_JSON,
+    body: JSON.stringify(products)
+  });
+  return await response.status;
+};
+
+export const postProducts = async ({ token, products }: PostProductsRequest): Promise<unknown> => {
+  const response = await fetch(`${API}/products?token=${token}`, {
+    method: "POST",
     headers: HEADERS_JSON,
     body: JSON.stringify(products)
   });

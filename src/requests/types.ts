@@ -1,4 +1,4 @@
-import { ProductsProps } from "../types/prducts";
+import { ProductProps, ProductsPropsWithDbId } from "../types/prducts";
 
 export enum ResponseStatus {
   successUpdate = 204,
@@ -31,5 +31,10 @@ export interface ProductCategoriesResponse {
 
 export interface UpdateProductsRequest {
   token: string;
-  products: ProductsProps[];
+  products: ProductsPropsWithDbId[];
+}
+
+export interface PostProductsRequest {
+  token: string;
+  products: ProductProps[];
 }

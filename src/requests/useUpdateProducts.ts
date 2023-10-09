@@ -1,16 +1,16 @@
 import { UseMutateAsyncFunction, useMutation } from "@tanstack/react-query";
 import { updateProducts } from "./requets";
-import { ProductsProps } from "../types/prducts";
+import { ProductsPropsWithDbId } from "../types/prducts";
 
 type UseUpdateProducts = () => {
-  updateProducts: UseMutateAsyncFunction<unknown, unknown, ProductsProps[]>;
+  updateProducts: UseMutateAsyncFunction<unknown, unknown, ProductsPropsWithDbId[]>;
   response: unknown;
 }
 
 export const useUpdateProducts: UseUpdateProducts = () => {
   const token = localStorage.getItem("token") || "";
 
-  const { mutateAsync, data: response } = useMutation<unknown, unknown, ProductsProps[]>({
+  const { mutateAsync, data: response } = useMutation<unknown, unknown, ProductsPropsWithDbId[]>({
     mutationFn: (products) => updateProducts({ token, products }),
     onError: (error) => {
       alert(JSON.stringify(error));
