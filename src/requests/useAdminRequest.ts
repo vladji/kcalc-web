@@ -22,6 +22,6 @@ export const useAdminRequest: UseAdminRequest = () => {
 
   return {
     loading: isFetching,
-    authenticated: isValid && isFetched || false,
+    authenticated: isValid && isFetched || false
   };
 };

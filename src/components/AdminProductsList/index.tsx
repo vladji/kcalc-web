@@ -1,11 +1,14 @@
 import { FC, useEffect, useState } from "react";
-import { useFetchProductsByCategory } from "../../requests/useFetchProductsByCategory";
+import { createPortal } from "react-dom";
 import { Loader } from "../UI/Loader";
 import { Button } from "../UI/Button";
 import { Item } from "./Item";
-import { ProductFields, ProductsProps } from "../../types/prducts";
+import { Modal } from "../UI/Modal";
+import { AdminCreateProduct } from "../AdminCreateProduct";
+import { useFetchProductsByCategory } from "../../requests/useFetchProductsByCategory";
 import { useUpdateProducts } from "../../requests/useUpdateProducts";
 import { ResponseStatus } from "../../requests/types";
+import { ProductFields, ProductsProps } from "../../types/prducts";
 import styles from "./styles.module.scss";
 
 export type InputChangesMap = Map<ProductFields, ProductsProps>;
@@ -15,6 +18,7 @@ interface AdminProductsListProps {
 }
 
 export const AdminProductsList: FC<AdminProductsListProps> = ({ category }) => {
+  const [showCreateProductModal, setShowCreateProductModal] = useState<boolean>(false);
   const [isSave, setIsSave] = useState<boolean>(false);
   const [manualLoading, setManualLoading] = useState<boolean>(false);
   const [itemsChanges, setItemsChanges] = useState<InputChangesMap>(new Map());
@@ -46,6 +50,10 @@ export const AdminProductsList: FC<AdminProductsListProps> = ({ category }) => {
     setIsSave(false);
   };
 
+  const onCreateClick = () => {
+    setShowCreateProductModal(true);
+  };
+
   const isLoading = manualLoading || loading;
 
   return (
@@ -74,14 +82,27 @@ export const AdminProductsList: FC<AdminProductsListProps> = ({ category }) => {
         ))
         }
       </ul>
-      <div className={styles.controlPanel}>
-        <Button handler={onSaveAllChanges} disabled={!isSave}>
-          <span>Save all</span>
-        </Button>
-        <Button handler={onCancelAllChanges} disabled={!isSave}>
-          <span>Cancel all</span>
+      <div className={styles.controlPanelWrapper}>
+        <div className={styles.controlPanelBlock}>
+          <Button handler={onSaveAllChanges} disabled={!isSave}>
+            <span>Save all</span>
+          </Button>
+          <Button handler={onCancelAllChanges} disabled={!isSave}>
+            <span>Cancel all</span>
+          </Button>
+        </div>
+        <Button className={styles.createButton} handler={onCreateClick}>
+          <span>Create Product</span>
         </Button>
       </div>
+      {showCreateProductModal &&
+        createPortal(
+          <Modal onClose={() => setShowCreateProductModal(false)}>
+            <AdminCreateProduct />
+          </Modal>,
+          document.body
+        )
+      }
     </div>
   );
 };

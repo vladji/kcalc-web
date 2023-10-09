@@ -1,0 +1,65 @@
+.modalInner {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  width: 90vw;
+  max-height: 85vh;
+  overflow-y: auto;
+}
+
+.invalidMessage {
+  color: var(--alert-color);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-standard);
+}
+
+.fieldset {
+  display: flex;
+  gap: var(--size-mini);
+}
+
+.deleteButton {
+  width: var(--admin-input-height);
+  height: var(--admin-input-height);
+  align-self: flex-end;
+  border-radius: var(--base-border-radius);
+  background-color: var(--gray-color);
+}
+
+.inputBlock {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-mini);
+
+  select {
+    width: 178px;
+    height: var(--admin-input-height);
+  }
+
+  input {
+    width: var(--short-input-width);
+    height: var(--admin-input-height);
+  }
+
+  &.name {
+    flex-grow: 1;
+
+    input {
+      width: 100%;
+    }
+  }
+}
+
+.buttonsWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.addButton {
+  background-color: var(--blue-color);
+}

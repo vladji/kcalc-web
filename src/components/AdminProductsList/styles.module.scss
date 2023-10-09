@@ -1,5 +1,3 @@
-$input-width: 78px;
-
 .wrapper {
   flex-grow: 1;
 }
@@ -15,7 +13,7 @@ $input-width: 78px;
   background-color: var(--light-color);
 
   span {
-    width: #{$input-width};
+    width: var(--short-input-width);
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
@@ -49,7 +47,7 @@ $input-width: 78px;
   }
 
   input {
-    width: #{$input-width};
+    width: var(--short-input-width);
     height: var(--admin-input-height);
     cursor: default;
 
@@ -63,7 +61,7 @@ $input-width: 78px;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: #{$input-width};
+  width: var(--short-input-width);
   height: var(--admin-input-height);
   padding-inline: var(--size-standard);
   border-radius: 4px;
@@ -79,13 +77,22 @@ $input-width: 78px;
   }
 }
 
-.controlPanel {
+.controlPanelWrapper {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: var(--size-huge);
   width: 100%;
   height: var(--admin-crud-panel-height);
   padding-inline: var(--size-standard);
   border-top: 1px solid var(--gray-color);
   background-color: var(--light-color);
+}
+
+.controlPanelBlock {
+  display: flex;
+  gap: var(--size-huge);
+}
+
+.createButton {
+  background-color: var(--blue-color);
 }

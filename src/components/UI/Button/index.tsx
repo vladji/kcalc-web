@@ -7,13 +7,15 @@ interface ButtonProps {
   handler: () => void;
   outlined?: boolean;
   disabled?: boolean;
+  className?: string;
 }
 
 export const Button: FC<ButtonProps> = ({
   children,
   handler,
   outlined = false,
-  disabled = false
+  disabled = false,
+  className
 }) => {
   const onClick = () => {
     handler();
@@ -22,7 +24,7 @@ export const Button: FC<ButtonProps> = ({
   return (
     <button
       disabled={disabled}
-      className={cn(styles.wrapper, { [styles.outlined]: outlined }, { [styles.disabled]: disabled })}
+      className={cn(styles.wrapper, className, { [styles.outlined]: outlined }, { [styles.disabled]: disabled })}
       onClick={onClick}>
       {children}
     </button>

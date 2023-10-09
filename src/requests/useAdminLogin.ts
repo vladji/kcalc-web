@@ -17,7 +17,9 @@ export const useAdminLogin: UseAdminLogin = () => {
     onSuccess: (response) => {
       if (response.data) {
         localStorage.setItem("token", response.data);
-        navigate("/admin");
+        setTimeout(() => {
+          navigate("/admin");
+        });
       }
     },
     onError: (error) => {
@@ -28,6 +30,6 @@ export const useAdminLogin: UseAdminLogin = () => {
   return {
     adminLogin: mutateAsync,
     loading: isLoading,
-    errorMessage: data?.error,
+    errorMessage: data?.error
   };
 };
