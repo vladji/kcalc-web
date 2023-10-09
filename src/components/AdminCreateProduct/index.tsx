@@ -3,6 +3,7 @@ import cn from "classnames";
 import { Item } from "./Item";
 import { Button } from "../UI/Button";
 import { useFetchProductCategories } from "../../requests/useFetchProductCategories";
+import { v4 as uuidv4 } from 'uuid';
 import styles from "./styles.module.scss";
 
 export const AdminCreateProduct = () => {
@@ -26,6 +27,7 @@ export const AdminCreateProduct = () => {
 
         return {
           ...acc,
+          id: uuidv4(),
           [name]: value
         };
       }, {});
