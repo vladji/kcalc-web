@@ -77,6 +77,7 @@ export const AdminProductsList: FC<AdminProductsListProps> = ({ category }) => {
             setIsSave={setIsSave}
             itemsChanges={itemsChanges}
             setItemsChanges={setItemsChanges}
+            refetchProducts={refetch}
           />
         ))
         }

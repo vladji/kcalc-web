@@ -56,3 +56,10 @@ export const postProducts = async ({ token, products }: PostProductsRequest): Pr
   });
   return await response.status;
 };
+
+export const deleteProduct = async ({ token, id }: { token: string, id: string }): Promise<unknown> => {
+  const response = await fetch(`${API}/product-delete?token=${token}&id=${id}`, {
+    method: "DELETE",
+  });
+  return await response.status;
+};

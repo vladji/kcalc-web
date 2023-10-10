@@ -96,3 +96,13 @@
 .createButton {
   background-color: var(--blue-color);
 }
+
+.confirmModal {
+  text-align: center;
+
+  .buttonsWrapper {
+    display: flex;
+    gap: var(--size-huge);
+    margin-top: var(--size-huge);
+  }
+}

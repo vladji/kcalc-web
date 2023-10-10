@@ -1,9 +1,12 @@
 import { Dispatch, FC, SetStateAction, useState } from "react";
-import cn from "classnames";
 import { ProductFields, ProductsPropsWithDbId } from "../../types/products";
 import { InputButton } from "./InputButton";
 import { InputChangesMap } from "./index";
 import { Input } from "./Input";
+import { Modal } from "../UI/Modal";
+import { ConfirmModal } from "./ConfirmModal";
+import { useDeleteProduct } from "../../requests/useDeleteProduct";
+import cn from "classnames";
 import styles from "./styles.module.scss";
 
 export type OnInputChange = (field: ProductFields) => (value: string) => void;
@@ -14,6 +17,7 @@ interface ItemProps {
   setIsSave: Dispatch<SetStateAction<boolean>>;
   itemsChanges: InputChangesMap;
   setItemsChanges: Dispatch<SetStateAction<InputChangesMap>>;
+  refetchProducts: () => void;
 }
 
 export const Item: FC<ItemProps> = ({
@@ -21,9 +25,14 @@ export const Item: FC<ItemProps> = ({
   isSave,
   setIsSave,
   itemsChanges,
-  setItemsChanges
+  setItemsChanges,
+  refetchProducts
 }) => {
   const [cancelChanges, setCancelChanges] = useState<boolean>(false);
+  const [showDelConfirm, setShowDelConfirm] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const { deleteProduct } = useDeleteProduct();
 
   const onInputChange: OnInputChange = (field: ProductFields) => (value) => {
     const product = itemsChanges.get(item._id as ProductFields._id) as ProductsPropsWithDbId;
@@ -43,6 +52,14 @@ export const Item: FC<ItemProps> = ({
     newItemsChanges.delete(_id);
     setItemsChanges(newItemsChanges);
     setCancelChanges(true);
+  };
+
+  const onDeleteProduct = async () => {
+    setLoading(true);
+    await deleteProduct(item._id);
+    await refetchProducts();
+    setLoading(false);
+    setShowDelConfirm(false);
   };
 
   const isReset = cancelChanges || !isSave;
@@ -88,7 +105,16 @@ export const Item: FC<ItemProps> = ({
       />
       <InputButton text="Change" handler={() => onChangeItem(item._id as ProductFields._id)} />
       <InputButton text="Cancel" handler={() => onCancelChanges(item._id as ProductFields._id)} gray />
-      <InputButton text="Delete" handler={() => null} alert />
+      <InputButton text="Delete" handler={() => setShowDelConfirm(true)} alert />
+      {showDelConfirm &&
+        <Modal onClose={() => setShowDelConfirm(false)}>
+          <ConfirmModal
+            confirmHandler={onDeleteProduct}
+            cancelHandler={() => setShowDelConfirm(false)}
+            loading={loading}
+          />
+        </Modal>
+      }
     </li>
   );
 };
