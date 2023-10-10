@@ -7,7 +7,7 @@ import {
   Response,
   UpdateProductsRequest
 } from "./types";
-import { ProductsPropsWithDbId } from "../types/prducts";
+import { ProductsPropsWithDbId } from "../types/products";
 
 const API = process.env.REACT_APP_API_ENDPOINT;
 
@@ -33,7 +33,7 @@ export const fetchProductCategories = async (): Promise<Response<ProductCategori
 };
 
 export const fetchProductsByCategory = async (category: string): Promise<Response<ProductsPropsWithDbId[]>> => {
-  const response = await fetch(`${API}/products/${category}`, {
+  const response = await fetch(`${API}/products-category?category=${category}`, {
     method: "GET"
   });
   return await response.json();

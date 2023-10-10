@@ -1,6 +1,6 @@
 import { Dispatch, FC, SetStateAction, useState } from "react";
 import cn from "classnames";
-import { ProductFields, ProductsPropsWithDbId } from "../../types/prducts";
+import { ProductFields, ProductsPropsWithDbId } from "../../types/products";
 import { InputButton } from "./InputButton";
 import { InputChangesMap } from "./index";
 import { Input } from "./Input";

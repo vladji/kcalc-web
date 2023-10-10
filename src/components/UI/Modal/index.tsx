@@ -1,4 +1,5 @@
 import { FC, ReactNode } from "react";
+import { createPortal } from "react-dom";
 import styles from "./styles.module.scss";
 
 interface ModalProps {
@@ -8,11 +9,16 @@ interface ModalProps {
 
 export const Modal: FC<ModalProps> = ({ children, onClose }) => {
   return (
-    <div className={styles.wrapper}>
-      <div className={styles.modal}>
-        <button className={styles.closeCross} onClick={onClose}>X</button>
-        {children}
-      </div>
-    </div>
+    <>
+      {createPortal(
+        <div className={styles.wrapper}>
+          <div className={styles.modal}>
+            <button className={styles.closeCross} onClick={onClose}>X</button>
+            {children}
+          </div>
+        </div>,
+        document.body
+      )}
+    </>
   );
 };

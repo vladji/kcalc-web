@@ -1,6 +1,6 @@
 import { UseMutateAsyncFunction, useMutation } from "@tanstack/react-query";
 import { updateProducts } from "./requets";
-import { ProductsPropsWithDbId } from "../types/prducts";
+import { ProductsPropsWithDbId } from "../types/products";
 
 type UseUpdateProducts = () => {
   updateProducts: UseMutateAsyncFunction<unknown, unknown, ProductsPropsWithDbId[]>;

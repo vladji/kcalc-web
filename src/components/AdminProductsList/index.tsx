@@ -1,5 +1,4 @@
 import { FC, useEffect, useState } from "react";
-import { createPortal } from "react-dom";
 import { Loader } from "../UI/Loader";
 import { Button } from "../UI/Button";
 import { Item } from "./Item";
@@ -8,7 +7,7 @@ import { AdminCreateProduct } from "../AdminCreateProduct";
 import { useFetchProductsByCategory } from "../../requests/useFetchProductsByCategory";
 import { useUpdateProducts } from "../../requests/useUpdateProducts";
 import { ResponseStatus } from "../../requests/types";
-import { ProductFields, ProductsPropsWithDbId } from "../../types/prducts";
+import { ProductFields, ProductsPropsWithDbId } from "../../types/products";
 import styles from "./styles.module.scss";
 
 export type InputChangesMap = Map<ProductFields, ProductsPropsWithDbId>;
@@ -96,16 +95,13 @@ export const AdminProductsList: FC<AdminProductsListProps> = ({ category }) => {
         </Button>
       </div>
       {showCreateProductModal &&
-        createPortal(
-          <Modal onClose={() => setShowCreateProductModal(false)}>
-            <AdminCreateProduct
-              onClose={() => setShowCreateProductModal(false)}
-              refetchProducts={refetch}
-              loadingProducts={loading}
-            />
-          </Modal>,
-          document.body
-        )
+        <Modal onClose={() => setShowCreateProductModal(false)}>
+          <AdminCreateProduct
+            onClose={() => setShowCreateProductModal(false)}
+            refetchProducts={refetch}
+            loadingProducts={loading}
+          />
+        </Modal>
       }
     </div>
   );

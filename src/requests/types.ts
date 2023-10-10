@@ -1,4 +1,4 @@
-import { ProductProps, ProductsPropsWithDbId } from "../types/prducts";
+import { ProductProps, ProductsPropsWithDbId } from "../types/products";
 
 export enum ResponseStatus {
   successUpdate = 204,
