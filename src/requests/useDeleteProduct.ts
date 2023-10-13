@@ -1,18 +1,22 @@
 import { UseMutateAsyncFunction, useMutation } from "@tanstack/react-query";
 import { deleteProduct } from "./requets";
+import { checkRedirectToLogin, responseNotify } from "./utils";
+import { useNavigate } from "react-router-dom";
 
 type UseDeleteProduct = () => {
-  deleteProduct: UseMutateAsyncFunction<unknown, unknown, string>;
+  deleteProduct: UseMutateAsyncFunction<Response | undefined, unknown, string>;
   loading: boolean;
 }
 
 export const useDeleteProduct: UseDeleteProduct = () => {
+  const navigate = useNavigate();
   const token = localStorage.getItem("token") || "";
 
-  const { mutateAsync, isLoading } = useMutation<unknown, unknown, string>({
+  const { mutateAsync, isLoading } = useMutation<Response | undefined, unknown, string>({
     mutationFn: (id) => deleteProduct({ token, id }),
-    onError: (error) => {
-      alert(JSON.stringify(error));
+    onSuccess: async (response) => {
+      await responseNotify(response);
+      checkRedirectToLogin(navigate, response);
     }
   });
 

@@ -8,7 +8,7 @@ export enum QueryKeys {
   productCategories = "productCategories",
 }
 
-export interface Response<T> {
+export interface ResponseCustom<T> {
   data?: T;
   error?: string;
 }

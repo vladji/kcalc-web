@@ -1,10 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import { UseMutateAsyncFunction, useMutation } from "@tanstack/react-query";
 import { adminLogin } from "./requets";
-import { AdminLoginRequestProps, Response } from "./types";
+import { AdminLoginRequestProps, ResponseCustom } from "./types";
 
 type UseAdminLogin = () => {
-  adminLogin: UseMutateAsyncFunction<Response<string>, unknown, AdminLoginRequestProps>;
+  adminLogin: UseMutateAsyncFunction<ResponseCustom<string> | void, unknown, AdminLoginRequestProps>;
   loading: boolean;
   errorMessage?: string;
 }
@@ -12,18 +12,15 @@ type UseAdminLogin = () => {
 export const useAdminLogin: UseAdminLogin = () => {
   const navigate = useNavigate();
 
-  const { mutateAsync, data, isLoading } = useMutation<Response<string>, unknown, AdminLoginRequestProps>({
+  const { mutateAsync, data, isLoading } = useMutation<ResponseCustom<string> | void, unknown, AdminLoginRequestProps>({
     mutationFn: (data) => adminLogin(data),
     onSuccess: (response) => {
-      if (response.data) {
+      if (response?.data) {
         localStorage.setItem("token", response.data);
         setTimeout(() => {
           navigate("/admin");
         });
       }
-    },
-    onError: (error) => {
-      alert(JSON.stringify(error));
     }
   });
 

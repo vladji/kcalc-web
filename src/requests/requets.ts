@@ -4,62 +4,90 @@ import {
   AdminRequestResponse,
   PostProductsRequest,
   ProductCategoriesResponse,
-  Response,
+  ResponseCustom,
   UpdateProductsRequest
 } from "./types";
 import { ProductsPropsWithDbId } from "../types/products";
 
 const API = process.env.REACT_APP_API_ENDPOINT;
 
-export const adminLogin = async (data: AdminLoginRequestProps): Promise<Response<string>> => {
-  const response = await fetch(`${API}/admin-login`, {
-    method: "POST",
-    headers: HEADERS_JSON,
-    body: JSON.stringify(data)
-  });
-  return await response.json();
+export const adminLogin = async (data: AdminLoginRequestProps): Promise<ResponseCustom<string> | void> => {
+  try {
+    const response = await fetch(`${API}/admin-login`, {
+      method: "POST",
+      headers: HEADERS_JSON,
+      body: JSON.stringify(data)
+    });
+    return await response.json();
+  } catch {
+    alert("Server error");
+  }
 };
 
-export const adminRequest = async (token: string): Promise<Response<AdminRequestResponse>> => {
-  const response = await fetch(`${API}/admin?token=${token}`);
-  return await response.json();
+export const adminRequest = async (token: string): Promise<ResponseCustom<AdminRequestResponse> | void> => {
+  try {
+    const response = await fetch(`${API}/admin?token=${token}`);
+    return await response.json();
+  } catch {
+    alert("Server error");
+  }
 };
 
-export const fetchProductCategories = async (): Promise<Response<ProductCategoriesResponse>> => {
-  const response = await fetch(`${API}/products-categories`, {
-    method: "GET"
-  });
-  return await response.json();
+export const fetchProductCategories = async (): Promise<ResponseCustom<ProductCategoriesResponse> | void> => {
+  try {
+    const response = await fetch(`${API}/products-categories`, {
+      method: "GET"
+    });
+    return await response.json();
+  } catch {
+    alert("Server error");
+  }
 };
 
-export const fetchProductsByCategory = async (category: string): Promise<Response<ProductsPropsWithDbId[]>> => {
-  const response = await fetch(`${API}/products-category?category=${category}`, {
-    method: "GET"
-  });
-  return await response.json();
+export const fetchProductsByCategory = async (category: string): Promise<ResponseCustom<ProductsPropsWithDbId[]> | void> => {
+  try {
+    const response = await fetch(`${API}/products-category?category=${category}`, {
+      method: "GET"
+    });
+    return await response.json();
+  } catch {
+    alert("Server error");
+  }
 };
 
-export const updateProducts = async ({ token, products }: UpdateProductsRequest): Promise<unknown> => {
-  const response = await fetch(`${API}/products-update?token=${token}`, {
-    method: "PATCH",
-    headers: HEADERS_JSON,
-    body: JSON.stringify(products)
-  });
-  return await response.status;
+export const updateProducts = async ({
+  token,
+  products
+}: UpdateProductsRequest): Promise<Response | undefined> => {
+  try {
+    return await fetch(`${API}/products-update?token=${token}`, {
+      method: "PATCH",
+      headers: HEADERS_JSON,
+      body: JSON.stringify(products)
+    });
+  } catch {
+    return undefined;
+  }
 };
 
-export const postProducts = async ({ token, products }: PostProductsRequest): Promise<unknown> => {
-  const response = await fetch(`${API}/products?token=${token}`, {
-    method: "POST",
-    headers: HEADERS_JSON,
-    body: JSON.stringify(products)
-  });
-  return await response.status;
+export const postProducts = async ({ token, products }: PostProductsRequest): Promise<Response | undefined> => {
+  try {
+    return await fetch(`${API}/products?token=${token}`, {
+      method: "POST",
+      headers: HEADERS_JSON,
+      body: JSON.stringify(products)
+    });
+  } catch {
+    return undefined;
+  }
 };
 
-export const deleteProduct = async ({ token, id }: { token: string, id: string }): Promise<unknown> => {
-  const response = await fetch(`${API}/product-delete?token=${token}&id=${id}`, {
-    method: "DELETE",
-  });
-  return await response.status;
+export const deleteProduct = async ({ token, id }: { token: string, id: string }): Promise<Response | undefined> => {
+  try {
+    return await fetch(`${API}/product-delete?token=${token}&id=${id}`, {
+      method: "DELETE"
+    });
+  } catch {
+    return undefined;
+  }
 };

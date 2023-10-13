@@ -6,7 +6,6 @@ import { Modal } from "../UI/Modal";
 import { AdminCreateProduct } from "../AdminCreateProduct";
 import { useFetchProductsByCategory } from "../../requests/useFetchProductsByCategory";
 import { useUpdateProducts } from "../../requests/useUpdateProducts";
-import { ResponseStatus } from "../../requests/types";
 import { ProductFields, ProductsPropsWithDbId } from "../../types/products";
 import styles from "./styles.module.scss";
 
@@ -36,7 +35,7 @@ export const AdminProductsList: FC<AdminProductsListProps> = ({ category }) => {
     const products = Object.values((Object.fromEntries(itemsChanges.entries())));
     const response = await updateProducts(products);
 
-    if (response === ResponseStatus.successUpdate) {
+    if (response?.ok) {
       await refetch();
       setIsSave(false);
       setItemsChanges(new Map());
