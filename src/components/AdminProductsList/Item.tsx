@@ -1,4 +1,4 @@
-import { Dispatch, FC, SetStateAction, useState } from "react";
+import React, { ChangeEvent, Dispatch, FC, SetStateAction, useState } from "react";
 import { ProductFields, ProductsPropsWithDbId } from "../../types/products";
 import { InputButton } from "./InputButton";
 import { InputChangesMap } from "./index";
@@ -18,6 +18,8 @@ interface ItemProps {
   itemsChanges: InputChangesMap;
   setItemsChanges: Dispatch<SetStateAction<InputChangesMap>>;
   refetchProducts: () => void;
+  currentCategory: string;
+  categories?: string[];
 }
 
 export const Item: FC<ItemProps> = ({
@@ -26,8 +28,11 @@ export const Item: FC<ItemProps> = ({
   setIsSave,
   itemsChanges,
   setItemsChanges,
-  refetchProducts
+  refetchProducts,
+  currentCategory,
+  categories
 }) => {
+  const [category, setCategory] = useState<string>(currentCategory);
   const [cancelChanges, setCancelChanges] = useState<boolean>(false);
   const [showDelConfirm, setShowDelConfirm] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
@@ -52,6 +57,7 @@ export const Item: FC<ItemProps> = ({
     newItemsChanges.delete(_id);
     setItemsChanges(newItemsChanges);
     setCancelChanges(true);
+    setCategory(currentCategory);
   };
 
   const onDeleteProduct = async () => {
@@ -62,12 +68,30 @@ export const Item: FC<ItemProps> = ({
     setShowDelConfirm(false);
   };
 
+  const onSelectCategory = (event: ChangeEvent<HTMLSelectElement>) => {
+    const newCategory = event.target.value;
+    const product = itemsChanges.get(item._id as ProductFields._id) as ProductsPropsWithDbId;
+    product.category = newCategory;
+    setCategory(newCategory);
+  };
+
   const isReset = cancelChanges || !isSave;
 
   return (
     <li
       className={cn(styles.item, { [styles.active]: itemsChanges.has(item._id as ProductFields) })}
     >
+      <select
+        disabled={!itemsChanges.has(item._id as ProductFields)}
+        onChange={onSelectCategory}
+        value={category}
+      >
+        {!!categories &&
+          categories.map((category) => (
+            <option key={category}>{category}</option>
+          ))
+        }
+      </select>
       <Input
         className={styles.name}
         readOnly={!itemsChanges.has(item._id as ProductFields)}

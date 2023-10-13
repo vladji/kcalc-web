@@ -6,6 +6,7 @@ import { Modal } from "../UI/Modal";
 import { AdminCreateProduct } from "../AdminCreateProduct";
 import { useFetchProductsByCategory } from "../../requests/useFetchProductsByCategory";
 import { useUpdateProducts } from "../../requests/useUpdateProducts";
+import { useFetchProductCategories } from "../../requests/useFetchProductCategories";
 import { ProductFields, ProductsPropsWithDbId } from "../../types/products";
 import styles from "./styles.module.scss";
 
@@ -27,6 +28,7 @@ export const AdminProductsList: FC<AdminProductsListProps> = ({ category }) => {
     }
   }, [itemsChanges.size]);
 
+  const { categories } = useFetchProductCategories();
   const { productsList, loading, refetch } = useFetchProductsByCategory(category);
   const { updateProducts } = useUpdateProducts();
 
@@ -77,6 +79,8 @@ export const AdminProductsList: FC<AdminProductsListProps> = ({ category }) => {
             itemsChanges={itemsChanges}
             setItemsChanges={setItemsChanges}
             refetchProducts={refetch}
+            currentCategory={category}
+            categories={categories}
           />
         ))
         }
