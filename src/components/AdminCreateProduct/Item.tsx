@@ -10,7 +10,13 @@ interface ItemProps {
 export const Item: FC<ItemProps> = ({ categories, setItemsCount }) => {
   const onDeleteButtonClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
-    setItemsCount((prev) => prev - 1);
+    setItemsCount((prev) => {
+      if (prev > 1) {
+        return prev - 1;
+      } else {
+        return prev;
+      }
+    });
   };
 
   return (
