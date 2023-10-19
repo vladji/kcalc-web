@@ -6,7 +6,6 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  max-width: var(--content-max-width);
   height: var(--header-height);
   margin-inline: auto;
 }
@@ -26,4 +25,13 @@
 .text {
   font-size: 24px;
   font-weight: 500;
+}
+
+.navigation {
+  display: flex;
+  gap: var(--size-max);
+
+  a {
+    color: var(--link-color);
+  }
 }

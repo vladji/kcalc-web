@@ -1,8 +1,8 @@
-import { FC } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import cn from "classnames";
-import { Button } from "../UI/Button";
-import styles from "./styles.module.scss";
+import { FC } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { Button } from '../UI/Button';
+import cn from 'classnames';
+import styles from './styles.module.scss';
 
 interface HeaderProps {
   text: string;
@@ -10,26 +10,32 @@ interface HeaderProps {
   isAdmin?: boolean;
 }
 
-export const Header: FC<HeaderProps> = ({ text, linkTo = "/", isAdmin = false }) => {
+export const Header: FC<HeaderProps> = ({ text, linkTo = '/', isAdmin = false }) => {
   const navigate = useNavigate();
 
   const adminLogout = () => {
-    localStorage.removeItem("token");
-    navigate("/");
+    localStorage.removeItem('token');
+    navigate('/');
   };
 
   return (
     <header className={cn(styles.header, 'layout-padding-inline')}>
       <div className={styles.content}>
         <Link className={styles.logoLink} to={linkTo}>
-          <img className={styles.logo} src='/assets/images/logo.png' alt="logo" />
+          <img className={styles.logo} src="/assets/images/logo.png" alt="logo" />
           <span className={styles.text}>{text}</span>
         </Link>
-        {isAdmin &&
-          <Button handler={adminLogout} outlined>
-            <span>exit</span>
-          </Button>
-        }
+        {isAdmin && (
+          <>
+            <nav className={styles.navigation}>
+              <Link to="/admin-products">Products</Link>
+              <Link to="/admin-recipes">Recipes</Link>
+            </nav>
+            <Button handler={adminLogout} outlined>
+              <span>exit</span>
+            </Button>
+          </>
+        )}
       </div>
     </header>
   );

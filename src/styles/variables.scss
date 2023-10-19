@@ -21,6 +21,7 @@
   --base-border-radius: 4px;
 
   // sizes
+  --size-max: 32px;
   --size-huge: 24px;
   --size-standard: 16px;
   --size-mini: 8px;
@@ -33,6 +34,7 @@
 
   // colors
   --light-color: #fff;
+  --dark-color: #343434;
   --semi-light-color: #ffffff80;
   --brand-color: #ff401d;
   --alert-color: #c92525;
@@ -42,4 +44,5 @@
   --gray-color: #c7c7c7;
   --orange-color: #e38730;
   --yellow-color: #f0e300;
+  --light-yellow: #fffad8;
 }
