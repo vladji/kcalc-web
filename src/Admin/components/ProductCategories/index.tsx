@@ -1,7 +1,6 @@
 import { Dispatch, FC, SetStateAction } from 'react';
 import { useFetchProductCategories } from '../../requests/useFetchProductCategories';
-import cn from 'classnames';
-import styles from './styles.module.scss';
+import { CategoriesList } from '../CategoriesList';
 
 interface AdminProductCategoriesProps {
   activeCategory: string;
@@ -14,25 +13,17 @@ export const ProductCategories: FC<AdminProductCategoriesProps> = ({
 }) => {
   const { categories, isFetched } = useFetchProductCategories();
 
-  const onCategoryClick = (value: string) => {
-    localStorage.setItem('currentProductCategory', value);
-    setActiveCategory(value);
+  const onCategoryClick = (category: string) => {
+    localStorage.setItem('currentProductCategory', category);
+    setActiveCategory(category);
   };
 
   return (
-    <div className={styles.wrapper}>
-      <ul className={styles.list}>
-        {isFetched &&
-          categories?.map((item, index) => (
-            <li
-              key={index}
-              className={cn({ [styles.active]: item === activeCategory })}
-              onClick={() => onCategoryClick(item)}
-            >
-              {item}
-            </li>
-          ))}
-      </ul>
-    </div>
+    <CategoriesList
+      clickHandler={onCategoryClick}
+      activeCategory={activeCategory}
+      isLoading={!isFetched}
+      categories={categories}
+    />
   );
 };
