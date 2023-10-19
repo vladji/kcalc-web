@@ -8,7 +8,7 @@ interface AdminProductCategoriesProps {
   setActiveCategory: Dispatch<SetStateAction<string>>;
 }
 
-export const AdminProductCategories: FC<AdminProductCategoriesProps> = ({
+export const ProductCategories: FC<AdminProductCategoriesProps> = ({
   activeCategory,
   setActiveCategory,
 }) => {

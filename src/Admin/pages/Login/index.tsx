@@ -1,11 +1,11 @@
 import { ChangeEvent, useState } from 'react';
 import cn from 'classnames';
-import { Button } from '../../components/UI/Button';
+import { Button } from '../../../components/UI/Button';
 import { useAdminLogin } from '../../requests/useAdminLogin';
-import { Layout } from '../../components/Layout';
+import { Layout } from '../../../components/Layout';
 import styles from './styles.module.scss';
 
-export const AdminLogin = () => {
+export const Login = () => {
   const [name, setName] = useState<string>('');
   const [pass, setPass] = useState<string>('');
 

@@ -5,10 +5,10 @@ import { Home } from './pages/Home';
 import { PrivacyPolicy } from './pages/PrivacyPolicy';
 import { Contacts } from './pages/Contacts';
 import { ErrorPage } from './pages/ErrorPage';
-import { AdminLogin } from './pages/AdminLogin';
-import { Admin } from './pages/Admin';
-import { AdminProducts } from './pages/AdminProducts';
-import { AdminRecipes } from './pages/AdminRecipes';
+import { Login } from './Admin/pages/Login';
+import { AdminHome } from './Admin/pages/AdminHome';
+import { Products } from './Admin/pages/Products';
+import { Recipes } from './Admin/pages/Recipes';
 
 const queryClient = new QueryClient();
 
@@ -28,19 +28,19 @@ const router = createBrowserRouter([
   },
   {
     path: '/admin-login',
-    element: <AdminLogin />,
+    element: <Login />,
   },
   {
     path: '/admin',
-    element: <Admin />,
+    element: <AdminHome />,
   },
   {
     path: '/admin-products',
-    element: <AdminProducts />,
+    element: <Products />,
   },
   {
     path: '/admin-recipes',
-    element: <AdminRecipes />,
+    element: <Recipes />,
   },
 ]);
 

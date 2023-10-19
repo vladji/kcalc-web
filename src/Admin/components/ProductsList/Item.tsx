@@ -1,13 +1,13 @@
-import React, { ChangeEvent, Dispatch, FC, SetStateAction, useEffect, useState } from "react";
-import { ProductFields, ProductsPropsWithDbId } from "../../types/products";
-import { InputButton } from "./InputButton";
-import { InputChangesMap } from "./index";
-import { Input } from "./Input";
-import { Modal } from "../UI/Modal";
-import { ConfirmModal } from "./ConfirmModal";
-import { useDeleteProduct } from "../../requests/useDeleteProduct";
-import cn from "classnames";
-import styles from "./styles.module.scss";
+import React, { ChangeEvent, Dispatch, FC, SetStateAction, useEffect, useState } from 'react';
+import { ProductFields, ProductsPropsWithDbId } from '../../../types/products';
+import { InputButton } from './InputButton';
+import { InputChangesMap } from './index';
+import { Input } from './Input';
+import { Modal } from '../../../components/UI/Modal';
+import { ConfirmModal } from './ConfirmModal';
+import { useDeleteProduct } from '../../requests/useDeleteProduct';
+import cn from 'classnames';
+import styles from './styles.module.scss';
 
 export type OnInputChange = (field: ProductFields) => (value: string) => void;
 
@@ -30,7 +30,7 @@ export const Item: FC<ItemProps> = ({
   setItemsChanges,
   refetchProducts,
   currentCategory,
-  categories
+  categories,
 }) => {
   const [category, setCategory] = useState<string>(currentCategory);
   const [cancelChanges, setCancelChanges] = useState<boolean>(false);
@@ -80,7 +80,7 @@ export const Item: FC<ItemProps> = ({
     if (isReset) {
       setCategory(currentCategory);
     }
-  }, [isReset, currentCategory])
+  }, [isReset, currentCategory]);
 
   return (
     <li
@@ -91,11 +91,7 @@ export const Item: FC<ItemProps> = ({
         onChange={onSelectCategory}
         value={category}
       >
-        {!!categories &&
-          categories.map((category) => (
-            <option key={category}>{category}</option>
-          ))
-        }
+        {!!categories && categories.map((category) => <option key={category}>{category}</option>)}
       </select>
       <Input
         className={styles.name}
@@ -133,9 +129,13 @@ export const Item: FC<ItemProps> = ({
         handler={onInputChange(ProductFields.kcal)}
       />
       <InputButton text="Change" handler={() => onChangeItem(item._id as ProductFields._id)} />
-      <InputButton text="Cancel" handler={() => onCancelChanges(item._id as ProductFields._id)} gray />
+      <InputButton
+        text="Cancel"
+        handler={() => onCancelChanges(item._id as ProductFields._id)}
+        gray
+      />
       <InputButton text="Delete" handler={() => setShowDelConfirm(true)} alert />
-      {showDelConfirm &&
+      {showDelConfirm && (
         <Modal onClose={() => setShowDelConfirm(false)}>
           <ConfirmModal
             confirmHandler={onDeleteProduct}
@@ -143,7 +143,7 @@ export const Item: FC<ItemProps> = ({
             loading={loading}
           />
         </Modal>
-      }
+      )}
     </li>
   );
 };

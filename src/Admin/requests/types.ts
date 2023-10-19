@@ -1,11 +1,11 @@
-import { ProductProps, ProductsPropsWithDbId } from "../types/products";
+import { ProductProps, ProductsPropsWithDbId } from '../../types/products';
 
 export enum ResponseStatus {
   successUpdate = 204,
 }
 
 export enum QueryKeys {
-  productCategories = "productCategories",
+  productCategories = 'productCategories',
 }
 
 export interface ResponseCustom<T> {
@@ -19,10 +19,10 @@ export interface AdminLoginRequestProps {
 }
 
 export interface AdminRequestResponse {
-  id: string,
-  username: string,
-  iat: number,
-  exp: number,
+  id: string;
+  username: string;
+  iat: number;
+  exp: number;
 }
 
 export interface ProductCategoriesResponse {

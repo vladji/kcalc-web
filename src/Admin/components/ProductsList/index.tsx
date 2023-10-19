@@ -1,14 +1,14 @@
-import { FC, useEffect, useState } from "react";
-import { Loader } from "../UI/Loader";
-import { Button } from "../UI/Button";
-import { Item } from "./Item";
-import { Modal } from "../UI/Modal";
-import { AdminCreateProduct } from "../AdminCreateProduct";
-import { useFetchProductsByCategory } from "../../requests/useFetchProductsByCategory";
-import { useUpdateProducts } from "../../requests/useUpdateProducts";
-import { useFetchProductCategories } from "../../requests/useFetchProductCategories";
-import { ProductFields, ProductsPropsWithDbId } from "../../types/products";
-import styles from "./styles.module.scss";
+import { FC, useEffect, useState } from 'react';
+import { Loader } from '../../../components/UI/Loader';
+import { Button } from '../../../components/UI/Button';
+import { Item } from './Item';
+import { Modal } from '../../../components/UI/Modal';
+import { CreateProduct } from '../CreateProduct';
+import { useFetchProductsByCategory } from '../../requests/useFetchProductsByCategory';
+import { useUpdateProducts } from '../../requests/useUpdateProducts';
+import { useFetchProductCategories } from '../../requests/useFetchProductCategories';
+import { ProductFields, ProductsPropsWithDbId } from '../../../types/products';
+import styles from './styles.module.scss';
 
 export type InputChangesMap = Map<ProductFields, ProductsPropsWithDbId>;
 
@@ -16,7 +16,7 @@ interface AdminProductsListProps {
   category: string;
 }
 
-export const AdminProductsList: FC<AdminProductsListProps> = ({ category }) => {
+export const ProductsList: FC<AdminProductsListProps> = ({ category }) => {
   const [showCreateProductModal, setShowCreateProductModal] = useState<boolean>(false);
   const [isSave, setIsSave] = useState<boolean>(false);
   const [manualLoading, setManualLoading] = useState<boolean>(false);
@@ -34,7 +34,7 @@ export const AdminProductsList: FC<AdminProductsListProps> = ({ category }) => {
 
   const onSaveAllChanges = async () => {
     setManualLoading(true);
-    const products = Object.values((Object.fromEntries(itemsChanges.entries())));
+    const products = Object.values(Object.fromEntries(itemsChanges.entries()));
     const response = await updateProducts(products);
 
     if (response?.ok) {
@@ -70,20 +70,20 @@ export const AdminProductsList: FC<AdminProductsListProps> = ({ category }) => {
         <span />
       </div>
       <ul className={styles.listWrapper}>
-        {!loading && productsList?.map((item) => (
-          <Item
-            key={item._id}
-            item={{ ...item }}
-            isSave={isSave}
-            setIsSave={setIsSave}
-            itemsChanges={itemsChanges}
-            setItemsChanges={setItemsChanges}
-            refetchProducts={refetch}
-            currentCategory={category}
-            categories={categories}
-          />
-        ))
-        }
+        {!loading &&
+          productsList?.map((item) => (
+            <Item
+              key={item._id}
+              item={{ ...item }}
+              isSave={isSave}
+              setIsSave={setIsSave}
+              itemsChanges={itemsChanges}
+              setItemsChanges={setItemsChanges}
+              refetchProducts={refetch}
+              currentCategory={category}
+              categories={categories}
+            />
+          ))}
       </ul>
       <div className={styles.controlPanelWrapper}>
         <div className={styles.controlPanelBlock}>
@@ -98,15 +98,15 @@ export const AdminProductsList: FC<AdminProductsListProps> = ({ category }) => {
           <span>Create Product</span>
         </Button>
       </div>
-      {showCreateProductModal &&
+      {showCreateProductModal && (
         <Modal onClose={() => setShowCreateProductModal(false)}>
-          <AdminCreateProduct
+          <CreateProduct
             onClose={() => setShowCreateProductModal(false)}
             refetchProducts={refetch}
             loadingProducts={loading}
           />
         </Modal>
-      }
+      )}
     </div>
   );
 };

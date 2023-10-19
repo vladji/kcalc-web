@@ -1,7 +1,7 @@
-import { FC } from "react";
-import styles from "./styles.module.scss";
-import { Button } from "../UI/Button";
-import { Loader } from "../UI/Loader";
+import { FC } from 'react';
+import styles from './styles.module.scss';
+import { Button } from '../../../components/UI/Button';
+import { Loader } from '../../../components/UI/Loader';
 
 interface ConfirmModalProps {
   confirmHandler: () => void;
