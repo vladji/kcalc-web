@@ -4,6 +4,7 @@ export enum ResponseStatus {
 
 export enum QueryKeys {
   productCategories = 'productCategories',
+  recipesCategories = 'recipesCategories',
 }
 
 export interface ResponseCustom<T> {

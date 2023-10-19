@@ -1,23 +1,23 @@
 import { useQuery } from '@tanstack/react-query';
+import { getRecipesCategories } from './requests';
 import { QueryKeys } from '../types';
-import { fetchProductCategories } from './requests';
 import { LONG_STALE_TIME } from '../constants';
 
-type UseFetchProductCategories = () => {
+type UseFetchRecipesCategories = () => {
   isFetched: boolean;
   categories?: string[];
 };
 
-export const useFetchProductCategories: UseFetchProductCategories = () => {
+export const useFetchRecipesCategories: UseFetchRecipesCategories = () => {
   const { data: response, isFetched } = useQuery({
-    queryKey: [QueryKeys.productCategories],
-    queryFn: () => fetchProductCategories(),
+    queryKey: [QueryKeys.recipesCategories],
+    queryFn: getRecipesCategories,
     refetchOnWindowFocus: false,
     staleTime: LONG_STALE_TIME,
   });
 
   return {
-    isFetched,
     categories: response?.data?.categories,
+    isFetched,
   };
 };
