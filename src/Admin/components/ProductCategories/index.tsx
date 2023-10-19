@@ -1,5 +1,5 @@
 import { Dispatch, FC, SetStateAction } from 'react';
-import { useFetchProductCategories } from '../../requests/useFetchProductCategories';
+import { useFetchProductCategories } from '../../requests/products/useFetchProductCategories';
 import { CategoriesList } from '../CategoriesList';
 
 interface AdminProductCategoriesProps {

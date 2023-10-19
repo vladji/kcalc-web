@@ -1,5 +1,5 @@
 import { Navigate } from 'react-router-dom';
-import { useAdminRequest } from '../../requests/useAdminRequest';
+import { useAdminRequest } from '../../requests/login/useAdminRequest';
 import { Layout } from '../../../components/Layout';
 import { Dashboard } from '../../components/Dashboard';
 

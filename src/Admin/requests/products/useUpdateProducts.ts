@@ -1,7 +1,7 @@
 import { UseMutateAsyncFunction, useMutation } from '@tanstack/react-query';
 import { updateProducts } from './requets';
-import { ProductsPropsWithDbId } from '../../types/products';
-import { checkRedirectToLogin, responseNotify } from './utils';
+import { ProductsPropsWithDbId } from '../../../types/products';
+import { checkRedirectToLogin, responseNotify } from '../utils';
 import { useNavigate } from 'react-router-dom';
 
 type UseUpdateProducts = () => {

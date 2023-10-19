@@ -1,10 +1,13 @@
+import { useState } from 'react';
 import { Layout } from '../../../components/Layout';
-import styles from './styles.module.scss';
+import { RecipeCategories } from '../../components/RecipeCategories';
 
 export const Recipes = () => {
+  const [category, setCategory] = useState('');
+
   return (
     <Layout headerText="Admin" linkTo="/admin" isAdmin>
-      <div className={styles.content}>RECIPES</div>
+      <RecipeCategories />
     </Layout>
   );
 };

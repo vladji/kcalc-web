@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { ProductCategories } from '../../components/ProductCategories';
 import { ProductsList } from '../../components/ProductsList';
-import { DEFAULT_CATEGORY } from '../AdminHome/constants';
-import styles from './styles.module.scss';
 import { Layout } from '../../../components/Layout';
+import { DEFAULT_CATEGORY } from '../../constants/common';
+import styles from './styles.module.scss';
 
 const currentCategory = localStorage.getItem('currentProductCategory') || DEFAULT_CATEGORY;
 

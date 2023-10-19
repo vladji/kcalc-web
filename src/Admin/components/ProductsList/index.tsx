@@ -4,9 +4,9 @@ import { Button } from '../../../components/UI/Button';
 import { Item } from './Item';
 import { Modal } from '../../../components/UI/Modal';
 import { CreateProduct } from '../CreateProduct';
-import { useFetchProductsByCategory } from '../../requests/useFetchProductsByCategory';
-import { useUpdateProducts } from '../../requests/useUpdateProducts';
-import { useFetchProductCategories } from '../../requests/useFetchProductCategories';
+import { useFetchProductsByCategory } from '../../requests/products/useFetchProductsByCategory';
+import { useUpdateProducts } from '../../requests/products/useUpdateProducts';
+import { useFetchProductCategories } from '../../requests/products/useFetchProductCategories';
 import { ProductFields, ProductsPropsWithDbId } from '../../../types/products';
 import styles from './styles.module.scss';
 

@@ -1,7 +1,7 @@
 import { ChangeEvent, useState } from 'react';
 import cn from 'classnames';
 import { Button } from '../../../components/UI/Button';
-import { useAdminLogin } from '../../requests/useAdminLogin';
+import { useAdminLogin } from '../../requests/login/useAdminLogin';
 import { Layout } from '../../../components/Layout';
 import styles from './styles.module.scss';
 

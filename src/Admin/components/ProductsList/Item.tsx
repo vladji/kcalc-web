@@ -5,7 +5,7 @@ import { InputChangesMap } from './index';
 import { Input } from './Input';
 import { Modal } from '../../../components/UI/Modal';
 import { ConfirmModal } from './ConfirmModal';
-import { useDeleteProduct } from '../../requests/useDeleteProduct';
+import { useDeleteProduct } from '../../requests/products/useDeleteProduct';
 import cn from 'classnames';
 import styles from './styles.module.scss';
 
