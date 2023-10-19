@@ -1,4 +1,4 @@
-import React, { ChangeEvent, Dispatch, FC, SetStateAction, useState } from "react";
+import React, { ChangeEvent, Dispatch, FC, SetStateAction, useEffect, useState } from "react";
 import { ProductFields, ProductsPropsWithDbId } from "../../types/products";
 import { InputButton } from "./InputButton";
 import { InputChangesMap } from "./index";
@@ -57,7 +57,6 @@ export const Item: FC<ItemProps> = ({
     newItemsChanges.delete(_id);
     setItemsChanges(newItemsChanges);
     setCancelChanges(true);
-    setCategory(currentCategory);
   };
 
   const onDeleteProduct = async () => {
@@ -76,6 +75,12 @@ export const Item: FC<ItemProps> = ({
   };
 
   const isReset = cancelChanges || !isSave;
+
+  useEffect(() => {
+    if (isReset) {
+      setCategory(currentCategory);
+    }
+  }, [isReset, currentCategory])
 
   return (
     <li
