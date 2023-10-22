@@ -1,5 +1,5 @@
 import React, { ChangeEvent, Dispatch, FC, SetStateAction, useEffect, useState } from 'react';
-import { ProductFields, ProductsPropsWithDbId } from '../../../types/products';
+import { ProductFields, ProductsPropsWithDbId } from '../../types/products';
 import { InputButton } from './InputButton';
 import { InputChangesMap } from './index';
 import { Input } from './Input';

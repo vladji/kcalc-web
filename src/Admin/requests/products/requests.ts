@@ -1,6 +1,6 @@
 import { HEADERS_JSON } from '../constants';
 import { ResponseCustom } from '../types';
-import { ProductsPropsWithDbId } from '../../../types/products';
+import { ProductsPropsWithDbId } from '../../types/products';
 import { PostProductsRequest, ProductCategoriesResponse, UpdateProductsRequest } from './types';
 
 const API = process.env.REACT_APP_API_ENDPOINT;

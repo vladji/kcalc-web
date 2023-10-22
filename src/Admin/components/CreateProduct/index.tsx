@@ -6,7 +6,7 @@ import { Loader } from '../../../components/UI/Loader';
 import { useFetchProductCategories } from '../../requests/products/useFetchProductCategories';
 import { usePostProducts } from '../../requests/products/usePostProducts';
 import { v4 as uuidv4 } from 'uuid';
-import { ProductProps } from '../../../types/products';
+import { ProductProps } from '../../types/products';
 import styles from './styles.module.scss';
 
 interface AdminCreateProductProps {

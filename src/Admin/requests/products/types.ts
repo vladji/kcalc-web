@@ -1,4 +1,4 @@
-import { ProductProps, ProductsPropsWithDbId } from '../../../types/products';
+import { ProductProps, ProductsPropsWithDbId } from '../../types/products';
 
 export interface ProductCategoriesResponse {
   categories: string[];
