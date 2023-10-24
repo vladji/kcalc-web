@@ -1,6 +1,7 @@
 import { FC, useRef } from 'react';
 import { useFetchRecipesByCategory } from '../../requests/recipes/useFetchRecipesByCategory';
 import { Loader } from '../../../components/UI/Loader';
+import { UploadImage } from '../UploadImage';
 import { IMAGE_BASE64_PREFIX } from '../../constants/common';
 import styles from './styles.module.scss';
 
@@ -11,7 +12,7 @@ interface RecipesListProps {
 export const RecipesList: FC<RecipesListProps> = ({ category }) => {
   const itemsRef = useRef<Record<string, HTMLLIElement | null>>({}).current;
 
-  const { data, loading } = useFetchRecipesByCategory(category);
+  const { data, loading, refetch } = useFetchRecipesByCategory(category);
 
   const onImageLoaded = (id: string) => {
     const item = itemsRef[id];
@@ -49,16 +50,17 @@ export const RecipesList: FC<RecipesListProps> = ({ category }) => {
               </div>
               <div>
                 <h3>{item.name}</h3>
-                <div className={styles.textWrapper}>
+                <div className={styles.imageInfo}>
                   <dl>
-                    <dt>width: </dt>
+                    <dt>width:</dt>
                     <dd id="image-width" />
                   </dl>
                   <dl>
-                    <dt>height: </dt>
+                    <dt>height:</dt>
                     <dd id="image-height" />
                   </dl>
                 </div>
+                <UploadImage originName={item.image} recipeId={item._id} refetchRecipes={refetch} />
               </div>
             </li>
           ))}

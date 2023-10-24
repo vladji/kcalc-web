@@ -1,0 +1,14 @@
+.wrapper {
+  margin-top: var(--size-standard);
+  background-color: var(--inactive-color);
+
+  input {
+    padding-left: 0;
+    border: 0;
+  }
+}
+
+.uploadButton {
+  display: initial;
+  width: auto;
+}

@@ -1,8 +1,6 @@
 import { ResponseCustom } from '../types';
-import { HEADERS_JSON } from '../constants';
+import { API, HEADERS_JSON } from '../constants';
 import { AdminRequestResponse, LoginRequestProps } from './types';
-
-const API = process.env.REACT_APP_API_ENDPOINT;
 
 export const adminLogin = async (
   data: LoginRequestProps

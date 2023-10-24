@@ -7,6 +7,7 @@ export interface RecipeProps {
   id: string;
   category: string[];
   name: string;
+  image: string;
   imageBase64: string;
   products: [
     {
@@ -15,4 +16,14 @@ export interface RecipeProps {
     }
   ];
   recipe: string[];
+}
+
+export interface UploadImageRequest {
+  formData: FormData;
+  deleteFileName?: string;
+}
+
+export interface ReplaceRecipeImageNameRequest {
+  recipeId: string;
+  newImageName: string;
 }

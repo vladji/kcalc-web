@@ -6,10 +6,15 @@ import { RecipeProps } from './types';
 type UseFetchRecipesByCategory = (category: string) => {
   loading: boolean;
   data: RecipeProps[];
+  refetch: () => void;
 };
 
 export const useFetchRecipesByCategory: UseFetchRecipesByCategory = (category) => {
-  const { data: response, isLoading } = useQuery({
+  const {
+    data: response,
+    isLoading,
+    refetch,
+  } = useQuery({
     queryKey: [category],
     queryFn: () => getRecipesByCategory(category),
     refetchOnWindowFocus: false,
@@ -19,5 +24,6 @@ export const useFetchRecipesByCategory: UseFetchRecipesByCategory = (category) =
   return {
     loading: isLoading,
     data: response?.data || [],
+    refetch,
   };
 };
