@@ -60,7 +60,7 @@ export const ProductsList: FC<AdminProductsListProps> = ({ category }) => {
     <div className={styles.wrapper}>
       {isLoading && <Loader />}
       <div className={styles.tableHeader}>
-        <span>category</span>
+        <span className={styles.category}>category</span>
         <span className={styles.name}>name</span>
         <span>proteins</span>
         <span>fat</span>

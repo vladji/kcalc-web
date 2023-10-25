@@ -1,5 +1,7 @@
 @import '../../../styles/mixins.scss';
 
+$category-field-width: 128px;
+
 .wrapper {
   flex-grow: 1;
 }
@@ -19,6 +21,10 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
+  }
+
+  .category {
+    width: #{$category-field-width};
   }
 
   .name {
@@ -41,7 +47,7 @@
   gap: var(--size-mini);
 
   .category {
-    width: 128px;
+    width: #{$category-field-width};
 
     &.active {
       @include active-input;
