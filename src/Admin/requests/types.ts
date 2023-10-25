@@ -11,3 +11,11 @@ export interface ResponseCustom<T> {
   data?: T;
   error?: string;
 }
+
+export interface MongoResponse {
+  acknowledged: boolean;
+  matchedCount: number;
+  modifiedCount: number;
+  upsertedCount?: number;
+  upsertedId?: any;
+}

@@ -3,14 +3,14 @@ import { Loader } from '../../../components/shared/Loader';
 import cn from 'classnames';
 import styles from './styles.module.scss';
 
-interface CategoriesListProps {
-  clickHandler: (category: string) => void;
-  activeCategory: string;
+interface CategoriesListProps<T> {
+  clickHandler: (category: T) => void;
+  activeCategory: T;
   isLoading: boolean;
-  categories?: string[];
+  categories?: T[];
 }
 
-export const CategoriesList: FC<CategoriesListProps> = ({
+export const CategoriesList: FC<CategoriesListProps<any>> = ({
   clickHandler,
   activeCategory,
   isLoading,

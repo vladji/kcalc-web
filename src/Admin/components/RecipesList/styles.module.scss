@@ -55,6 +55,12 @@
   gap: var(--size-standard);
 }
 
+.categoriesWrapper {
+  display: flex;
+  flex-flow: row wrap;
+  gap: var(--size-standard);
+}
+
 .inputsBlock {
   display: flex;
   flex-direction: column;

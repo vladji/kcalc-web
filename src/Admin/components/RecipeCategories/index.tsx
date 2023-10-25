@@ -1,10 +1,11 @@
 import { Dispatch, FC, SetStateAction } from 'react';
 import { useFetchRecipesCategories } from '../../requests/recipes/useFetchRecipesCategories';
 import { CategoriesList } from '../CategoriesList';
+import { RecipeCategoriesEnum } from '../../types/recipes';
 
 interface RecipeCategoriesProps {
-  activeCategory: string;
-  setActiveCategory: Dispatch<SetStateAction<string>>;
+  activeCategory: RecipeCategoriesEnum;
+  setActiveCategory: Dispatch<SetStateAction<RecipeCategoriesEnum>>;
 }
 
 export const RecipeCategories: FC<RecipeCategoriesProps> = ({
@@ -13,7 +14,7 @@ export const RecipeCategories: FC<RecipeCategoriesProps> = ({
 }) => {
   const { categories, isFetched } = useFetchRecipesCategories();
 
-  const onCategoryClick = (category: string) => {
+  const onCategoryClick = (category: RecipeCategoriesEnum) => {
     localStorage.setItem('currentRecipeCategory', category);
     setActiveCategory(category);
   };

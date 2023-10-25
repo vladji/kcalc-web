@@ -1,4 +1,4 @@
-export enum RecipeCategories {
+export enum RecipeCategoriesEnum {
   snack = 'snack',
   breakfast = 'breakfast',
   salads = 'salads',
@@ -27,9 +27,9 @@ export enum RecipeProductsFields {
 }
 
 export interface RecipeProps {
-  _id: string;
+  _id?: string;
   id: string;
-  category: string[];
+  category: RecipeCategoriesEnum[];
   name: string;
   image: string;
   imageBase64: string;

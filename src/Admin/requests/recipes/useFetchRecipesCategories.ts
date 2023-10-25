@@ -2,10 +2,11 @@ import { useQuery } from '@tanstack/react-query';
 import { getRecipesCategories } from './requests';
 import { QueryKeys } from '../types';
 import { LONG_STALE_TIME } from '../constants';
+import { RecipeCategoriesEnum } from '../../types/recipes';
 
 type UseFetchRecipesCategories = () => {
   isFetched: boolean;
-  categories?: string[];
+  categories?: RecipeCategoriesEnum[];
 };
 
 export const useFetchRecipesCategories: UseFetchRecipesCategories = () => {

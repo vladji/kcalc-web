@@ -1,0 +1,21 @@
+.button {
+  display: flex;
+  gap: var(--size-micro);
+  align-items: center;
+}
+
+.checkBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 3px;
+  border: 1px solid var(--gray-color);
+  background-color: var(--light-color);
+
+  &.checked {
+    border: 0;
+    background-color: var(--blue-color);
+  }
+}

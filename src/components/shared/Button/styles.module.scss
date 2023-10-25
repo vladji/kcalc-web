@@ -22,6 +22,7 @@
   color: var(--font-black-color);
 
   &.disabled {
+    border-color: var(--font-gray-color);
     background-color: transparent;
     color: var(--font-gray-color);
     cursor: not-allowed;

@@ -1,9 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
 import { getRecipesByCategory } from './requests';
 import { LONG_STALE_TIME } from '../constants';
-import { RecipeProps } from '../../types/recipes';
+import { RecipeCategoriesEnum, RecipeProps } from '../../types/recipes';
 
-type UseFetchRecipesByCategory = (category: string) => {
+type UseFetchRecipesByCategory = (category: RecipeCategoriesEnum) => {
   loading: boolean;
   data: RecipeProps[];
   refetch: () => void;

@@ -1,5 +1,7 @@
+import { RecipeCategoriesEnum, RecipeProps } from '../../types/recipes';
+
 export interface RecipesCategoriesResponse {
-  categories: string[];
+  categories: RecipeCategoriesEnum[];
 }
 
 export interface UploadImageRequest {
@@ -10,4 +12,10 @@ export interface UploadImageRequest {
 export interface ReplaceRecipeImageNameRequest {
   recipeId: string;
   newImageName: string;
+}
+
+export interface PostRecipeRequest {
+  recipe: RecipeProps;
+  token: string;
+  recipeId?: string;
 }

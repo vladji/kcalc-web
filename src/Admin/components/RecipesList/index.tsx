@@ -2,10 +2,11 @@ import { FC } from 'react';
 import { useFetchRecipesByCategory } from '../../requests/recipes/useFetchRecipesByCategory';
 import { Loader } from '../../../components/shared/Loader';
 import { Item } from './Item';
+import { RecipeCategoriesEnum } from '../../types/recipes';
 import styles from './styles.module.scss';
 
 interface RecipesListProps {
-  category: string;
+  category: RecipeCategoriesEnum;
 }
 
 export const RecipesList: FC<RecipesListProps> = ({ category }) => {
