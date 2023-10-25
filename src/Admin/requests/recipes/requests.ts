@@ -1,11 +1,11 @@
 import { ResponseCustom } from '../types';
 import {
-  RecipeProps,
   RecipesCategoriesResponse,
   ReplaceRecipeImageNameRequest,
   UploadImageRequest,
 } from './types';
 import { API, IMAGE_API, IMAGE_API_KEY } from '../constants';
+import { RecipeProps } from '../../types/recipes';
 
 export const getRecipesCategories =
   async (): Promise<ResponseCustom<RecipesCategoriesResponse> | void> => {

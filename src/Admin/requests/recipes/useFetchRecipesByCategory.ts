@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { getRecipesByCategory } from './requests';
 import { LONG_STALE_TIME } from '../constants';
-import { RecipeProps } from './types';
+import { RecipeProps } from '../../types/recipes';
 
 type UseFetchRecipesByCategory = (category: string) => {
   loading: boolean;

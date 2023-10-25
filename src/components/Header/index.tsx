@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Button } from '../UI/Button';
+import { Button } from '../shared/Button';
 import cn from 'classnames';
 import styles from './styles.module.scss';
 

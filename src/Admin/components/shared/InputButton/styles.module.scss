@@ -1,0 +1,19 @@
+.inputButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--input-width-short);
+  height: var(--input-height-admin);
+  padding-inline: var(--size-standard);
+  border-radius: var(--size-micro);
+  background-color: var(--blue-color);
+  color: var(--font-light-color);
+
+  &.alert {
+    background-color: var(--alert-button-color);
+  }
+
+  &.gray {
+    background-color: var(--gray-color);
+  }
+}

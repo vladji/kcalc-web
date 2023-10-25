@@ -1,6 +1,6 @@
-import { FC, ReactNode } from "react";
-import { Header } from "../Header";
-import { Loader } from "../UI/Loader";
+import { FC, ReactNode } from 'react';
+import { Header } from '../Header';
+import { Loader } from '../shared/Loader';
 
 interface LayoutProps {
   children: ReactNode;
@@ -13,7 +13,7 @@ interface LayoutProps {
 export const Layout: FC<LayoutProps> = ({
   children,
   loading = false,
-  headerText = "kCalc",
+  headerText = 'kCalc',
   linkTo,
   isAdmin = false,
 }) => {

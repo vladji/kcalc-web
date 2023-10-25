@@ -1,8 +1,8 @@
 import React, { ChangeEvent, FC, useState } from 'react';
 import { useUploadImage } from '../../requests/recipes/useUploadImage';
 import { useReplaceRecipeImageName } from '../../requests/recipes/useReplaceRecipeImageName';
-import { Loader } from '../../../components/UI/Loader';
-import { InputButton } from '../ProductsList/InputButton';
+import { Loader } from '../../../components/shared/Loader';
+import { InputButton } from '../shared/InputButton';
 import styles from './styles.module.scss';
 
 interface UploadImageProps {

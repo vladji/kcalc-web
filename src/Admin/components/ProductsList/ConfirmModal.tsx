@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import styles from './styles.module.scss';
-import { Button } from '../../../components/UI/Button';
-import { Loader } from '../../../components/UI/Loader';
+import { Button } from '../../../components/shared/Button';
+import { Loader } from '../../../components/shared/Loader';
 
 interface ConfirmModalProps {
   confirmHandler: () => void;
@@ -19,7 +19,7 @@ export const ConfirmModal: FC<ConfirmModalProps> = ({ confirmHandler, cancelHand
           <span>ДА</span>
         </Button>
         <Button handler={cancelHandler} outlined>
-          <span>Отменить</span>
+          <span>НЕТ</span>
         </Button>
       </div>
     </div>

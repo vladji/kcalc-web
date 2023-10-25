@@ -1,8 +1,12 @@
 :root {
   // fonts
-  --font-main: 'JetBrains Mono', monospace, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  --font-family-main: 'JetBrains Mono', monospace, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
   'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
   sans-serif;
+  --base-font-size: 16px;
+  --font-light-color: #f8f8f8;
+  --font-black-color: #343434;
+  --font-gray-color: #c4c4c4;
 
   // layout
   --layout-padding-inline: 24px;
@@ -15,9 +19,9 @@
   --button-min-width: 150px;
   --button-height: 38px;
   --input-height: 24px;
-  --admin-crud-panel-height: 60px;
-  --admin-input-height: 28px;
-  --short-input-width: 78px;
+  --input-height-admin: 28px;
+  --input-width-short: 78px;
+  --fixed-bottom-panel-height: 60px;
   --base-border-radius: 4px;
 
   // sizes
@@ -25,12 +29,7 @@
   --size-huge: 24px;
   --size-standard: 16px;
   --size-mini: 8px;
-
-  // font
-  --base-font-size: 16px;
-  --font-light-color: #f8f8f8;
-  --font-black-color: #343434;
-  --font-gray-color: #c4c4c4;
+  --size-micro: 4px;
 
   // colors
   --light-color: #fff;

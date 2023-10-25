@@ -1,3 +1,5 @@
+@import '../../../styles/mixins.scss';
+
 .wrapper {
   flex-grow: 1;
 }
@@ -6,14 +8,14 @@
   display: flex;
   align-items: center;
   gap: var(--size-mini);
-  height: var(--admin-input-height);;
+  height: var(--input-height-admin);;
   padding-left: var(--size-standard);
   padding-right: var(--size-huge);
   border-bottom: 1px solid var(--gray-color);
   background-color: var(--light-color);
 
   span {
-    width: var(--short-input-width);
+    width: var(--input-width-short);
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
@@ -27,7 +29,7 @@
 .listWrapper {
   display: flex;
   flex-direction: column;
-  height: calc(100% - var(--admin-crud-panel-height) - var(--admin-input-height));
+  height: calc(100% - var(--fixed-bottom-panel-height) - var(--input-height-admin));
   padding-block: var(--size-standard);
   padding-inline: var(--size-standard);
   gap: var(--size-standard);
@@ -38,42 +40,16 @@
   display: flex;
   gap: var(--size-mini);
 
-  &.active {
-    input {
-      border-width: 2px;
-      border-color: var(--orange-color);
-      cursor: initial;
+  .category {
+    width: 128px;
+
+    &.active {
+      @include active-input;
     }
   }
 
-  input {
-    width: var(--short-input-width);
-    height: var(--admin-input-height);
-    cursor: default;
-
-    &.name {
-      flex-grow: 1;
-    }
-  }
-}
-
-.inputButton {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: var(--short-input-width);
-  height: var(--admin-input-height);
-  padding-inline: var(--size-standard);
-  border-radius: 4px;
-  background-color: var(--blue-color);
-  color: var(--font-light-color);
-
-  &.alert {
-    background-color: var(--alert-button-color);
-  }
-
-  &.gray {
-    background-color: var(--gray-color);
+  .name {
+    flex-grow: 1;
   }
 }
 
@@ -82,7 +58,7 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  height: var(--admin-crud-panel-height);
+  height: var(--fixed-bottom-panel-height);
   padding-inline: var(--size-standard);
   border-top: 1px solid var(--gray-color);
   background-color: var(--light-color);
@@ -91,10 +67,6 @@
 .controlPanelBlock {
   display: flex;
   gap: var(--size-huge);
-}
-
-.createButton {
-  background-color: var(--blue-color);
 }
 
 .confirmModal {

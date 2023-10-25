@@ -1,13 +1,24 @@
 .wrapper {
   height: 100%;
   flex-grow: 1;
+  padding-block: var(--size-huge);
+  padding-inline: var(--size-standard);
   overflow-y: scroll;
+}
+
+.leftBlock {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .item {
   display: flex;
   gap: var(--size-max);
-  margin-top: var(--size-max);
+
+  &:not(:first-child) {
+    margin-top: var(--size-max);
+  }
 }
 
 .imageWrapper {
@@ -23,9 +34,57 @@
 }
 
 .imageInfo {
+  display: flex;
+  gap: var(--size-standard);
   margin-top: var(--size-standard);
 
   dt {
     font-weight: 600;
+  }
+}
+
+.rightBlock {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.textBlock {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-standard);
+}
+
+.inputsBlock {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-mini);
+}
+
+.inputName {
+  width: auto;
+}
+
+.inputsRow {
+  display: flex;
+  gap: var(--size-mini);
+}
+
+.inputProduct {
+  width: 400px;
+}
+
+.inputId {
+  width: 190px;
+}
+
+.buttonsWrapper {
+  display: flex;
+  justify-content: space-between;
+  margin-top: var(--size-standard);
+
+  .leftSide {
+    display: flex;
+    gap: var(--size-standard);
   }
 }

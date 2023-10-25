@@ -23,8 +23,8 @@
 }
 
 .deleteButton {
-  width: var(--admin-input-height);
-  height: var(--admin-input-height);
+  width: var(--input-height-admin);
+  height: var(--input-height-admin);
   align-self: flex-end;
   border-radius: var(--base-border-radius);
   background-color: var(--gray-color);
@@ -37,12 +37,12 @@
 
   select {
     width: 178px;
-    height: var(--admin-input-height);
+    height: var(--input-height-admin);
   }
 
   input {
-    width: var(--short-input-width);
-    height: var(--admin-input-height);
+    width: var(--input-width-short);
+    height: var(--input-height-admin);
   }
 
   &.name {

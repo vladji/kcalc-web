@@ -1,8 +1,8 @@
 import { FC, Fragment, useRef, useState } from 'react';
 import cn from 'classnames';
 import { Item } from './Item';
-import { Button } from '../../../components/UI/Button';
-import { Loader } from '../../../components/UI/Loader';
+import { Button } from '../../../components/shared/Button';
+import { Loader } from '../../../components/shared/Loader';
 import { useFetchProductCategories } from '../../requests/products/useFetchProductCategories';
 import { usePostProducts } from '../../requests/products/usePostProducts';
 import { v4 as uuidv4 } from 'uuid';

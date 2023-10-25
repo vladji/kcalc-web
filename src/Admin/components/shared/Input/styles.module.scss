@@ -1,0 +1,12 @@
+@import '../../../../styles/mixins.scss';
+
+.wrapper {
+  width: var(--input-width-short);
+  height: var(--input-height-admin);
+  cursor: default;
+
+  &.active {
+    @include active-input;
+    cursor: initial;
+  }
+}

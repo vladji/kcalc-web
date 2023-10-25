@@ -1,9 +1,9 @@
 import React, { ChangeEvent, Dispatch, FC, SetStateAction, useEffect, useState } from 'react';
 import { ProductFields, ProductsPropsWithDbId } from '../../types/products';
-import { InputButton } from './InputButton';
+import { InputButton } from '../shared/InputButton';
 import { InputChangesMap } from './index';
-import { Input } from './Input';
-import { Modal } from '../../../components/UI/Modal';
+import { Input } from '../shared/Input';
+import { Modal } from '../../../components/shared/Modal';
 import { ConfirmModal } from './ConfirmModal';
 import { useDeleteProduct } from '../../requests/products/useDeleteProduct';
 import cn from 'classnames';
@@ -36,6 +36,8 @@ export const Item: FC<ItemProps> = ({
   const [cancelChanges, setCancelChanges] = useState<boolean>(false);
   const [showDelConfirm, setShowDelConfirm] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
+
+  const isActive = itemsChanges.has(item._id as ProductFields);
 
   const { deleteProduct } = useDeleteProduct();
 
@@ -83,11 +85,10 @@ export const Item: FC<ItemProps> = ({
   }, [isReset, currentCategory]);
 
   return (
-    <li
-      className={cn(styles.item, { [styles.active]: itemsChanges.has(item._id as ProductFields) })}
-    >
+    <li className={cn(styles.item, { [styles.active]: isActive })}>
       <select
-        disabled={!itemsChanges.has(item._id as ProductFields)}
+        className={cn(styles.category, { [styles.active]: isActive })}
+        disabled={!isActive}
         onChange={onSelectCategory}
         value={category}
       >
@@ -95,35 +96,35 @@ export const Item: FC<ItemProps> = ({
       </select>
       <Input
         className={styles.name}
-        readOnly={!itemsChanges.has(item._id as ProductFields)}
+        active={isActive}
         isReset={isReset}
         initialValue={item.name}
         handler={onInputChange(ProductFields.name)}
       />
       <Input
         type="number"
-        readOnly={!itemsChanges.has(item._id as ProductFields)}
+        active={isActive}
         isReset={isReset}
         initialValue={item.proteins}
         handler={onInputChange(ProductFields.proteins)}
       />
       <Input
         type="number"
-        readOnly={!itemsChanges.has(item._id as ProductFields)}
+        active={isActive}
         isReset={isReset}
         initialValue={item.fat}
         handler={onInputChange(ProductFields.fat)}
       />
       <Input
         type="number"
-        readOnly={!itemsChanges.has(item._id as ProductFields)}
+        active={isActive}
         isReset={isReset}
         initialValue={item.carbohydrates}
         handler={onInputChange(ProductFields.carbohydrates)}
       />
       <Input
         type="number"
-        readOnly={!itemsChanges.has(item._id as ProductFields)}
+        active={isActive}
         isReset={isReset}
         initialValue={item.kcal}
         handler={onInputChange(ProductFields.kcal)}

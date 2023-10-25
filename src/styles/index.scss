@@ -1,5 +1,6 @@
 @import 'reset';
 @import 'variables.scss';
+@import 'mixins';
 
 * {
   box-sizing: border-box;
@@ -8,9 +9,8 @@
 body {
   height: 100vh;
   margin: 0;
-  font-family: var(--font-main);
-  font-size: var(--base-font-size);
-  font-weight: 400;
+  font-family: var(--font-family-main);
+  @include font-body;
   color: var(--font-black-color);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -41,10 +41,12 @@ h3 {
 }
 
 input,
-select {
+select,
+textarea {
   padding-inline: var(--size-mini);
   border: 1px solid var(--gray-color);
   border-radius: var(--base-border-radius);
+  font-family: var(--font-family-main);
 }
 
 .layout-padding-inline {

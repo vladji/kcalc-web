@@ -1,10 +1,12 @@
-import { ChangeEvent, FC, useEffect, useState } from "react";
+import { ChangeEvent, FC, useEffect, useState } from 'react';
+import cn from 'classnames';
+import styles from './styles.module.scss';
 
 interface InputProps {
   initialValue: string;
   handler: (value: string) => void;
-  readOnly: boolean;
   isReset: boolean;
+  active: boolean;
   className?: string;
   type?: 'text' | 'number';
 }
@@ -12,10 +14,10 @@ interface InputProps {
 export const Input: FC<InputProps> = ({
   initialValue,
   handler,
-  readOnly = true,
   isReset,
+  active,
   className,
-  type = "text",
+  type = 'text',
 }) => {
   const [value, setValue] = useState<string>(initialValue);
 
@@ -33,9 +35,9 @@ export const Input: FC<InputProps> = ({
 
   return (
     <input
-      className={className}
+      className={cn(styles.wrapper, className, { [styles.active]: active })}
       type={type}
-      readOnly={readOnly}
+      readOnly={!active}
       value={value}
       onChange={onChange}
     />

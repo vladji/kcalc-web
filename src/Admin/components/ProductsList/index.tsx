@@ -1,8 +1,8 @@
 import { FC, useEffect, useState } from 'react';
-import { Loader } from '../../../components/UI/Loader';
-import { Button } from '../../../components/UI/Button';
+import { Loader } from '../../../components/shared/Loader';
+import { Button } from '../../../components/shared/Button';
 import { Item } from './Item';
-import { Modal } from '../../../components/UI/Modal';
+import { Modal } from '../../../components/shared/Modal';
 import { CreateProduct } from '../CreateProduct';
 import { useFetchProductsByCategory } from '../../requests/products/useFetchProductsByCategory';
 import { useUpdateProducts } from '../../requests/products/useUpdateProducts';
@@ -60,6 +60,7 @@ export const ProductsList: FC<AdminProductsListProps> = ({ category }) => {
     <div className={styles.wrapper}>
       {isLoading && <Loader />}
       <div className={styles.tableHeader}>
+        <span>category</span>
         <span className={styles.name}>name</span>
         <span>proteins</span>
         <span>fat</span>
@@ -94,7 +95,7 @@ export const ProductsList: FC<AdminProductsListProps> = ({ category }) => {
             <span>Cancel all</span>
           </Button>
         </div>
-        <Button className={styles.createButton} handler={onCreateClick}>
+        <Button handler={onCreateClick} blue>
           <span>Create Product</span>
         </Button>
       </div>

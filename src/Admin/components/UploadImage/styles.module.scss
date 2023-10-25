@@ -1,5 +1,9 @@
 .wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-top: var(--size-standard);
+  border-radius: var(--size-micro);
   background-color: var(--inactive-color);
 
   input {

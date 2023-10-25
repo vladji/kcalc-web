@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Loader } from '../../../components/UI/Loader';
+import { Loader } from '../../../components/shared/Loader';
 import cn from 'classnames';
 import styles from './styles.module.scss';
 
