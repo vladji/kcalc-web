@@ -5,7 +5,7 @@ import {
   ReplaceRecipeImageNameRequest,
   UploadImageRequest,
 } from './types';
-import { API, HEADERS_JSON, IMAGE_API, IMAGE_API_KEY } from '../constants';
+import { API, HEADERS_JSON, IMAGE_API, API_KEY } from '../constants';
 import { RecipeCategoriesEnum, RecipeProps } from '../../types/recipes';
 
 export const getRecipesCategories =
@@ -40,7 +40,7 @@ export const uploadImage = async ({
   try {
     const response = await fetch(`${IMAGE_API}/upload-image?delete=${deleteFileName}`, {
       headers: {
-        Authorization: `${IMAGE_API_KEY}`,
+        Authorization: `${API_KEY}`,
       },
       method: 'POST',
       body: formData,

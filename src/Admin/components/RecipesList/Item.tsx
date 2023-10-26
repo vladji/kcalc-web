@@ -20,11 +20,12 @@ export const Item: FC<ItemProps> = ({ recipe, refetchRecipes }) => {
   const [item, setItem] = useState<RecipeProps>(structuredClone(recipe));
   const [active, setActive] = useState<boolean>(false);
   const [recipeDescription, setRecipeDescription] = useState<string>(recipe.recipe.join('. '));
+  const [loading, setLoading] = useState<boolean>(false);
 
   const itemRef = useRef<HTMLLIElement | null>(null);
 
   const { categories } = useFetchRecipesCategories();
-  const { postRecipe, loading } = usePostRecipe({ refetchRecipes, setActive });
+  const { postRecipe } = usePostRecipe();
 
   const onImageLoaded = () => {
     const item = itemRef.current;
@@ -66,12 +67,21 @@ export const Item: FC<ItemProps> = ({ recipe, refetchRecipes }) => {
     item.products[index][field] = value;
   };
 
-  const onSaveRecipe = () => {
+  const onSaveRecipe = async () => {
+    setLoading(true);
     item.recipe = recipeDescription.split('.').map((sentence) => sentence.trim());
     if (item.recipe[item.recipe.length - 1] === '') {
       item.recipe.pop();
     }
-    postRecipe({ recipe: item, recipeId: item._id });
+    const response = await postRecipe({ recipe: item, recipeId: item._id });
+    if (response?.data?.acknowledged) {
+      await refetchRecipes();
+    }
+    setActive(false);
+    setLoading(false);
+    if (!response?.data?.acknowledged) {
+      alert('Что-то пошло не так');
+    }
   };
 
   return (

@@ -16,6 +16,10 @@ $category-field-width: 128px;
   border-bottom: 1px solid var(--gray-color);
   background-color: var(--light-color);
 
+  .showIdButton {
+    color: var(--brand-color);
+  }
+
   span {
     width: var(--input-width-short);
     text-overflow: ellipsis;
@@ -44,17 +48,23 @@ $category-field-width: 128px;
 
 .item {
   display: flex;
+  align-items: center;
   gap: var(--size-mini);
 
-  .category {
+  .cellId {
+    font-size: 12px;
+  }
+
+  .cellCategory {
     width: #{$category-field-width};
+    height: 100%;
 
     &.active {
       @include active-input;
     }
   }
 
-  .name {
+  .cellName {
     flex-grow: 1;
   }
 }

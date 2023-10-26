@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { ChangeEvent, FC, useEffect, useMemo, useState } from 'react';
 import { Loader } from '../../../components/shared/Loader';
 import { Button } from '../../../components/shared/Button';
 import { Item } from './Item';
@@ -21,6 +21,8 @@ export const ProductsList: FC<AdminProductsListProps> = ({ category }) => {
   const [isSave, setIsSave] = useState<boolean>(false);
   const [manualLoading, setManualLoading] = useState<boolean>(false);
   const [itemsChanges, setItemsChanges] = useState<InputChangesMap>(new Map());
+  const [showId, setShowId] = useState<boolean>(false);
+  const [valueId, setValueId] = useState<string>('');
 
   useEffect(() => {
     if (!itemsChanges.size) {
@@ -31,6 +33,14 @@ export const ProductsList: FC<AdminProductsListProps> = ({ category }) => {
   const { categories } = useFetchProductCategories();
   const { productsList, loading, refetch } = useFetchProductsByCategory(category);
   const { updateProducts } = useUpdateProducts();
+
+  const displayList: ProductsPropsWithDbId[] = useMemo(() => {
+    if (valueId && productsList) {
+      return productsList.filter((product) => product._id.includes(valueId));
+    } else {
+      return productsList || [];
+    }
+  }, [valueId, productsList]);
 
   const onSaveAllChanges = async () => {
     setManualLoading(true);
@@ -54,14 +64,27 @@ export const ProductsList: FC<AdminProductsListProps> = ({ category }) => {
     setShowCreateProductModal(true);
   };
 
+  const onShowId = () => {
+    setShowId((prev) => !prev);
+  };
+
+  const onSearchProductId = (event: ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    console.log('value', value);
+    setValueId(value);
+  };
+
   const isLoading = manualLoading || loading;
 
   return (
     <div className={styles.wrapper}>
       {isLoading && <Loader />}
       <div className={styles.tableHeader}>
-        <span className={styles.category}>category</span>
-        <span className={styles.name}>name</span>
+        <button className={styles.showIdButton} onClick={onShowId}>
+          {showId ? 'hide ID' : 'show ID'}
+        </button>
+        <input type="text" value={valueId} onChange={onSearchProductId} />
+        <span className={styles.name} />
         <span>proteins</span>
         <span>fat</span>
         <span>carb</span>
@@ -72,10 +95,11 @@ export const ProductsList: FC<AdminProductsListProps> = ({ category }) => {
       </div>
       <ul className={styles.listWrapper}>
         {!loading &&
-          productsList?.map((item) => (
+          displayList?.map((item) => (
             <Item
               key={item._id}
               item={{ ...item }}
+              showId={showId}
               isSave={isSave}
               setIsSave={setIsSave}
               itemsChanges={itemsChanges}

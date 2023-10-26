@@ -13,6 +13,7 @@ export type OnInputChange = (field: ProductFields) => (value: string) => void;
 
 interface ItemProps {
   item: ProductsPropsWithDbId;
+  showId: boolean;
   isSave: boolean;
   setIsSave: Dispatch<SetStateAction<boolean>>;
   itemsChanges: InputChangesMap;
@@ -24,6 +25,7 @@ interface ItemProps {
 
 export const Item: FC<ItemProps> = ({
   item,
+  showId,
   isSave,
   setIsSave,
   itemsChanges,
@@ -86,16 +88,19 @@ export const Item: FC<ItemProps> = ({
 
   return (
     <li className={cn(styles.item, { [styles.active]: isActive })}>
-      <select
-        className={cn(styles.category, { [styles.active]: isActive })}
-        disabled={!isActive}
-        onChange={onSelectCategory}
-        value={category}
-      >
-        {!!categories && categories.map((category) => <option key={category}>{category}</option>)}
-      </select>
+      {!isActive && showId && <span className={styles.cellId}>{item._id}</span>}
+      {isActive && (
+        <select
+          className={cn(styles.cellCategory, { [styles.active]: isActive })}
+          disabled={!isActive}
+          onChange={onSelectCategory}
+          value={category}
+        >
+          {!!categories && categories.map((category) => <option key={category}>{category}</option>)}
+        </select>
+      )}
       <Input
-        className={styles.name}
+        className={styles.cellName}
         active={isActive}
         isReset={isReset}
         initialValue={item.name}

@@ -15,13 +15,11 @@ export const RecipesList: FC<RecipesListProps> = ({ category }) => {
   return (
     <>
       {loading && <Loader />}
-      {!loading && (
-        <ul className={styles.wrapper}>
-          {data.map((recipe) => (
-            <Item key={recipe._id} recipe={recipe} refetchRecipes={refetch} />
-          ))}
-        </ul>
-      )}
+      <ul className={styles.wrapper}>
+        {data.map((recipe) => (
+          <Item key={recipe._id} recipe={recipe} refetchRecipes={refetch} />
+        ))}
+      </ul>
     </>
   );
 };

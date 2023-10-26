@@ -1,6 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 import { CheckIcon } from '../../../icons/CheckIcon';
 import cn from 'classnames';
+import { LIGHT_COLOR } from '../../../constants/common';
 import styles from './styles.module.scss';
 
 interface CheckBoxProps {
@@ -34,7 +35,7 @@ export const CheckBox: FC<CheckBoxProps> = ({
   return (
     <button className={styles.button} onClick={onChange} disabled={!active}>
       <div className={cn(styles.checkBox, { [styles.checked]: checked })}>
-        {checked && <CheckIcon color="#fff" />}
+        {checked && <CheckIcon color={LIGHT_COLOR} />}
       </div>
       <span>{text}</span>
     </button>
