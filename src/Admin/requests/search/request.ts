@@ -7,7 +7,7 @@ export const search = async ({
   page,
 }: SearchRequest): Promise<ResponseCustom<SearchResponse> | undefined> => {
   try {
-    const response = await fetch(`${API}/search-products?query=${query}&page=${page}`, {
+    const response = await fetch(`${API}/search-products?query=${query}&page=${page}&size=50`, {
       method: 'GET',
       headers: {
         Authorization: `${API_KEY}`,
