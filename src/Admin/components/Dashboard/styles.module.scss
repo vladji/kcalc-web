@@ -1,27 +1,51 @@
+$input-height: 32px;
+
 .section {
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
+  height: calc(100vh - var(--header-height));
 }
 
 .inputWrapper {
   display: flex;
   justify-content: center;
+  padding-top: var(--size-huge);
+  padding-bottom: var(--size-standard);
+
+  .inputHolder {
+    position: relative;
+  }
 
   input {
-    height: 32px;
+    height: #{$input-height};
     width: 352px;
   }
+
+  .spinner {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    height: #{$input-height};
+  }
+}
+
+.tableHeader {
+  display: grid;
+  grid-template-columns: 2fr 4fr 10fr 1fr 1fr 1fr 1fr;
+  gap: var(--size-standard);
+  margin-right: 17px;
+  padding-bottom: var(--size-mini);
 }
 
 .listWrapper {
   flex-grow: 1;
-  margin-block: var(--size-max);
+  overflow-y: scroll;
 
   .item {
     position: relative;
     display: grid;
-    grid-template-columns: 1fr 2fr 6fr;
+    grid-template-columns: 2fr 4fr 10fr 1fr 1fr 1fr 1fr;
     align-items: center;
     gap: var(--size-standard);
     padding-block: var(--size-mini);
@@ -59,5 +83,5 @@
   display: flex;
   justify-content: center;
   gap: var(--size-max);
-  margin-bottom: var(--size-standard);
+  padding-block: var(--size-standard);
 }

@@ -70,7 +70,6 @@ export const ProductsList: FC<AdminProductsListProps> = ({ category }) => {
 
   const onSearchProductId = (event: ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
-    console.log('value', value);
     setValueId(value);
   };
 
@@ -83,7 +82,13 @@ export const ProductsList: FC<AdminProductsListProps> = ({ category }) => {
         <button className={styles.showIdButton} onClick={onShowId}>
           {showId ? 'hide ID' : 'show ID'}
         </button>
-        <input type="text" value={valueId} onChange={onSearchProductId} />
+        <input
+          className={styles.searchInput}
+          type="text"
+          value={valueId}
+          onChange={onSearchProductId}
+          placeholder="поиск по ID"
+        />
         <span className={styles.name} />
         <span>proteins</span>
         <span>fat</span>

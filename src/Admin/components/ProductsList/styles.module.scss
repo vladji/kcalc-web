@@ -4,19 +4,22 @@ $category-field-width: 128px;
 
 .wrapper {
   flex-grow: 1;
+  height: 100%;
+  overflow: hidden;
 }
 
 .tableHeader {
   display: flex;
   align-items: center;
   gap: var(--size-mini);
-  height: var(--input-height-admin);;
   padding-left: var(--size-standard);
   padding-right: var(--size-huge);
+  padding-bottom: var(--size-micro);
   border-bottom: 1px solid var(--gray-color);
   background-color: var(--light-color);
 
   .showIdButton {
+    width: 68px;
     color: var(--brand-color);
   }
 
@@ -29,6 +32,11 @@ $category-field-width: 128px;
 
   .category {
     width: #{$category-field-width};
+  }
+
+  .searchInput {
+    width: 214px;
+    height: var(--input-height-admin);
   }
 
   .name {

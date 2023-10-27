@@ -1,4 +1,5 @@
-import { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
+import { Spinner } from '../../../components/shared/Spinner';
 import { useSearch } from '../../requests/search/useSearch';
 import { useDebounce } from '../../../hooks/useDebounce';
 import { SearchRequest } from '../../requests/search/types';
@@ -11,10 +12,8 @@ export const Dashboard = () => {
   const [query, setQuery] = useState<string>('');
   const [page, setPage] = useState<number>(1);
 
-  const { search, data } = useSearch();
+  const { search, data, loading } = useSearch();
   const debouncedSearch = useDebounce(search, 500);
-  // console.log('meta', data?.meta);
-  // console.log('result', data?.results);
 
   const searchRequest = ({ query, page }: SearchRequest) => {
     debouncedSearch({ query, page });
@@ -26,8 +25,10 @@ export const Dashboard = () => {
     searchRequest({ query: value, page: 1 });
   };
 
-  const onBufferCopy = (value: string) => {
+  const onBufferCopy = (event: any, value: string) => {
     navigator.clipboard.writeText(value);
+    const target = event.target.closest('.cell-id').querySelector('.item-id');
+    target.style.color = '#5b8fd3';
   };
 
   const canNextPage = data && data?.meta.page.total_pages > page;
@@ -48,18 +49,37 @@ export const Dashboard = () => {
   };
 
   return (
-    <section className={cn('section-wrapper', 'layout-padding-inline', styles.section)}>
+    <section className={cn('layout-padding-inline', styles.section)}>
       <div className={styles.inputWrapper}>
-        <input type="text" value={query} onChange={onChange} />
+        <div className={styles.inputHolder}>
+          <input type="text" value={query} onChange={onChange} />
+          {loading && (
+            <div className={styles.spinner}>
+              <Spinner color="grayColor" size="small" />
+            </div>
+          )}
+        </div>
       </div>
+      <ul className={styles.tableHeader}>
+        <li>category</li>
+        <li>ID</li>
+        <li>name</li>
+        <li>prot</li>
+        <li>fat</li>
+        <li>carb</li>
+        <li>kcal</li>
+      </ul>
       <ul className={styles.listWrapper}>
         {!!data?.results &&
           data.results.map((item) => (
             <li key={item.id.raw} className={styles.item}>
               <span>{item.category.raw}</span>
-              <div className={styles.cellId}>
-                <span>{item.id.raw}</span>
-                <button className={styles.copyButton} onClick={() => onBufferCopy(item.id.raw)}>
+              <div className={cn(styles.cellId, 'cell-id')}>
+                <span className="item-id">{item.id.raw}</span>
+                <button
+                  className={styles.copyButton}
+                  onClick={(event) => onBufferCopy(event, item.id.raw)}
+                >
                   <ClipboardIcon color={BLACK_COLOR} />
                 </button>
               </div>
@@ -67,6 +87,10 @@ export const Dashboard = () => {
                 className={styles.cellName}
                 dangerouslySetInnerHTML={{ __html: item.name.snippet }}
               />
+              <span>{item.proteins.raw}</span>
+              <span>{item.fat.raw}</span>
+              <span>{item.carbohydrates.raw}</span>
+              <span>{item.kcal.raw}</span>
             </li>
           ))}
       </ul>
@@ -74,9 +98,12 @@ export const Dashboard = () => {
         <button onClick={onPrevPage} disabled={!canPrevPage}>
           {'<<< prev'}
         </button>
-        <span>
-          {data?.meta.page.current} ({data?.meta.page.total_pages})
-        </span>
+        <div>
+          <span>
+            <b>{data?.meta.page.current}</b>
+          </span>
+          <span>({data?.meta.page.total_pages})</span>
+        </div>
         <button onClick={onNextPage} disabled={!canNextPage}>
           {'next >>>'}
         </button>
