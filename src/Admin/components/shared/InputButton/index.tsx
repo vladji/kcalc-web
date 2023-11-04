@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import React, { FC } from 'react';
 import cn from 'classnames';
 import styles from './styles.module.scss';
 
@@ -17,7 +17,8 @@ export const InputButton: FC<InputButtonProps> = ({
   gray = false,
   className,
 }) => {
-  const onClick = () => {
+  const onClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    event.preventDefault();
     handler();
   };
   return (

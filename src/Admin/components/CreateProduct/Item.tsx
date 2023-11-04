@@ -1,35 +1,31 @@
-import React, { Dispatch, FC, SetStateAction } from "react";
-import cn from "classnames";
-import styles from "./styles.module.scss";
+import React, { FC } from 'react';
+import cn from 'classnames';
+import styles from './styles.module.scss';
 
-interface ItemProps {
+export interface ItemProps {
+  id: string;
+  productsCount: number;
+  deleteHandler: (id: string) => void;
   categories?: string[];
-  setItemsCount: Dispatch<SetStateAction<number>>;
 }
 
-export const Item: FC<ItemProps> = ({ categories, setItemsCount }) => {
+export const Item: FC<ItemProps> = ({ id, productsCount, deleteHandler, categories }) => {
   const onDeleteButtonClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
-    setItemsCount((prev) => {
-      if (prev > 1) {
-        return prev - 1;
-      } else {
-        return prev;
-      }
-    });
+    deleteHandler(id);
   };
 
   return (
     <fieldset className={styles.fieldset}>
-      <button className={styles.deleteButton} onClick={onDeleteButtonClick}>X</button>
+      {productsCount > 1 && (
+        <button className={styles.deleteButton} onClick={onDeleteButtonClick}>
+          X
+        </button>
+      )}
       <div className={styles.inputBlock}>
         <label>category</label>
         <select className="create-product-input" name="category">
-          {!!categories &&
-            categories.map((category) => (
-              <option key={category}>{category}</option>
-            ))
-          }
+          {!!categories && categories.map((category) => <option key={category}>{category}</option>)}
         </select>
       </div>
       <div className={cn(styles.inputBlock, styles.name)}>

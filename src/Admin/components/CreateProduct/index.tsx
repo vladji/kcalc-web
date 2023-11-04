@@ -1,6 +1,6 @@
-import { FC, Fragment, useRef, useState } from 'react';
+import { FC, useRef, useState } from 'react';
 import cn from 'classnames';
-import { Item } from './Item';
+import { Item, ItemProps } from './Item';
 import { Button } from '../../../components/shared/Button';
 import { Loader } from '../../../components/shared/Loader';
 import { useFetchProductCategories } from '../../requests/products/useFetchProductCategories';
@@ -15,6 +15,11 @@ interface AdminCreateProductProps {
   loadingProducts: boolean;
 }
 
+interface ProductsListProps {
+  id: string;
+  Product: FC<ItemProps>;
+}
+
 export const CreateProduct: FC<AdminCreateProductProps> = ({
   onClose,
   refetchProducts,
@@ -23,9 +28,10 @@ export const CreateProduct: FC<AdminCreateProductProps> = ({
   const formRef = useRef<HTMLFormElement>(null);
 
   const [isValid, setIsValid] = useState(true);
-  const [itemsCount, setItemsCount] = useState(1);
 
-  const items = Array.from({ length: itemsCount });
+  const [productsList, setProductsList] = useState<ProductsListProps[]>([
+    { id: uuidv4(), Product: Item },
+  ]);
 
   const { categories } = useFetchProductCategories();
   const { postProducts, loading } = usePostProducts();
@@ -61,8 +67,13 @@ export const CreateProduct: FC<AdminCreateProductProps> = ({
     }
   };
 
-  const onAddProductClick = () => {
-    setItemsCount((prev) => prev + 1);
+  const onAddProduct = () => {
+    setProductsList((prev) => [...prev, { id: uuidv4(), Product: Item }]);
+  };
+
+  const onDeleteProduct = (id: string) => {
+    const newList = productsList.filter((product) => product.id !== id);
+    setProductsList(newList);
   };
 
   return (
@@ -72,17 +83,21 @@ export const CreateProduct: FC<AdminCreateProductProps> = ({
         {isValid ? 'Create product' : 'Необходимо заполнить все поля'}
       </h4>
       <form ref={formRef} className={styles.form}>
-        {items.map((_, index) => (
-          <Fragment key={index}>
-            <Item categories={categories} setItemsCount={setItemsCount} />
-          </Fragment>
+        {productsList.map((item) => (
+          <item.Product
+            key={item.id}
+            id={item.id}
+            productsCount={productsList.length}
+            deleteHandler={onDeleteProduct}
+            categories={categories}
+          />
         ))}
       </form>
       <div className={styles.buttonsWrapper}>
         <Button handler={onSaveClick}>
           <span>Save</span>
         </Button>
-        <Button className={styles.addButton} handler={onAddProductClick}>
+        <Button className={styles.addButton} handler={onAddProduct}>
           <span>Add product</span>
         </Button>
       </div>
