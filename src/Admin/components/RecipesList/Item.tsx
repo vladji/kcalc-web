@@ -1,4 +1,4 @@
-import { FC, useRef, useState } from 'react';
+import React, { FC, useRef, useState } from 'react';
 import { IMAGE_BASE64_PREFIX } from '../../constants/common';
 import { UploadImage } from '../UploadImage';
 import { Input } from '../shared/Input';
@@ -6,8 +6,12 @@ import { TextArea } from '../shared/TextArea';
 import { Loader } from '../../../components/shared/Loader';
 import { Button } from '../../../components/shared/Button';
 import { CheckBox } from '../shared/CheckBox';
+import { Modal } from '../../../components/shared/Modal';
+import { ConfirmModal } from '../ConfirmModal';
 import { usePatchRecipe } from '../../requests/recipes/usePatchRecipe';
 import { useFetchRecipesCategories } from '../../requests/recipes/useFetchRecipesCategories';
+import { useDeleteRecipe } from '../../requests/recipes/useDeleteRecipe';
+import { useDeleteImage } from '../../requests/recipes/useDeleteImage';
 import { RecipeCategoriesEnum, RecipeProductsFields, RecipeProps } from '../../types/recipes';
 import styles from './styles.module.scss';
 
@@ -21,11 +25,14 @@ export const Item: FC<ItemProps> = ({ recipe, refetchRecipes }) => {
   const [active, setActive] = useState<boolean>(false);
   const [recipeDescription, setRecipeDescription] = useState<string>(recipe.recipe.join('. '));
   const [loading, setLoading] = useState<boolean>(false);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState<boolean>(false);
 
   const itemRef = useRef<HTMLLIElement | null>(null);
 
   const { categories } = useFetchRecipesCategories();
   const { patchRecipe } = usePatchRecipe();
+  const { deleteRecipe, deleteRecipeLoading } = useDeleteRecipe();
+  const { deleteImage, deleteImageLoading } = useDeleteImage();
 
   const onImageLoaded = () => {
     const item = itemRef.current;
@@ -82,6 +89,13 @@ export const Item: FC<ItemProps> = ({ recipe, refetchRecipes }) => {
     if (!response?.data?.acknowledged) {
       alert('Что-то пошло не так');
     }
+  };
+
+  const onDeleteRecipe = async () => {
+    await deleteRecipe({ recipeId: recipe._id });
+    await deleteImage(recipe.image);
+    await refetchRecipes();
+    setShowDeleteConfirm(false);
   };
 
   return (
@@ -185,11 +199,25 @@ export const Item: FC<ItemProps> = ({ recipe, refetchRecipes }) => {
                 <span>Cancel</span>
               </Button>
             </div>
-            <Button handler={onSaveRecipe} disabled={!active}>
-              <span>Save</span>
-            </Button>
+            <div className={styles.rightSide}>
+              <Button handler={onSaveRecipe} disabled={!active}>
+                <span>Save</span>
+              </Button>
+              <Button handler={() => setShowDeleteConfirm(true)} disabled={!active} outlined>
+                <span>Delete</span>
+              </Button>
+            </div>
           </div>
         </div>
+        {showDeleteConfirm && (
+          <Modal onClose={() => setShowDeleteConfirm(false)}>
+            <ConfirmModal
+              confirmHandler={onDeleteRecipe}
+              cancelHandler={() => setShowDeleteConfirm(false)}
+              loading={deleteRecipeLoading || deleteImageLoading}
+            />
+          </Modal>
+        )}
       </li>
     </>
   );

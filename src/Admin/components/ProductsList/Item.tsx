@@ -4,7 +4,7 @@ import { InputButton } from '../shared/InputButton';
 import { InputChangesMap } from './index';
 import { Input } from '../shared/Input';
 import { Modal } from '../../../components/shared/Modal';
-import { ConfirmModal } from './ConfirmModal';
+import { ConfirmModal } from '../ConfirmModal';
 import { useDeleteProduct } from '../../requests/products/useDeleteProduct';
 import cn from 'classnames';
 import styles from './styles.module.scss';

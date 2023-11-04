@@ -1,5 +1,6 @@
 import { MongoResponse, ResponseCustom } from '../types';
 import {
+  DeleteRecipeRequest,
   PatchRecipeRequest,
   PostRecipeProps,
   RecipesCategoriesResponse,
@@ -45,6 +46,20 @@ export const uploadImage = async ({
       },
       method: 'POST',
       body: formData,
+    });
+    return await response.json();
+  } catch {
+    alert('Server error');
+  }
+};
+
+export const deleteImage = async (imageName: string): Promise<ResponseCustom<string> | void> => {
+  try {
+    const response = await fetch(`${IMAGE_API}/delete-image?image=${imageName}`, {
+      headers: {
+        Authorization: `${API_KEY}`,
+      },
+      method: 'DELETE',
     });
     return await response.json();
   } catch {
@@ -108,6 +123,21 @@ export const postRecipe = async ({
       headers: HEADERS_JSON,
       method: 'POST',
       body: JSON.stringify(recipe),
+    });
+    return await response.json();
+  } catch {
+    alert('Server error');
+  }
+};
+
+export const deleteRecipe = async ({
+  recipeId,
+  token,
+}: DeleteRecipeRequest): Promise<ResponseCustom<MongoResponse> | void> => {
+  try {
+    const response = await fetch(`${API}/delete-recipe?id=${recipeId}&token=${token}`, {
+      headers: HEADERS_JSON,
+      method: 'DELETE',
     });
     return await response.json();
   } catch {

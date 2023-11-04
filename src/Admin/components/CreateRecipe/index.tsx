@@ -24,7 +24,11 @@ interface ProductsListProps {
   Product: FC<ProductItemProps>;
 }
 
-export const CreateRecipe = () => {
+interface CreateRecipeProps {
+  closeHandler: () => void;
+}
+
+export const CreateRecipe: FC<CreateRecipeProps> = ({ closeHandler }) => {
   const formRef = useRef<HTMLFormElement>(null);
 
   const [isValid, setIsValid] = useState(true);
@@ -104,6 +108,7 @@ export const CreateRecipe = () => {
         };
 
         await postRecipe({ recipe });
+        closeHandler();
       }
     }
   };

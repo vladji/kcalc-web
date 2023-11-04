@@ -24,3 +24,8 @@ export interface PostRecipeProps {
   recipe: RecipePostProps;
   token: string;
 }
+
+export interface DeleteRecipeRequest {
+  recipeId: string;
+  token: string;
+}

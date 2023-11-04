@@ -89,7 +89,8 @@
   justify-content: space-between;
   margin-top: var(--size-standard);
 
-  .leftSide {
+  .leftSide,
+  .rightSide {
     display: flex;
     gap: var(--size-standard);
   }

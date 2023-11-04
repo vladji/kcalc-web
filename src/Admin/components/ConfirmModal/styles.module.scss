@@ -1,0 +1,20 @@
+.confirmModal {
+  text-align: center;
+}
+
+.text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--size-mini);
+}
+
+.emoji {
+  font-size: 24px;
+}
+
+.buttonsWrapper {
+  display: flex;
+  gap: var(--size-huge);
+  margin-top: var(--size-huge);
+}

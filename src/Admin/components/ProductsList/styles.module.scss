@@ -92,13 +92,3 @@ $category-field-width: 128px;
   display: flex;
   gap: var(--size-huge);
 }
-
-.confirmModal {
-  text-align: center;
-
-  .buttonsWrapper {
-    display: flex;
-    gap: var(--size-huge);
-    margin-top: var(--size-huge);
-  }
-}

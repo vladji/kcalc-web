@@ -42,7 +42,7 @@ export const CategoriesList: FC<CategoriesListProps<any>> = ({
       </Button>
       {showCreateModal && (
         <Modal onClose={() => setShowCreateModal(false)}>
-          <CreateRecipe />
+          <CreateRecipe closeHandler={() => setShowCreateModal(false)} />
         </Modal>
       )}
     </div>
