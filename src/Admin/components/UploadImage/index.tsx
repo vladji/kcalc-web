@@ -9,9 +9,15 @@ interface UploadImageProps {
   recipeId?: string;
   originName?: string;
   refetchRecipes?: () => void;
+  fetchImage?: (filename: string) => void;
 }
 
-export const UploadImage: FC<UploadImageProps> = ({ originName, recipeId, refetchRecipes }) => {
+export const UploadImage: FC<UploadImageProps> = ({
+  originName,
+  recipeId,
+  refetchRecipes,
+  fetchImage,
+}) => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
   const { uploadImage, uploadLoading } = useUploadImage();
@@ -34,7 +40,8 @@ export const UploadImage: FC<UploadImageProps> = ({ originName, recipeId, refetc
           newImageName: uploadResult?.data,
         });
       }
-      if (refetchRecipes) refetchRecipes();
+      if (refetchRecipes && uploadResult?.data) refetchRecipes();
+      if (fetchImage && uploadResult?.data) fetchImage(uploadResult.data);
     }
   };
 

@@ -27,20 +27,22 @@ export enum RecipeProductsFields {
   amount = 'amount',
 }
 
-export interface RecipeProps {
+export interface RecipeProductsProps {
   _id?: string;
+  prodId: string;
+  prod: string;
+  amount: string;
+}
+
+export interface RecipeProps {
+  _id: string;
   id: string;
   category: RecipeCategoriesEnum[];
   name: string;
   image: string;
-  imageBase64: string;
-  products: [
-    {
-      _id: string;
-      prodId?: string;
-      prod: string;
-      amount: string;
-    }
-  ];
+  imageBase64?: string;
+  products: RecipeProductsProps[];
   recipe: string[];
 }
+
+export type RecipePostProps = Omit<RecipeProps, '_id' | 'imageBase64'>;

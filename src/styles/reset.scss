@@ -34,9 +34,11 @@ li {
   padding: 0;
 }
 
-fieldset {
+fieldset,
+legend {
   margin: 0;
   padding: 0;
+  padding-inline: 0;
   border: 0;
 }
 

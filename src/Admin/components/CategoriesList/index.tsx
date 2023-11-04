@@ -1,6 +1,8 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { Loader } from '../../../components/shared/Loader';
 import { Button } from '../../../components/shared/Button';
+import { Modal } from '../../../components/shared/Modal';
+import { CreateRecipe } from '../CreateRecipe';
 import cn from 'classnames';
 import styles from './styles.module.scss';
 
@@ -17,6 +19,8 @@ export const CategoriesList: FC<CategoriesListProps<any>> = ({
   isLoading,
   categories,
 }) => {
+  const [showCreateModal, setShowCreateModal] = useState(false);
+
   return (
     <div className={styles.wrapper}>
       {isLoading && <Loader />}
@@ -33,9 +37,14 @@ export const CategoriesList: FC<CategoriesListProps<any>> = ({
           ))}
         </ul>
       )}
-      <Button className={styles.button} handler={() => null} blue>
-        <span>New recipe</span>
+      <Button className={styles.button} handler={() => setShowCreateModal(true)} blue>
+        <span>Create recipe</span>
       </Button>
+      {showCreateModal && (
+        <Modal onClose={() => setShowCreateModal(false)}>
+          <CreateRecipe />
+        </Modal>
+      )}
     </div>
   );
 };

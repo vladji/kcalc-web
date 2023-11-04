@@ -1,0 +1,88 @@
+.wrapper {
+  min-width: 80vw;
+}
+
+.inner {
+  display: flex;
+  gap: var(--size-huge);
+  margin-top: var(--size-huge);
+}
+
+.invalidMessage {
+  color: var(--alert-color);
+}
+
+.rightBlock {
+  flex-grow: 1;
+}
+
+.imageWrapper {
+  width: 424px;
+  height: 314px;
+  border: 2px dashed var(--dark-color);
+
+  img {
+    display: block;
+  }
+}
+
+.categoriesWrapper {
+  display: flex;
+  gap: var(--size-standard);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-standard);
+  margin-top: var(--size-huge);
+
+  legend {
+    margin-bottom: var(--size-mini);
+  }
+
+  input {
+    height: var(--input-height-admin);
+  }
+
+  .block {
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-mini);
+  }
+
+  .inputId {
+    width: var(--input-product-id-width);
+  }
+
+  .shortInput {
+    width: var(--input-width-short);
+  }
+}
+
+.inputsRow {
+  display: flex;
+  gap: var(--size-mini);
+}
+
+.deleteButton {
+  width: var(--input-height-admin);
+  height: var(--input-height-admin);
+  align-self: flex-end;
+  border-radius: var(--base-border-radius);
+  background-color: var(--gray-color);
+}
+
+.inputName {
+  flex: 1;
+}
+
+.inputButton {
+  width: auto;
+}
+
+.submitBlock {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: var(--size-standard);
+}

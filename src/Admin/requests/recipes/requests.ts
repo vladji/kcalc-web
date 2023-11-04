@@ -1,11 +1,12 @@
 import { MongoResponse, ResponseCustom } from '../types';
 import {
-  PostRecipeRequest,
+  PatchRecipeRequest,
+  PostRecipeProps,
   RecipesCategoriesResponse,
   ReplaceRecipeImageNameRequest,
   UploadImageRequest,
 } from './types';
-import { API, HEADERS_JSON, IMAGE_API, API_KEY } from '../constants';
+import { API, API_KEY, HEADERS_JSON, IMAGE_API } from '../constants';
 import { RecipeCategoriesEnum, RecipeProps } from '../../types/recipes';
 
 export const getRecipesCategories =
@@ -51,6 +52,19 @@ export const uploadImage = async ({
   }
 };
 
+export const fetchImage = async ({ filename }: { filename: string }): Promise<string[] | void> => {
+  try {
+    const response = await fetch(`${IMAGE_API}/images`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify([filename]),
+    });
+    return await response.json();
+  } catch {
+    alert('Server error');
+  }
+};
+
 export const replaceRecipeImageName = async ({
   recipeId,
   newImageName,
@@ -72,9 +86,25 @@ export const pathRecipe = async ({
   recipe,
   token,
   recipeId,
-}: PostRecipeRequest): Promise<ResponseCustom<MongoResponse> | void> => {
+}: PatchRecipeRequest): Promise<ResponseCustom<MongoResponse> | void> => {
   try {
     const response = await fetch(`${API}/patch-recipe?id=${recipeId}&token=${token}`, {
+      headers: HEADERS_JSON,
+      method: 'PATCH',
+      body: JSON.stringify(recipe),
+    });
+    return await response.json();
+  } catch {
+    alert('Server error');
+  }
+};
+
+export const postRecipe = async ({
+  recipe,
+  token,
+}: PostRecipeProps): Promise<ResponseCustom<MongoResponse> | void> => {
+  try {
+    const response = await fetch(`${API}/insert-recipe?token=${token}`, {
       headers: HEADERS_JSON,
       method: 'POST',
       body: JSON.stringify(recipe),

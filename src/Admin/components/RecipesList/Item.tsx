@@ -170,6 +170,7 @@ export const Item: FC<ItemProps> = ({ recipe, refetchRecipes }) => {
                     }
                     isReset={!active}
                     active={active}
+                    type="number"
                   />
                 </div>
               ))}

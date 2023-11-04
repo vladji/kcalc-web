@@ -1,4 +1,4 @@
-import { RecipeCategoriesEnum, RecipeProps } from '../../types/recipes';
+import { RecipeCategoriesEnum, RecipePostProps, RecipeProps } from '../../types/recipes';
 
 export interface RecipesCategoriesResponse {
   categories: RecipeCategoriesEnum[];
@@ -14,8 +14,13 @@ export interface ReplaceRecipeImageNameRequest {
   newImageName: string;
 }
 
-export interface PostRecipeRequest {
+export interface PatchRecipeRequest {
   recipe: RecipeProps;
   token: string;
-  recipeId?: string;
+  recipeId: string;
+}
+
+export interface PostRecipeProps {
+  recipe: RecipePostProps;
+  token: string;
 }
