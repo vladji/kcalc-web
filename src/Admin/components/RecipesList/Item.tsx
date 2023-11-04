@@ -6,7 +6,7 @@ import { TextArea } from '../shared/TextArea';
 import { Loader } from '../../../components/shared/Loader';
 import { Button } from '../../../components/shared/Button';
 import { CheckBox } from '../shared/CheckBox';
-import { usePostRecipe } from '../../requests/recipes/usePostRecipe';
+import { usePatchRecipe } from '../../requests/recipes/usePatchRecipe';
 import { useFetchRecipesCategories } from '../../requests/recipes/useFetchRecipesCategories';
 import { RecipeCategoriesEnum, RecipeProductsFields, RecipeProps } from '../../types/recipes';
 import styles from './styles.module.scss';
@@ -25,7 +25,7 @@ export const Item: FC<ItemProps> = ({ recipe, refetchRecipes }) => {
   const itemRef = useRef<HTMLLIElement | null>(null);
 
   const { categories } = useFetchRecipesCategories();
-  const { postRecipe } = usePostRecipe();
+  const { patchRecipe } = usePatchRecipe();
 
   const onImageLoaded = () => {
     const item = itemRef.current;
@@ -73,7 +73,7 @@ export const Item: FC<ItemProps> = ({ recipe, refetchRecipes }) => {
     if (item.recipe[item.recipe.length - 1] === '') {
       item.recipe.pop();
     }
-    const response = await postRecipe({ recipe: item, recipeId: item._id });
+    const response = await patchRecipe({ recipe: item, recipeId: item._id });
     if (response?.data?.acknowledged) {
       await refetchRecipes();
     }

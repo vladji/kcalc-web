@@ -68,13 +68,13 @@ export const replaceRecipeImageName = async ({
   }
 };
 
-export const postRecipe = async ({
+export const pathRecipe = async ({
   recipe,
   token,
   recipeId,
 }: PostRecipeRequest): Promise<ResponseCustom<MongoResponse> | void> => {
   try {
-    const response = await fetch(`${API}/post-recipe?id=${recipeId}&token=${token}`, {
+    const response = await fetch(`${API}/patch-recipe?id=${recipeId}&token=${token}`, {
       headers: HEADERS_JSON,
       method: 'POST',
       body: JSON.stringify(recipe),

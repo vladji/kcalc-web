@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import { Loader } from '../../../components/shared/Loader';
+import { Button } from '../../../components/shared/Button';
 import cn from 'classnames';
 import styles from './styles.module.scss';
 
@@ -32,6 +33,9 @@ export const CategoriesList: FC<CategoriesListProps<any>> = ({
           ))}
         </ul>
       )}
+      <Button className={styles.button} handler={() => null} blue>
+        <span>New recipe</span>
+      </Button>
     </div>
   );
 };
