@@ -39,7 +39,7 @@ export const CreateRecipe: FC<CreateRecipeProps> = ({ closeHandler }) => {
     { id: uuidv4(), Product: ProductItem },
   ]);
 
-  const { fetchImage, data } = useFetchRecipeImage();
+  const { fetchImage, imageBase64 } = useFetchRecipeImage();
   const { categories } = useFetchRecipesCategories();
   const { postRecipe, loading } = usePostRecipe();
 
@@ -122,7 +122,7 @@ export const CreateRecipe: FC<CreateRecipeProps> = ({ closeHandler }) => {
       <div className={styles.inner}>
         <div>
           <div className={styles.imageWrapper}>
-            {!!data.length && <img src={`${IMAGE_BASE64_PREFIX}${data[0]}`} alt="image" />}
+            {!!imageBase64 && <img src={`${IMAGE_BASE64_PREFIX}${imageBase64}`} alt="image" />}
           </div>
           <UploadImage fetchImage={handleFetchImage} />
         </div>

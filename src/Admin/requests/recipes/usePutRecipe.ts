@@ -1,10 +1,10 @@
 import { UseMutateAsyncFunction, useMutation } from '@tanstack/react-query';
-import { pathRecipe } from './requests';
+import { putRecipe } from './requests';
 import { PatchRecipeRequest } from './types';
 import { MongoResponse, ResponseCustom } from '../types';
 
-type UsePatchRecipe = () => {
-  patchRecipe: UseMutateAsyncFunction<
+type UsePutRecipe = () => {
+  putRecipe: UseMutateAsyncFunction<
     ResponseCustom<MongoResponse> | void,
     unknown,
     Omit<PatchRecipeRequest, 'token'>
@@ -12,7 +12,7 @@ type UsePatchRecipe = () => {
   loading: boolean;
 };
 
-export const usePatchRecipe: UsePatchRecipe = () => {
+export const usePutRecipe: UsePutRecipe = () => {
   const token = localStorage.getItem('token') || '';
 
   const { mutateAsync, isLoading } = useMutation<
@@ -20,7 +20,7 @@ export const usePatchRecipe: UsePatchRecipe = () => {
     unknown,
     Omit<PatchRecipeRequest, 'token'>
   >({
-    mutationFn: ({ recipe, recipeId }) => pathRecipe({ recipe, token, recipeId }),
+    mutationFn: ({ recipe, recipeId }) => putRecipe({ recipe, token, recipeId }),
     onSuccess: (response) => {
       if (response?.error) {
         alert(response.error);
@@ -29,7 +29,7 @@ export const usePatchRecipe: UsePatchRecipe = () => {
   });
 
   return {
-    patchRecipe: mutateAsync,
+    putRecipe: mutateAsync,
     loading: isLoading,
   };
 };

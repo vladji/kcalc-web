@@ -8,8 +8,10 @@ type UseDeleteImage = () => {
 };
 
 export const useDeleteImage: UseDeleteImage = () => {
+  const token = localStorage.getItem('token') || '';
+
   const { mutateAsync, isLoading } = useMutation<ResponseCustom<string> | void, unknown, string>({
-    mutationFn: (imageName) => deleteImage(imageName),
+    mutationFn: (imageName) => deleteImage(imageName, token),
     onSuccess: (response) => {
       if (response?.error) {
         alert(response.error);

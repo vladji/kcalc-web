@@ -7,7 +7,7 @@ import {
   ReplaceRecipeImageNameRequest,
   UploadImageRequest,
 } from './types';
-import { API, API_KEY, HEADERS_JSON, IMAGE_API } from '../constants';
+import { API, HEADERS_JSON } from '../constants';
 import { RecipeCategoriesEnum, RecipeProps } from '../../types/recipes';
 
 export const getRecipesCategories =
@@ -37,13 +37,11 @@ export const getRecipesByCategory = async (
 
 export const uploadImage = async ({
   formData,
+  token,
   deleteFileName = '',
 }: UploadImageRequest): Promise<ResponseCustom<string> | void> => {
   try {
-    const response = await fetch(`${IMAGE_API}/upload-image?delete=${deleteFileName}`, {
-      headers: {
-        Authorization: `${API_KEY}`,
-      },
+    const response = await fetch(`${API}/upload-image?token=${token}&delete=${deleteFileName}`, {
       method: 'POST',
       body: formData,
     });
@@ -53,12 +51,13 @@ export const uploadImage = async ({
   }
 };
 
-export const deleteImage = async (imageName: string): Promise<ResponseCustom<string> | void> => {
+export const deleteImage = async (
+  imageName: string,
+  token: string
+): Promise<ResponseCustom<string> | void> => {
   try {
-    const response = await fetch(`${IMAGE_API}/delete-image?image=${imageName}`, {
-      headers: {
-        Authorization: `${API_KEY}`,
-      },
+    const response = await fetch(`${API}/delete-image?image=${imageName}&token=${token}`, {
+      headers: HEADERS_JSON,
       method: 'DELETE',
     });
     return await response.json();
@@ -67,12 +66,14 @@ export const deleteImage = async (imageName: string): Promise<ResponseCustom<str
   }
 };
 
-export const fetchImage = async ({ filename }: { filename: string }): Promise<string[] | void> => {
+export const fetchImage = async ({
+  filename,
+}: {
+  filename: string;
+}): Promise<ResponseCustom<string> | void> => {
   try {
-    const response = await fetch(`${IMAGE_API}/images`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify([filename]),
+    const response = await fetch(`${API}/image?filename=${filename}`, {
+      method: 'GET',
     });
     return await response.json();
   } catch {
@@ -88,7 +89,7 @@ export const replaceRecipeImageName = async ({
     const response = await fetch(
       `${API}/recipe-replace-image?id=${recipeId}&name=${newImageName}`,
       {
-        method: 'GET',
+        method: 'PATCH',
       }
     );
     return await response.json();
@@ -97,15 +98,15 @@ export const replaceRecipeImageName = async ({
   }
 };
 
-export const pathRecipe = async ({
+export const putRecipe = async ({
   recipe,
   token,
   recipeId,
 }: PatchRecipeRequest): Promise<ResponseCustom<MongoResponse> | void> => {
   try {
-    const response = await fetch(`${API}/patch-recipe?id=${recipeId}&token=${token}`, {
+    const response = await fetch(`${API}/put-recipe?id=${recipeId}&token=${token}`, {
       headers: HEADERS_JSON,
-      method: 'PATCH',
+      method: 'PUT',
       body: JSON.stringify(recipe),
     });
     return await response.json();

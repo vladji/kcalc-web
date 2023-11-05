@@ -8,7 +8,7 @@ import { Button } from '../../../components/shared/Button';
 import { CheckBox } from '../shared/CheckBox';
 import { Modal } from '../../../components/shared/Modal';
 import { ConfirmModal } from '../ConfirmModal';
-import { usePatchRecipe } from '../../requests/recipes/usePatchRecipe';
+import { usePutRecipe } from '../../requests/recipes/usePutRecipe';
 import { useFetchRecipesCategories } from '../../requests/recipes/useFetchRecipesCategories';
 import { useDeleteRecipe } from '../../requests/recipes/useDeleteRecipe';
 import { useDeleteImage } from '../../requests/recipes/useDeleteImage';
@@ -30,7 +30,7 @@ export const Item: FC<ItemProps> = ({ recipe, refetchRecipes }) => {
   const itemRef = useRef<HTMLLIElement | null>(null);
 
   const { categories } = useFetchRecipesCategories();
-  const { patchRecipe } = usePatchRecipe();
+  const { putRecipe } = usePutRecipe();
   const { deleteRecipe, deleteRecipeLoading } = useDeleteRecipe();
   const { deleteImage, deleteImageLoading } = useDeleteImage();
 
@@ -80,7 +80,7 @@ export const Item: FC<ItemProps> = ({ recipe, refetchRecipes }) => {
     if (item.recipe[item.recipe.length - 1] === '') {
       item.recipe.pop();
     }
-    const response = await patchRecipe({ recipe: item, recipeId: item._id });
+    const response = await putRecipe({ recipe: item, recipeId: item._id });
     if (response?.data?.acknowledged) {
       await refetchRecipes();
     }

@@ -6,6 +6,7 @@ export interface RecipesCategoriesResponse {
 
 export interface UploadImageRequest {
   formData: FormData;
+  token: string;
   deleteFileName?: string;
 }
 
