@@ -47,6 +47,9 @@ export const UploadImage: FC<UploadImageProps> = ({
           newImageName,
         });
         await refetchRecipes();
+      }
+
+      if (newImageName) {
         await fetchImage(newImageName);
       }
 

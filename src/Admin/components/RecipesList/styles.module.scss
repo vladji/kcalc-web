@@ -1,5 +1,9 @@
 .wrapper {
-  height: 100%;
+  flex-grow: 1;
+}
+
+.listWrapper {
+  height: calc(100% - var(--fixed-bottom-panel-height));
   flex-grow: 1;
   padding-block: var(--size-huge);
   padding-inline: var(--size-standard);
@@ -96,8 +100,13 @@
   }
 }
 
-.createButton {
-  position: fixed;
-  bottom: 24px;
-  left: 24px;
+.controlPanelWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: var(--fixed-bottom-panel-height);
+  padding-inline: var(--size-standard);
+  border-top: 1px solid var(--gray-color);
+  background-color: var(--light-color);
 }

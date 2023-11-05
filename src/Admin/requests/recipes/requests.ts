@@ -51,6 +51,21 @@ export const uploadImage = async ({
   }
 };
 
+export const fetchImage = async ({
+  filename,
+}: {
+  filename: string;
+}): Promise<ResponseCustom<string> | void> => {
+  try {
+    const response = await fetch(`${API}/image?filename=${filename}`, {
+      method: 'GET',
+    });
+    return await response.json();
+  } catch {
+    alert('Server error');
+  }
+};
+
 export const deleteImage = async (
   imageName: string,
   token: string
@@ -66,14 +81,10 @@ export const deleteImage = async (
   }
 };
 
-export const fetchImage = async ({
-  filename,
-}: {
-  filename: string;
-}): Promise<ResponseCustom<string> | void> => {
+export const cleanImages = async (token: string): Promise<ResponseCustom<string> | void> => {
   try {
-    const response = await fetch(`${API}/image?filename=${filename}`, {
-      method: 'GET',
+    const response = await fetch(`${API}/clean-images?token=${token}`, {
+      method: 'DELETE',
     });
     return await response.json();
   } catch {
