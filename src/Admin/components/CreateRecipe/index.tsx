@@ -9,8 +9,14 @@ import { ProductItem, ProductItemProps } from './ProductItem';
 import { useFetchRecipesCategories } from '../../requests/recipes/useFetchRecipesCategories';
 import { useFetchRecipeImage } from '../../requests/recipes/useFetchRecipeImage';
 import { usePostRecipe } from '../../requests/recipes/usePostRecipe';
+import { ResponseCustom } from '../../requests/types';
 import { IMAGE_BASE64_PREFIX } from '../../constants/common';
-import { RecipeCategoriesEnum, RecipePostProps, RecipeProductsProps } from '../../types/recipes';
+import {
+  RecipeCategoriesEnum,
+  RecipePostProps,
+  RecipeProductsProps,
+  RecipeProps,
+} from '../../types/recipes';
 import cn from 'classnames';
 import styles from './styles.module.scss';
 
@@ -26,9 +32,10 @@ interface ProductsListProps {
 
 interface CreateRecipeProps {
   closeHandler: () => void;
+  refetchRecipes: () => Promise<ResponseCustom<RecipeProps[]> | unknown>;
 }
 
-export const CreateRecipe: FC<CreateRecipeProps> = ({ closeHandler }) => {
+export const CreateRecipe: FC<CreateRecipeProps> = ({ closeHandler, refetchRecipes }) => {
   const formRef = useRef<HTMLFormElement>(null);
 
   const [isValid, setIsValid] = useState(true);
@@ -124,7 +131,7 @@ export const CreateRecipe: FC<CreateRecipeProps> = ({ closeHandler }) => {
           <div className={styles.imageWrapper}>
             {!!imageBase64 && <img src={`${IMAGE_BASE64_PREFIX}${imageBase64}`} alt="image" />}
           </div>
-          <UploadImage fetchImage={handleFetchImage} />
+          <UploadImage fetchImage={handleFetchImage} refetchRecipes={refetchRecipes} />
         </div>
         <div className={styles.rightBlock}>
           <div className={styles.categoriesWrapper}>

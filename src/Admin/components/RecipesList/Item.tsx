@@ -12,12 +12,14 @@ import { usePutRecipe } from '../../requests/recipes/usePutRecipe';
 import { useFetchRecipesCategories } from '../../requests/recipes/useFetchRecipesCategories';
 import { useDeleteRecipe } from '../../requests/recipes/useDeleteRecipe';
 import { useDeleteImage } from '../../requests/recipes/useDeleteImage';
+import { useFetchRecipeImage } from '../../requests/recipes/useFetchRecipeImage';
 import { RecipeCategoriesEnum, RecipeProductsFields, RecipeProps } from '../../types/recipes';
+import { ResponseCustom } from '../../requests/types';
 import styles from './styles.module.scss';
 
 interface ItemProps {
   recipe: RecipeProps;
-  refetchRecipes: () => void;
+  refetchRecipes: () => Promise<ResponseCustom<RecipeProps[]> | unknown>;
 }
 
 export const Item: FC<ItemProps> = ({ recipe, refetchRecipes }) => {
@@ -29,10 +31,15 @@ export const Item: FC<ItemProps> = ({ recipe, refetchRecipes }) => {
 
   const itemRef = useRef<HTMLLIElement | null>(null);
 
+  const { fetchImage, imageBase64 } = useFetchRecipeImage();
   const { categories } = useFetchRecipesCategories();
   const { putRecipe } = usePutRecipe();
   const { deleteRecipe, deleteRecipeLoading } = useDeleteRecipe();
   const { deleteImage, deleteImageLoading } = useDeleteImage();
+
+  const refetchImage = async (filename: string) => {
+    await fetchImage({ filename });
+  };
 
   const onImageLoaded = () => {
     const item = itemRef.current;
@@ -76,14 +83,18 @@ export const Item: FC<ItemProps> = ({ recipe, refetchRecipes }) => {
 
   const onSaveRecipe = async () => {
     setLoading(true);
+
     item.recipe = recipeDescription.split('.').map((sentence) => sentence.trim());
     if (item.recipe[item.recipe.length - 1] === '') {
       item.recipe.pop();
     }
+
     const response = await putRecipe({ recipe: item, recipeId: item._id });
+
     if (response?.data?.acknowledged) {
       await refetchRecipes();
     }
+
     setActive(false);
     setLoading(false);
     if (!response?.data?.acknowledged) {
@@ -98,17 +109,17 @@ export const Item: FC<ItemProps> = ({ recipe, refetchRecipes }) => {
     setShowDeleteConfirm(false);
   };
 
+  const imageSrc = imageBase64
+    ? `${IMAGE_BASE64_PREFIX}${imageBase64}`
+    : `${IMAGE_BASE64_PREFIX}${item.imageBase64}`;
+
   return (
     <>
       {loading && <Loader />}
       <li key={item.id} ref={itemRef} className={styles.item}>
         <div className={styles.leftBlock}>
           <div className={styles.imageWrapper}>
-            <img
-              onLoad={onImageLoaded}
-              src={`${IMAGE_BASE64_PREFIX}${item.imageBase64}`}
-              alt={item.name}
-            />
+            <img onLoad={onImageLoaded} src={imageSrc} alt={item.name} />
           </div>
           <div>
             <div className={styles.imageInfo}>
@@ -125,6 +136,7 @@ export const Item: FC<ItemProps> = ({ recipe, refetchRecipes }) => {
               originName={item.image}
               recipeId={item._id}
               refetchRecipes={refetchRecipes}
+              fetchImage={refetchImage}
             />
           </div>
         </div>
