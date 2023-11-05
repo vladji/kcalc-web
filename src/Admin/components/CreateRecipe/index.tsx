@@ -115,6 +115,7 @@ export const CreateRecipe: FC<CreateRecipeProps> = ({ closeHandler, refetchRecip
         };
 
         await postRecipe({ recipe });
+        await refetchRecipes();
         closeHandler();
       }
     }

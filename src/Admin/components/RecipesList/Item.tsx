@@ -83,6 +83,7 @@ export const Item: FC<ItemProps> = ({ recipe, refetchRecipes }) => {
 
   const onSaveRecipe = async () => {
     setLoading(true);
+    delete item.imageBase64;
 
     item.recipe = recipeDescription.split('.').map((sentence) => sentence.trim());
     if (item.recipe[item.recipe.length - 1] === '') {
@@ -111,7 +112,7 @@ export const Item: FC<ItemProps> = ({ recipe, refetchRecipes }) => {
 
   const imageSrc = imageBase64
     ? `${IMAGE_BASE64_PREFIX}${imageBase64}`
-    : `${IMAGE_BASE64_PREFIX}${item.imageBase64}`;
+    : `${IMAGE_BASE64_PREFIX}${recipe.imageBase64}`;
 
   return (
     <>
@@ -137,6 +138,7 @@ export const Item: FC<ItemProps> = ({ recipe, refetchRecipes }) => {
               recipeId={item._id}
               refetchRecipes={refetchRecipes}
               fetchImage={refetchImage}
+              recipeClone={item}
             />
           </div>
         </div>
