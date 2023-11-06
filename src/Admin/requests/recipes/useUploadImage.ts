@@ -20,7 +20,7 @@ export const useUploadImage: UseUploadImage = () => {
     unknown,
     Omit<UploadImageRequest, 'token'>
   >({
-    mutationFn: ({ formData, deleteFileName }) => uploadImage({ formData, token, deleteFileName }),
+    mutationFn: ({ formData }) => uploadImage({ formData, token }),
     onSuccess: (response) => {
       if (response?.error) {
         alert(response.error);

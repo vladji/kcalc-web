@@ -38,10 +38,9 @@ export const getRecipesByCategory = async (
 export const uploadImage = async ({
   formData,
   token,
-  deleteFileName = '',
 }: UploadImageRequest): Promise<ResponseCustom<string> | void> => {
   try {
-    const response = await fetch(`${API}/upload-image?token=${token}&delete=${deleteFileName}`, {
+    const response = await fetch(`${API}/upload-image?token=${token}`, {
       method: 'POST',
       body: formData,
     });

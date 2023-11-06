@@ -24,9 +24,10 @@ interface ItemProps {
 
 export const Item: FC<ItemProps> = ({ recipe, refetchRecipes }) => {
   const [item, setItem] = useState<RecipeProps>(structuredClone(recipe));
+
   const [active, setActive] = useState<boolean>(false);
-  const [recipeDescription, setRecipeDescription] = useState<string>(recipe.recipe.join('. '));
   const [loading, setLoading] = useState<boolean>(false);
+  const [recipeDescription, setRecipeDescription] = useState<string>(recipe.recipe.join('. '));
   const [showDeleteConfirm, setShowDeleteConfirm] = useState<boolean>(false);
 
   const itemRef = useRef<HTMLLIElement | null>(null);
@@ -134,7 +135,6 @@ export const Item: FC<ItemProps> = ({ recipe, refetchRecipes }) => {
               </dl>
             </div>
             <UploadImage
-              originName={item.image}
               recipeId={item._id}
               refetchRecipes={refetchRecipes}
               fetchImage={refetchImage}

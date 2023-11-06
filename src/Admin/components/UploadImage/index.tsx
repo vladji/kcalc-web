@@ -11,14 +11,12 @@ interface UploadImageProps {
   refetchRecipes: () => Promise<ResponseCustom<RecipeProps[]> | unknown>;
   fetchImage: (filename: string) => Promise<void>;
   recipeId?: string;
-  originName?: string;
   recipeClone?: RecipeProps;
 }
 
 export const UploadImage: FC<UploadImageProps> = ({
   refetchRecipes,
   fetchImage,
-  originName,
   recipeId,
   recipeClone,
 }) => {
@@ -38,8 +36,12 @@ export const UploadImage: FC<UploadImageProps> = ({
       const formData = new FormData();
       formData.append('image', selectedFile);
 
-      const uploadResult = await uploadImage({ formData, deleteFileName: originName });
+      const uploadResult = await uploadImage({ formData });
       const newImageName = uploadResult?.data;
+
+      if (recipeClone && newImageName) {
+        recipeClone.image = newImageName;
+      }
 
       if (recipeId && newImageName) {
         await replaceImageName({
@@ -51,10 +53,6 @@ export const UploadImage: FC<UploadImageProps> = ({
 
       if (newImageName) {
         await fetchImage(newImageName);
-      }
-
-      if (recipeClone && newImageName) {
-        recipeClone.image = newImageName;
       }
       setLoading(false);
     }
