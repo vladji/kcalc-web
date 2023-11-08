@@ -11,7 +11,6 @@ import { ConfirmModal } from '../ConfirmModal';
 import { usePutRecipe } from '../../requests/recipes/usePutRecipe';
 import { useFetchRecipesCategories } from '../../requests/recipes/useFetchRecipesCategories';
 import { useDeleteRecipe } from '../../requests/recipes/useDeleteRecipe';
-import { useDeleteImage } from '../../requests/recipes/useDeleteImage';
 import { useFetchRecipeImage } from '../../requests/recipes/useFetchRecipeImage';
 import { RecipeCategoriesEnum, RecipeProductsFields, RecipeProps } from '../../types/recipes';
 import { ResponseCustom } from '../../requests/types';
@@ -40,7 +39,6 @@ export const Item: FC<ItemProps> = ({ recipe, refetchRecipes }) => {
   const { categories } = useFetchRecipesCategories();
   const { putRecipe } = usePutRecipe();
   const { deleteRecipe, deleteRecipeLoading } = useDeleteRecipe();
-  const { deleteImage, deleteImageLoading } = useDeleteImage();
 
   const refetchImage = async (filename: string) => {
     await fetchImage({ filename });
@@ -114,7 +112,6 @@ export const Item: FC<ItemProps> = ({ recipe, refetchRecipes }) => {
 
   const onDeleteRecipe = async () => {
     await deleteRecipe({ recipeId: recipe._id });
-    await deleteImage(recipe.image);
     await refetchRecipes();
     setShowDeleteConfirm(false);
   };
@@ -255,7 +252,7 @@ export const Item: FC<ItemProps> = ({ recipe, refetchRecipes }) => {
             <ConfirmModal
               confirmHandler={onDeleteRecipe}
               cancelHandler={() => setShowDeleteConfirm(false)}
-              loading={deleteRecipeLoading || deleteImageLoading}
+              loading={deleteRecipeLoading}
             />
           </Modal>
         )}
