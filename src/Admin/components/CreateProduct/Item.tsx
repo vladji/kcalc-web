@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { DeleteButton } from '../shared/DeleteButton';
 import cn from 'classnames';
 import styles from './styles.module.scss';
 
@@ -10,18 +11,13 @@ export interface ItemProps {
 }
 
 export const Item: FC<ItemProps> = ({ id, productsCount, deleteHandler, categories }) => {
-  const onDeleteButtonClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    e.preventDefault();
+  const onDeleteButtonClick = () => {
     deleteHandler(id);
   };
 
   return (
     <fieldset className={styles.fieldset}>
-      {productsCount > 1 && (
-        <button className={styles.deleteButton} onClick={onDeleteButtonClick}>
-          X
-        </button>
-      )}
+      {productsCount > 1 && <DeleteButton handler={onDeleteButtonClick} />}
       <div className={styles.inputBlock}>
         <label>category</label>
         <select className="create-product-input" name="category">

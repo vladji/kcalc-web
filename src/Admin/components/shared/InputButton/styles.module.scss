@@ -16,4 +16,13 @@
   &.gray {
     background-color: var(--gray-color);
   }
+
+  &.brand {
+    background-color: var(--brand-color);
+  }
+
+  &.disabled {
+    background-color: var(--inactive-color);
+    cursor: not-allowed;
+  }
 }

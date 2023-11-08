@@ -22,14 +22,6 @@
   gap: var(--size-mini);
 }
 
-.deleteButton {
-  width: var(--input-height-admin);
-  height: var(--input-height-admin);
-  align-self: flex-end;
-  border-radius: var(--base-border-radius);
-  background-color: var(--gray-color);
-}
-
 .inputBlock {
   display: flex;
   flex-direction: column;

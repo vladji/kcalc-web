@@ -7,7 +7,9 @@ interface InputButtonProps {
   handler: () => void;
   alert?: boolean;
   gray?: boolean;
+  brand?: boolean;
   className?: string;
+  disabled?: boolean;
 }
 
 export const InputButton: FC<InputButtonProps> = ({
@@ -15,7 +17,9 @@ export const InputButton: FC<InputButtonProps> = ({
   handler,
   alert = false,
   gray = false,
+  brand = false,
   className,
+  disabled = false,
 }) => {
   const onClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event.preventDefault();
@@ -27,9 +31,12 @@ export const InputButton: FC<InputButtonProps> = ({
         styles.inputButton,
         className,
         { [styles.alert]: alert },
-        { [styles.gray]: gray }
+        { [styles.gray]: gray },
+        { [styles.brand]: brand },
+        { [styles.disabled]: disabled }
       )}
       onClick={onClick}
+      disabled={disabled}
     >
       <span>{text}</span>
     </button>

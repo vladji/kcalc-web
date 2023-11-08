@@ -69,6 +69,15 @@
   display: flex;
   flex-direction: column;
   gap: var(--size-mini);
+
+  .buttonWrapper {
+    display: flex;
+    justify-content: flex-end;
+
+    button {
+      width: auto;
+    }
+  }
 }
 
 .inputName {

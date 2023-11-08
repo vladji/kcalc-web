@@ -15,6 +15,10 @@ import { useDeleteImage } from '../../requests/recipes/useDeleteImage';
 import { useFetchRecipeImage } from '../../requests/recipes/useFetchRecipeImage';
 import { RecipeCategoriesEnum, RecipeProductsFields, RecipeProps } from '../../types/recipes';
 import { ResponseCustom } from '../../requests/types';
+import { InputButton } from '../shared/InputButton';
+import { DeleteButton } from '../shared/DeleteButton';
+import { cloneRecipe, createNewProduct } from './utils';
+import { ClonedRecipeProps } from './types';
 import styles from './styles.module.scss';
 
 interface ItemProps {
@@ -23,7 +27,7 @@ interface ItemProps {
 }
 
 export const Item: FC<ItemProps> = ({ recipe, refetchRecipes }) => {
-  const [item, setItem] = useState<RecipeProps>(structuredClone(recipe));
+  const [item, setItem] = useState<ClonedRecipeProps>(cloneRecipe(recipe));
 
   const [active, setActive] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
@@ -57,9 +61,9 @@ export const Item: FC<ItemProps> = ({ recipe, refetchRecipes }) => {
   };
 
   const toggleActive = () => {
-    setRecipeDescription(recipe.recipe.join('. '));
     setActive((prev) => !prev);
-    setItem(structuredClone(recipe));
+    setRecipeDescription(recipe.recipe.join('. '));
+    setItem(cloneRecipe(recipe));
   };
 
   const onCategoryChange = (category: RecipeCategoriesEnum) => (checked: boolean) => {
@@ -78,13 +82,17 @@ export const Item: FC<ItemProps> = ({ recipe, refetchRecipes }) => {
     setRecipeDescription(value);
   };
 
-  const handleProductsChanges = (index: number, field: RecipeProductsFields, value: string) => {
-    item.products[index][field] = value;
+  const handleProductsChanges = (field: RecipeProductsFields, value: string, tempId: string) => {
+    const product = item.products.find((product) => product.tempId === tempId);
+    if (product) {
+      product[field] = value;
+    }
   };
 
   const onSaveRecipe = async () => {
     setLoading(true);
     delete item.imageBase64;
+    item.image = recipe.image;
 
     item.recipe = recipeDescription.split('.').map((sentence) => sentence.trim());
     if (item.recipe[item.recipe.length - 1] === '') {
@@ -109,6 +117,22 @@ export const Item: FC<ItemProps> = ({ recipe, refetchRecipes }) => {
     await deleteImage(recipe.image);
     await refetchRecipes();
     setShowDeleteConfirm(false);
+  };
+
+  const onAddProduct = () => {
+    const newItem = structuredClone(item);
+    const newProduct = createNewProduct();
+    newItem.products.push(newProduct);
+    setItem(newItem);
+  };
+
+  const onDeleteProduct = (tempId: string) => () => {
+    const newProducts = item.products.filter((product) => product.tempId !== tempId);
+    const newItem: ClonedRecipeProps = {
+      ...item,
+      products: newProducts,
+    };
+    setItem(newItem);
   };
 
   const imageSrc = imageBase64
@@ -138,7 +162,6 @@ export const Item: FC<ItemProps> = ({ recipe, refetchRecipes }) => {
               recipeId={item._id}
               refetchRecipes={refetchRecipes}
               fetchImage={refetchImage}
-              recipeClone={item}
             />
           </div>
         </div>
@@ -171,30 +194,31 @@ export const Item: FC<ItemProps> = ({ recipe, refetchRecipes }) => {
               active={active}
             />
             <div className={styles.inputsBlock}>
-              {item.products.map((product, index) => (
-                <div key={index} className={styles.inputsRow}>
+              {item.products.map((product) => (
+                <div key={product.tempId} className={styles.inputsRow}>
+                  <DeleteButton handler={onDeleteProduct(product.tempId)} disabled={!active} />
                   <Input
                     className={styles.inputId}
-                    initialValue={recipe.products[index].prodId || ''}
+                    initialValue={product.prodId || ''}
                     handler={(value) =>
-                      handleProductsChanges(index, RecipeProductsFields.prodId, value)
+                      handleProductsChanges(RecipeProductsFields.prodId, value, product.tempId)
                     }
                     isReset={!active}
                     active={active}
                   />
                   <Input
                     className={styles.inputProduct}
-                    initialValue={recipe.products[index].prod}
+                    initialValue={product.prod}
                     handler={(value) =>
-                      handleProductsChanges(index, RecipeProductsFields.prod, value)
+                      handleProductsChanges(RecipeProductsFields.prod, value, product.tempId)
                     }
                     isReset={!active}
                     active={active}
                   />
                   <Input
-                    initialValue={recipe.products[index].amount}
+                    initialValue={product.amount}
                     handler={(value) =>
-                      handleProductsChanges(index, RecipeProductsFields.amount, value)
+                      handleProductsChanges(RecipeProductsFields.amount, value, product.tempId)
                     }
                     isReset={!active}
                     active={active}
@@ -202,6 +226,9 @@ export const Item: FC<ItemProps> = ({ recipe, refetchRecipes }) => {
                   />
                 </div>
               ))}
+              <div className={styles.buttonWrapper}>
+                <InputButton text="Add product" handler={onAddProduct} disabled={!active} brand />
+              </div>
             </div>
           </div>
           <div className={styles.buttonsWrapper}>

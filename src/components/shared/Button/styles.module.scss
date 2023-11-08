@@ -11,7 +11,7 @@
   color: var(--font-light-color);
 
   &.disabled {
-    background-color: #ccc;
+    background-color: var(--inactive-color);
     cursor: not-allowed;
   }
 }
