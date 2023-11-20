@@ -2,6 +2,8 @@
 .env.develop
 
 README.md
+DRAFT.md
+
 .idea
 *.scss.d.ts
 

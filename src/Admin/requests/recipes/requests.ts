@@ -7,7 +7,7 @@ import {
   ReplaceRecipeImageNameRequest,
   UploadImageRequest,
 } from './types';
-import { API, HEADERS_JSON } from '../constants';
+import { API, API_KEY, HEADERS_JSON } from '../constants';
 import { RecipeCategoriesEnum, RecipeProps } from '../../types/recipes';
 
 export const getRecipesCategories =
@@ -15,6 +15,9 @@ export const getRecipesCategories =
     try {
       const response = await fetch(`${API}/recipes-categories`, {
         method: 'GET',
+        headers: {
+          Authorization: `${API_KEY}`,
+        },
       });
       return await response.json();
     } catch {
@@ -28,6 +31,9 @@ export const getRecipesByCategory = async (
   try {
     const response = await fetch(`${API}/recipes/${category}`, {
       method: 'GET',
+      headers: {
+        Authorization: `${API_KEY}`,
+      },
     });
     return await response.json();
   } catch {
@@ -100,6 +106,9 @@ export const replaceRecipeImageName = async ({
       `${API}/recipe-replace-image?id=${recipeId}&name=${newImageName}`,
       {
         method: 'PATCH',
+        headers: {
+          Authorization: `${API_KEY}`,
+        },
       }
     );
     return await response.json();

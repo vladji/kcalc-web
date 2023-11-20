@@ -1,4 +1,4 @@
-import { API, HEADERS_JSON } from '../constants';
+import { API, API_KEY, HEADERS_JSON } from '../constants';
 import { ResponseCustom } from '../types';
 import { ProductsPropsWithDbId } from '../../types/products';
 import { PostProductsRequest, ProductCategoriesResponse, UpdateProductsRequest } from './types';
@@ -8,6 +8,9 @@ export const fetchProductCategories =
     try {
       const response = await fetch(`${API}/products-categories`, {
         method: 'GET',
+        headers: {
+          Authorization: `${API_KEY}`,
+        },
       });
       return await response.json();
     } catch {
@@ -21,6 +24,9 @@ export const fetchProductsByCategory = async (
   try {
     const response = await fetch(`${API}/products-category?category=${category}`, {
       method: 'GET',
+      headers: {
+        Authorization: `${API_KEY}`,
+      },
     });
     return await response.json();
   } catch {

@@ -1,5 +1,4 @@
 export enum RecipeCategoriesEnum {
-  snack = 'snack',
   breakfast = 'breakfast',
   bread = 'bread',
   salads = 'salads',
