@@ -39,9 +39,8 @@ export interface RecipeProps {
   category: RecipeCategoriesEnum[];
   name: string;
   image: string;
-  imageBase64?: string;
   products: RecipeProductsProps[];
   recipe: string[];
 }
 
-export type RecipePostProps = Omit<RecipeProps, '_id' | 'imageBase64'>;
+export type RecipePostProps = Omit<RecipeProps, '_id'>;

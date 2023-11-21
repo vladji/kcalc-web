@@ -1,5 +1,5 @@
 import React, { FC, useRef, useState } from 'react';
-import { IMAGE_BASE64_PREFIX } from '../../constants/common';
+import { IMAGE_ENDPOINT } from '../../constants/common';
 import { UploadImage } from '../UploadImage';
 import { Input } from '../shared/Input';
 import { TextArea } from '../shared/TextArea';
@@ -11,7 +11,6 @@ import { ConfirmModal } from '../ConfirmModal';
 import { usePutRecipe } from '../../requests/recipes/usePutRecipe';
 import { useFetchRecipesCategories } from '../../requests/recipes/useFetchRecipesCategories';
 import { useDeleteRecipe } from '../../requests/recipes/useDeleteRecipe';
-import { useFetchRecipeImage } from '../../requests/recipes/useFetchRecipeImage';
 import { RecipeCategoriesEnum, RecipeProductsFields, RecipeProps } from '../../types/recipes';
 import { ResponseCustom } from '../../requests/types';
 import { InputButton } from '../shared/InputButton';
@@ -27,6 +26,7 @@ interface ItemProps {
 
 export const Item: FC<ItemProps> = ({ recipe, refetchRecipes }) => {
   const [item, setItem] = useState<ClonedRecipeProps>(cloneRecipe(recipe));
+  const [imageName, setImageName] = useState<string>(recipe.image);
 
   const [active, setActive] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
@@ -35,14 +35,9 @@ export const Item: FC<ItemProps> = ({ recipe, refetchRecipes }) => {
 
   const itemRef = useRef<HTMLLIElement | null>(null);
 
-  const { fetchImage, imageBase64 } = useFetchRecipeImage();
   const { categories } = useFetchRecipesCategories();
   const { putRecipe } = usePutRecipe();
   const { deleteRecipe, deleteRecipeLoading } = useDeleteRecipe();
-
-  const refetchImage = async (filename: string) => {
-    await fetchImage({ filename });
-  };
 
   const onImageLoaded = () => {
     const item = itemRef.current;
@@ -132,9 +127,7 @@ export const Item: FC<ItemProps> = ({ recipe, refetchRecipes }) => {
     setItem(newItem);
   };
 
-  const imageSrc = imageBase64
-    ? `${IMAGE_BASE64_PREFIX}${imageBase64}`
-    : `${IMAGE_BASE64_PREFIX}${recipe.imageBase64}`;
+  const imageSrc = `${IMAGE_ENDPOINT}/${imageName}`;
 
   return (
     <>
@@ -158,7 +151,7 @@ export const Item: FC<ItemProps> = ({ recipe, refetchRecipes }) => {
             <UploadImage
               recipeId={item._id}
               refetchRecipes={refetchRecipes}
-              fetchImage={refetchImage}
+              setImageName={setImageName}
             />
           </div>
         </div>

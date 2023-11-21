@@ -56,21 +56,6 @@ export const uploadImage = async ({
   }
 };
 
-export const fetchImage = async ({
-  filename,
-}: {
-  filename: string;
-}): Promise<ResponseCustom<string> | void> => {
-  try {
-    const response = await fetch(`${API}/image?filename=${filename}`, {
-      method: 'GET',
-    });
-    return await response.json();
-  } catch {
-    alert('Server error');
-  }
-};
-
 export const deleteImage = async (
   imageName: string,
   token: string

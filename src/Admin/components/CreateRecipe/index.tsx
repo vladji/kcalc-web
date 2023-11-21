@@ -7,10 +7,9 @@ import { InputButton } from '../shared/InputButton';
 import { UploadImage } from '../UploadImage';
 import { ProductItem, ProductItemProps } from './ProductItem';
 import { useFetchRecipesCategories } from '../../requests/recipes/useFetchRecipesCategories';
-import { useFetchRecipeImage } from '../../requests/recipes/useFetchRecipeImage';
 import { usePostRecipe } from '../../requests/recipes/usePostRecipe';
 import { ResponseCustom } from '../../requests/types';
-import { IMAGE_BASE64_PREFIX } from '../../constants/common';
+import { IMAGE_ENDPOINT } from '../../constants/common';
 import {
   RecipeCategoriesEnum,
   RecipePostProps,
@@ -46,14 +45,8 @@ export const CreateRecipe: FC<CreateRecipeProps> = ({ closeHandler, refetchRecip
     { id: uuidv4(), Product: ProductItem },
   ]);
 
-  const { fetchImage, imageBase64 } = useFetchRecipeImage();
   const { categories } = useFetchRecipesCategories();
   const { postRecipe, loading } = usePostRecipe();
-
-  const handleFetchImage = async (filename: string) => {
-    setImageName(filename);
-    await fetchImage({ filename });
-  };
 
   const onChangeCategory = (category: RecipeCategoriesEnum) => (checked: boolean) => {
     if (checked) {
@@ -121,6 +114,8 @@ export const CreateRecipe: FC<CreateRecipeProps> = ({ closeHandler, refetchRecip
     }
   };
 
+  const imageSrc = `${IMAGE_ENDPOINT}/${imageName}`;
+
   return (
     <div className={styles.wrapper}>
       {loading && <Loader />}
@@ -130,9 +125,9 @@ export const CreateRecipe: FC<CreateRecipeProps> = ({ closeHandler, refetchRecip
       <div className={styles.inner}>
         <div>
           <div className={styles.imageWrapper}>
-            {!!imageBase64 && <img src={`${IMAGE_BASE64_PREFIX}${imageBase64}`} alt="image" />}
+            {!!imageName && <img src={imageSrc} alt="image" />}
           </div>
-          <UploadImage fetchImage={handleFetchImage} refetchRecipes={refetchRecipes} />
+          <UploadImage setImageName={setImageName} refetchRecipes={refetchRecipes} />
         </div>
         <div className={styles.rightBlock}>
           <div className={styles.categoriesWrapper}>

@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC, useState } from 'react';
+import React, { ChangeEvent, Dispatch, FC, SetStateAction, useState } from 'react';
 import { useUploadImage } from '../../requests/recipes/useUploadImage';
 import { useReplaceRecipeImageName } from '../../requests/recipes/useReplaceRecipeImageName';
 import { Loader } from '../../../components/shared/Loader';
@@ -8,12 +8,12 @@ import { RecipeProps } from '../../types/recipes';
 import styles from './styles.module.scss';
 
 interface UploadImageProps {
-  refetchRecipes: () => Promise<ResponseCustom<RecipeProps[]> | unknown>;
-  fetchImage: (filename: string) => Promise<void>;
   recipeId?: string;
+  refetchRecipes: () => Promise<ResponseCustom<RecipeProps[]> | unknown>;
+  setImageName: Dispatch<SetStateAction<string>>;
 }
 
-export const UploadImage: FC<UploadImageProps> = ({ refetchRecipes, fetchImage, recipeId }) => {
+export const UploadImage: FC<UploadImageProps> = ({ recipeId, refetchRecipes, setImageName }) => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -39,10 +39,11 @@ export const UploadImage: FC<UploadImageProps> = ({ refetchRecipes, fetchImage, 
           newImageName,
         });
         await refetchRecipes();
+        setImageName(newImageName);
       }
 
       if (newImageName) {
-        await fetchImage(newImageName);
+        setImageName(newImageName);
       }
       setLoading(false);
     }

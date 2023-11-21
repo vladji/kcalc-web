@@ -1,5 +1,7 @@
 import { RecipeCategoriesEnum } from '../types/recipes';
 
+export const IMAGE_ENDPOINT = process.env.REACT_APP_IMAGE_ENDPOINT;
+
 export const DEFAULT_PRODUCT_CATEGORY = 'fruits';
 export const DEFAULT_RECIPE_CATEGORY = RecipeCategoriesEnum.breakfast;
 export const IMAGE_BASE64_PREFIX = 'data:image/jpeg;base64,';
