@@ -1,5 +1,5 @@
 import React, { FC, useRef, useState } from 'react';
-import { IMAGE_ENDPOINT } from '../../constants/common';
+import { IMAGE_ENDPOINT, RECIPES_IMG_PATH } from '../../constants/common';
 import { UploadImage } from '../UploadImage';
 import { Input } from '../shared/Input';
 import { TextArea } from '../shared/TextArea';
@@ -127,7 +127,7 @@ export const Item: FC<ItemProps> = ({ recipe, refetchRecipes }) => {
     setItem(newItem);
   };
 
-  const imageSrc = `${IMAGE_ENDPOINT}/${imageName}`;
+  const imageSrc = `${IMAGE_ENDPOINT}/${RECIPES_IMG_PATH}/${imageName}`;
 
   return (
     <>

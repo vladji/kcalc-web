@@ -9,7 +9,7 @@ import { ProductItem, ProductItemProps } from './ProductItem';
 import { useFetchRecipesCategories } from '../../requests/recipes/useFetchRecipesCategories';
 import { usePostRecipe } from '../../requests/recipes/usePostRecipe';
 import { ResponseCustom } from '../../requests/types';
-import { IMAGE_ENDPOINT } from '../../constants/common';
+import { IMAGE_ENDPOINT, RECIPES_IMG_PATH } from '../../constants/common';
 import {
   RecipeCategoriesEnum,
   RecipePostProps,
@@ -114,7 +114,7 @@ export const CreateRecipe: FC<CreateRecipeProps> = ({ closeHandler, refetchRecip
     }
   };
 
-  const imageSrc = `${IMAGE_ENDPOINT}/${imageName}`;
+  const imageSrc = `${IMAGE_ENDPOINT}/${RECIPES_IMG_PATH}/${imageName}`;
 
   return (
     <div className={styles.wrapper}>
