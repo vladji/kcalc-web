@@ -5,6 +5,7 @@ export enum ResponseStatus {
 export enum QueryKeys {
   productCategories = 'productCategories',
   recipesCategories = 'recipesCategories',
+  userProducts = 'userProducts',
 }
 
 export interface ResponseCustom<T> {
@@ -14,8 +15,9 @@ export interface ResponseCustom<T> {
 
 export interface MongoResponse {
   acknowledged: boolean;
-  matchedCount: number;
-  modifiedCount: number;
+  matchedCount?: number;
+  modifiedCount?: number;
   upsertedCount?: number;
+  deletedCount?: number;
   upsertedId?: any;
 }

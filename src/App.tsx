@@ -9,6 +9,7 @@ import { Login } from './Admin/pages/Login';
 import { AdminHome } from './Admin/pages/AdminHome';
 import { Products } from './Admin/pages/Products';
 import { Recipes } from './Admin/pages/Recipes';
+import { UserProducts } from './Admin/pages/UserProducts';
 
 const queryClient = new QueryClient();
 
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
   {
     path: '/admin-recipes',
     element: <Recipes />,
+  },
+  {
+    path: '/admin-user-products',
+    element: <UserProducts />,
   },
 ]);
 

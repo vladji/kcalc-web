@@ -5,7 +5,7 @@ import { Button } from '../../../components/shared/Button';
 import { Loader } from '../../../components/shared/Loader';
 import { useFetchProductCategories } from '../../requests/products/useFetchProductCategories';
 import { usePostProducts } from '../../requests/products/usePostProducts';
-import { v4 as uuidv4 } from 'uuid';
+import { nanoid } from '../../../utils/idGenerator';
 import { ProductProps } from '../../types/products';
 import styles from './styles.module.scss';
 
@@ -30,7 +30,7 @@ export const CreateProduct: FC<AdminCreateProductProps> = ({
   const [isValid, setIsValid] = useState(true);
 
   const [productsList, setProductsList] = useState<ProductsListProps[]>([
-    { id: uuidv4(), Product: Item },
+    { id: nanoid(), Product: Item },
   ]);
 
   const { categories } = useFetchProductCategories();
@@ -44,7 +44,7 @@ export const CreateProduct: FC<AdminCreateProductProps> = ({
       const inputsArray = Array.from(
         (fieldset as HTMLFieldSetElement).querySelectorAll('.create-product-input')
       );
-      return inputsArray.reduce((acc, input) => {
+      const product = inputsArray.reduce((acc, input) => {
         const { name, value } = input as HTMLInputElement | HTMLSelectElement;
 
         if (!value) {
@@ -54,10 +54,12 @@ export const CreateProduct: FC<AdminCreateProductProps> = ({
 
         return {
           ...acc,
-          id: uuidv4(),
           [name]: value,
         };
       }, {} as ProductProps);
+
+      product.id = nanoid();
+      return product;
     });
 
     if (isValid) {
@@ -68,7 +70,7 @@ export const CreateProduct: FC<AdminCreateProductProps> = ({
   };
 
   const onAddProduct = () => {
-    setProductsList((prev) => [...prev, { id: uuidv4(), Product: Item }]);
+    setProductsList((prev) => [...prev, { id: nanoid(), Product: Item }]);
   };
 
   const onDeleteProduct = (id: string) => {

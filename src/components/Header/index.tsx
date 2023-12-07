@@ -30,6 +30,7 @@ export const Header: FC<HeaderProps> = ({ text, linkTo = '/', isAdmin = false })
             <nav className={styles.navigation}>
               <Link to="/admin-products">Products</Link>
               <Link to="/admin-recipes">Recipes</Link>
+              <Link to="/admin-user-products">User products</Link>
             </nav>
             <Button handler={adminLogout} outlined>
               <span>exit</span>

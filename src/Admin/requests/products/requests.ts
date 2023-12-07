@@ -1,5 +1,5 @@
 import { API, API_KEY, HEADERS_JSON } from '../constants';
-import { ResponseCustom } from '../types';
+import { MongoResponse, ResponseCustom } from '../types';
 import { ProductsPropsWithDbId } from '../../types/products';
 import { PostProductsRequest, ProductCategoriesResponse, UpdateProductsRequest } from './types';
 
@@ -75,6 +75,36 @@ export const deleteProduct = async ({
     return await fetch(`${API}/product-delete?token=${token}&id=${id}`, {
       method: 'DELETE',
     });
+  } catch {
+    return undefined;
+  }
+};
+
+export const getUserProducts = async (
+  token: string
+): Promise<ResponseCustom<ProductsPropsWithDbId[]> | undefined> => {
+  try {
+    const response = await fetch(`${API}/user-products?token=${token}`, {
+      method: 'GET',
+    });
+    return await response.json();
+  } catch {
+    return undefined;
+  }
+};
+
+export const deleteUserProducts = async ({
+  token,
+  productId,
+}: {
+  token: string;
+  productId: string;
+}): Promise<ResponseCustom<MongoResponse> | undefined> => {
+  try {
+    const response = await fetch(`${API}/user-product?token=${token}&productId=${productId}`, {
+      method: 'DELETE',
+    });
+    return await response.json();
   } catch {
     return undefined;
   }

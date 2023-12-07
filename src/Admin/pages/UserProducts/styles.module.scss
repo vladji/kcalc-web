@@ -1,0 +1,24 @@
+.wrapper {
+  padding: var(--size-huge);
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 10fr 2fr 2fr 2fr 2fr 1fr;
+}
+
+.productsList {
+  margin-top: var(--size-huge);
+}
+
+.item {
+  padding-block: var(--size-mini);
+
+  &:not(:last-child) {
+    border-bottom: 1px solid var(--inactive-color);
+  }
+}
+
+.buttonCell {
+  justify-self: end;
+}
