@@ -36,6 +36,7 @@ export interface RecipeProductsProps {
 export interface RecipeProps {
   _id: string;
   id: string;
+  key: number;
   category: RecipeCategoriesEnum[];
   name: string;
   image: string;

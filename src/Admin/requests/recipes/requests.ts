@@ -3,6 +3,7 @@ import {
   DeleteRecipeRequest,
   PatchRecipeRequest,
   PostRecipeProps,
+  RecipeKeyRequest,
   RecipesCategoriesResponse,
   ReplaceRecipeImageNameRequest,
   UploadImageRequest,
@@ -81,6 +82,22 @@ export const replaceRecipeImageName = async ({
         },
       }
     );
+    return await response.json();
+  } catch {
+    alert('Server error');
+  }
+};
+
+export const patchRecipeKey = async ({
+  token,
+  data,
+}: RecipeKeyRequest): Promise<ResponseCustom<MongoResponse[]> | void> => {
+  try {
+    const response = await fetch(`${API}/patch-recipe-key?token=${token}`, {
+      headers: HEADERS_JSON,
+      method: 'PATCH',
+      body: JSON.stringify(data),
+    });
     return await response.json();
   } catch {
     alert('Server error');

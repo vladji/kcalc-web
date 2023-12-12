@@ -29,3 +29,13 @@ export interface DeleteRecipeRequest {
   recipeId: string;
   token: string;
 }
+
+export interface RecipeKeyDataProps {
+  id: string;
+  key: number;
+}
+
+export interface RecipeKeyRequest {
+  token: string;
+  data: RecipeKeyDataProps[];
+}
