@@ -37,5 +37,6 @@ export interface RecipeKeyDataProps {
 
 export interface RecipeKeyRequest {
   token: string;
+  category: RecipeCategoriesEnum;
   data: RecipeKeyDataProps[];
 }

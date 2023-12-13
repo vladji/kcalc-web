@@ -7,8 +7,8 @@ export interface ProductWithTempIdProps extends RecipeProductsProps {
 export interface ClonedRecipeProps {
   _id: string;
   id: string;
-  key: number;
   category: RecipeCategoriesEnum[];
+  sortOrder: Record<RecipeCategoriesEnum, number>;
   name: string;
   image: string;
   imageBase64?: string;

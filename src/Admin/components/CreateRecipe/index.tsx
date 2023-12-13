@@ -32,14 +32,9 @@ interface ProductsListProps {
 interface CreateRecipeProps {
   closeHandler: () => void;
   refetchRecipes: () => Promise<ResponseCustom<RecipeProps[]> | unknown>;
-  recipeKey: number;
 }
 
-export const CreateRecipe: FC<CreateRecipeProps> = ({
-  closeHandler,
-  refetchRecipes,
-  recipeKey,
-}) => {
+export const CreateRecipe: FC<CreateRecipeProps> = ({ closeHandler, refetchRecipes }) => {
   const formRef = useRef<HTMLFormElement>(null);
 
   const [isValid, setIsValid] = useState(true);
@@ -105,7 +100,12 @@ export const CreateRecipe: FC<CreateRecipeProps> = ({
       if (isValid) {
         const recipe: RecipePostProps = {
           id: uuidv4(),
-          key: recipeKey,
+          sortOrder: recipeCategories.reduce((acc, item) => {
+            return {
+              ...acc,
+              [item]: 1,
+            };
+          }, {} as Record<RecipeCategoriesEnum, number>),
           category: recipeCategories,
           name: description.name,
           image: imageName,

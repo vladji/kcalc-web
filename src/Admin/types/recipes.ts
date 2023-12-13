@@ -36,8 +36,8 @@ export interface RecipeProductsProps {
 export interface RecipeProps {
   _id: string;
   id: string;
-  key: number;
   category: RecipeCategoriesEnum[];
+  sortOrder: Record<RecipeCategoriesEnum, number>;
   name: string;
   image: string;
   products: RecipeProductsProps[];

@@ -90,10 +90,11 @@ export const replaceRecipeImageName = async ({
 
 export const patchRecipeKey = async ({
   token,
+  category,
   data,
 }: RecipeKeyRequest): Promise<ResponseCustom<MongoResponse[]> | void> => {
   try {
-    const response = await fetch(`${API}/patch-recipe-key?token=${token}`, {
+    const response = await fetch(`${API}/patch-recipe-key?token=${token}&category=${category}`, {
       headers: HEADERS_JSON,
       method: 'PATCH',
       body: JSON.stringify(data),
